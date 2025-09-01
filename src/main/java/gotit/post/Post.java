@@ -12,18 +12,21 @@ public class Post {
 	private boolean deleted;
 	private Date created_at;
 	private Date updated_at;
+	private String tag;
+	
 	
 	public Post() {};
 	
-	public Post(long post_id, long board_id, long user_id, String title, String content, boolean deleted, Date created_at, Date updated_at) {
+	public Post(long post_id, long board_id, long user_id, String title, String content, boolean deleted, Date created_at, Date updated_at, String tag) {
 		this.post_id = post_id;
-		this.post_id = board_id;
-		this.post_id = user_id;
+		this.board_id = board_id;
+		this.user_id = user_id;
 		this.title = title;
 		this.content = content;
 		this.deleted = deleted;
 		this.created_at = created_at;
 		this.updated_at = updated_at;
+		this.tag = tag;
 	}
 
 	public long getPost_id() {
@@ -88,6 +91,14 @@ public class Post {
 
 	public void setUpdated_at(Date updated_at) {
 		this.updated_at = updated_at;
+	}
+	
+	public String getTag() {
+		return tag;
+	}
+	
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 
 

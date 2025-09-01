@@ -130,6 +130,7 @@
   width: 24px;
   height: 24px;
   text-indent: -999em;
+  transition: 0.3s;
 }
 #view .etc-button-wrap button:first-child {
   background: url(../img/view/thumbs_icon.svg) no-repeat center / contain;
@@ -161,6 +162,40 @@
 #view .etc-button-wrap button:last-child.active {
   background-image: url(../img//view//bookmark_active_icon.svg);
 }
+#view .edit-wrap {
+	position: relative;
+}
+#view .edit-wrap .edit-button {
+	width: 24px;
+	height: 24px;
+	margin: 0 0 0 15px;
+	font-size: 24px;
+	color: var(--color-text-sub2);
+}
+#view .edit-wrap .edit-dropdown-menu {
+  position: absolute;
+  right: 0;
+  width: 110px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border-default);
+  border-radius: 8px;
+  box-shadow: var(--color-shadow-default);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  padding: 10px;
+  z-index: 1000;
+}
+#view .edit-wrap .edit-dropdown-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+#view .edit-wrap .edit-menu-item {
+	border: none;
+}
+
 /* ====================================== */
 /* 게시글 정보 끝                             */
 /* ====================================== */

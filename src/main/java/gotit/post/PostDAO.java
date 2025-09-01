@@ -59,8 +59,9 @@ public class PostDAO {
 	                boolean deleted = rs.getBoolean("deleted");
 	                java.sql.Date created_at = rs.getDate("created_at");
 	                java.sql.Date updated_at = rs.getDate("updated_at");
+	                String tag = rs.getString("tag");
 
-	                list.add(new Post(post_id, board_id, user_id, title, content, deleted, created_at, updated_at));
+	                list.add(new Post(post_id, board_id, user_id, title, content, deleted, created_at, updated_at, tag));
 	            }
 	            return list;
 	        }catch(SQLException se){
@@ -72,102 +73,113 @@ public class PostDAO {
 	        }
 
 	    }
-//	    public boolean insert(PostDTO dto) { //msg출력하려면 boolean이 나음. 파라미터는 SQL ? 에 들어갈 데이터라고 생각하면 쉬움
-//	        Connection con = null;
-//	        PreparedStatement pstmt = null;
-//		
-//		    try{    
-//		        con = ds.getConnection();
-//		        pstmt = con.prepareStatement(INSERT);
-//		        pstmt.setString(1, dto.getWriter());
-//		        pstmt.setString(2, dto.getEmail());
-//		        pstmt.setString(3, dto.getSubject());
-//		        pstmt.setString(4, dto.getContent());
-//		        pstmt.setString(5, dto.getFname());
-//		        int i = pstmt.executeUpdate();
-//		        if(i > 0) return true;
-//		        else return false; 
-//		    }catch(SQLException se){
-//		        return false;
-//		    }finally {
-//		        try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
-//		        try { if (con != null) con.close(); } catch(Exception e) {}
-//		    }
-//
-//		}
-//		public boolean delete(long seq) {
-//		    Connection con = null;
-//		    PreparedStatement pstmt = null;
-//		    
-//		    try{    
-//		        con = ds.getConnection();
-//		        pstmt = con.prepareStatement(DELETE);
-//		        pstmt.setLong(1, seq);
-//		        int i = pstmt.executeUpdate();
-//		        if(i > 0) return true;
-//		        else return false; 
-//		    }catch(SQLException se){
-//		        return false;
-//		    }finally {
-//		        try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
-//		        try { if (con != null) con.close(); } catch(Exception e) {}
-//		    }
-//
-//		}
-//							   
-		public Post select(long seq) {
-			Connection con = null;
-		    PreparedStatement pstmt = null;
-		    ResultSet rs = null;
-		    try {    
+	    
+	    public boolean insert(Post dto) { //msg출력하려면 boolean이 나음. 파라미터는 SQL ? 에 들어갈 데이터라고 생각하면 쉬움
+	        Connection con = null;
+	        PreparedStatement pstmt = null;
+		
+		    try{    
 		        con = ds.getConnection();
-		        pstmt = con.prepareStatement(SELECT);
-		        pstmt.setLong(1, seq);
-		        rs = pstmt.executeQuery();
-		        if(rs.next()){
-		        	long post_id = rs.getLong("post_id");
-	                long board_id = rs.getLong("board_id");
-	                long user_id = rs.getLong("user_id");
-	                String title = rs.getString("title");
-	                String content = rs.getString("content");
-	                boolean deleted = rs.getBoolean("deleted");
-	                java.sql.Date created_at = rs.getDate("created_at");
-	                java.sql.Date updated_at = rs.getDate("updated_at");
-
-		        	return new Post(post_id, board_id, user_id, title, content, deleted, created_at, updated_at); 
-		        } else {
-		            return null; // 글 없음
-		        }
-	              
+		        pstmt = con.prepareStatement(INSERT);
+		        
+		        pstmt.setLong(1, dto.getBoard_id());
+		        pstmt.setLong(2, dto.getUser_id());
+		        pstmt.setString(3, dto.getTitle());
+		        pstmt.setString(4, dto.getContent());
+		        pstmt.setBoolean(5, dto.getDeleted());
+		        pstmt.setString(6, dto.getTag());
+		        
+		        int rowsAffected = pstmt.executeUpdate();
+		        return rowsAffected > 0; // 쿼리가 하나 이상의 행에 영향을 미쳤다면 true
 		    }catch(SQLException se){
-		        return null;
+		    	se.printStackTrace();
+		        return false;
 		    }finally {
-		        try { if (rs != null) rs.close(); } catch(Exception e) {}
 		        try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
 		        try { if (con != null) con.close(); } catch(Exception e) {}
 		    }
 
 		}
-//		
-//		public boolean update(PostDTO dto) {
-//			Connection con = null;
-//		    PreparedStatement pstmt = null;
-//		    try {    
-//		    	   con = ds.getConnection();
-//		           pstmt = con.prepareStatement(UPDATE);
-//		           pstmt.setString(1, dto.getEmail());
-//		           pstmt.setString(2, dto.getSubject());
-//		           pstmt.setString(3, dto.getContent());
-//		           pstmt.setLong(4, dto.getSeq());
-//		           
-//		           int i = pstmt.executeUpdate();
-//		           return i > 0;
-//		    }catch(SQLException se){
-//		    	  return false;
-//		    }finally {
-//		        try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
-//		        try { if (con != null) con.close(); } catch(Exception e) {}
-//		    }
-//
-//		}
+				   
+		public Post select(long post_id) {
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+			try {    
+			 con = ds.getConnection();
+				 pstmt = con.prepareStatement(SELECT);
+				 pstmt.setLong(1, post_id);
+				 rs = pstmt.executeQuery();
+				 if(rs.next()){
+				     long board_id = rs.getLong("board_id");
+				     long user_id = rs.getLong("user_id");
+				     String title = rs.getString("title");
+				     String content = rs.getString("content");
+				     boolean deleted = rs.getBoolean("deleted");
+				     java.sql.Date created_at = rs.getDate("created_at");
+				     java.sql.Date updated_at = rs.getDate("updated_at");
+				     String tag = rs.getString("tag");
+				
+				     return new Post(post_id, board_id, user_id, title, content, deleted, created_at, updated_at, tag);
+				        
+				 } else {
+				     return null; // 글 없음
+				 }
+			   
+			}catch(SQLException se){
+				return null;
+			}finally {
+				 try { if (rs != null) rs.close(); } catch(Exception e) {}
+				 try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
+				 try { if (con != null) con.close(); } catch(Exception e) {}
+			}
+			
+		}
+
+
+		public boolean delete(long postId) {
+		    Connection con = null;
+		    PreparedStatement pstmt = null;
+		    
+		    try{    
+		        con = ds.getConnection();
+		        pstmt = con.prepareStatement(DELETE);
+		        pstmt.setLong(1, postId);
+		        int i = pstmt.executeUpdate();
+		        if(i > 0) return true;
+		        else return false; 
+		    }catch(SQLException se){
+		        return false;
+		    }finally {
+		        try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
+		        try { if (con != null) con.close(); } catch(Exception e) {}
+		    }
+
+		}
+		
+		
+		public boolean update(Post dto) {
+			Connection con = null;
+		    PreparedStatement pstmt = null;
+		    try {    
+		    	   con = ds.getConnection();
+		           pstmt = con.prepareStatement(UPDATE);
+		           
+		           pstmt.setLong(1, dto.getBoard_id());
+			       pstmt.setLong(2, dto.getUser_id());
+			       pstmt.setString(3, dto.getTitle());
+			       pstmt.setString(4, dto.getContent());
+			       pstmt.setBoolean(5, dto.getDeleted());
+			       pstmt.setString(6, dto.getTag());
+		           
+		           int i = pstmt.executeUpdate();
+		           return i > 0;
+		    }catch(SQLException se){
+		    	  return false;
+		    }finally {
+		        try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
+		        try { if (con != null) con.close(); } catch(Exception e) {}
+		    }
+
+		}
 }

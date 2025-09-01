@@ -44,21 +44,20 @@ public class PostService {
 		return dao.list();
 	}
 	
-//	public boolean insertS(PostDTO dto) {
-//		return dao.insert(dto);
-//	}
-//	
-//	public boolean deleteS(long seq) {
-//		return dao.delete(seq);
-//	}
-//	
+	public boolean insertS(Post dto) {
+		System.out.println(">>> insert() 실행됨");
+
+		return dao.insert(dto);
+	}
+	public boolean deleteS(long postId) {
+		return dao.delete(postId);
+	}
 	public Post selectS(long postId) {
 		return dao.select(postId);
+	}	
+	public boolean updateS(Post dto) {
+		return dao.update(dto);
 	}
-//	
-//	public boolean updateS(PostDTO dto) {
-//		return dao.update(dto);
-//	}
     
 }
 
