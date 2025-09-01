@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="../assets/css/reset.css">
         <link rel="stylesheet" href="../assets/css/common.css">
         <link rel="stylesheet" href="../assets/css/list.css">
-        <script src="../assets/js/main.js" defer></script>
     </head>
     <body>
 
@@ -131,9 +130,10 @@
                     </div>
                     <div class="filter-wrap">
                         <div class="filter-top">
-                            <div class="write-button-wrap">
-                                <button class="write-button">작성하기</button>
-                            </div>
+			                <div class="write-button-wrap">
+			                    <a href="post.do?m=write" class="write-button">작성하기</a>
+			                </div>
+					    
                            <!-- ======================================
                                 1. 버튼 active 클래스 추가
                                 - <button class="active"> 시 아이콘이 회색으로 변경됨
@@ -235,7 +235,7 @@
                             <div class="post-bottom">
                                 <div class="post-keyword">
                                     <span class="category">국어</span>
-                                    <span class="hashtag">#문학</span>
+                                    <span class="hashtag">#${dto.tag}</span>
                                 </div>
                                 <div class="post-counts">
                                     <div class="view-count">
@@ -304,5 +304,6 @@
 				</div>
 			</div>
 		</footer>
+        <script src="../assets/js/main.js"></script>
     </body>
 </html>

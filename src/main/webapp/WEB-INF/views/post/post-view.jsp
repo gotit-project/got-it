@@ -79,8 +79,10 @@
                     <div class="post-item-header">
                         <img src="../assets/img/common/post_info_profile02.png" class="profile" alt="프로필 사진">
                         <div class="profile-info">
-                            <p class="writer">짱구는목말라</p>
-                            <span class="time">3시간 전</span>
+                        	<c:forEach items="${list}" var="dto">
+                            <p class="writer">${dto.user_id}</p>
+                            </c:forEach>
+                            <span class="time">${dto.updated_at}</span>
                             <p class="view-count">조회수 <span>182</span></p>
                             <span class="corrected-mark">수정됨</span> 
                         </div>
@@ -97,25 +99,24 @@
                         <!--로그인 하면 보이는 수정/삭제 버튼 패널-->
         				<!-- css 로 보임/숨김 처리 하므로 html 코드 다 넣어주시면 됩니다. -->
                         <div class="edit-wrap">
-	                        <button class="profile-button">
-	                            수빈
+	                        <button class="edit-button">
+	                           ···
 	                        </button>
-	                        <div class="profile-dropdown-menu">
-	                            <div class="profile-info">
-	                                <strong>내 계정</strong>
-	                                <p>park@gmail.com</p>
-	                                <p><span>박수빈</span> 님, 안녕하세요.</p>
-	                            </div>
+	                        <div class="edit-dropdown-menu">
 	                            <div class="menu-divider"></div>
-	                            <a href="#" class="profile-menu-item">북마크 페이지</a>
-	                            <div class="menu-divider"></div>
-	                            <a href="#" class="profile-menu-item">로그아웃</a>
+	                            <c:forEach items="${list}" var="dto">
+	                            	<a href="post.do?m=edit&postId=${dto.post_id}" class="edit-menu-item">수정</a>
+	                            	<div class="menu-divider"></div>
+	                            	<a href="post.do?m=delete&postId=${dto.post_id}" class="edit-menu-item">삭제</a>
+		                       	</c:forEach>
 	                        </div>
 	                    </div>
                     </div>
                     <div class="post-item">
                     	<c:forEach items="${list}" var="dto">
                         <p class="post-title">${dto.title}</p>
+                        <br/>
+                        <br/>
                         <p class="post-content">
                             ${dto.content}
                         </p>
@@ -123,7 +124,7 @@
                     </div>
                     <div class="post-bottom">
                         <div class="post-keywork">
-                            <span class="hashtag">#문학</span>
+                            <span class="hashtag">#${dto.tag}</span>
                         </div>
                         <button class="report-button">
                             신고

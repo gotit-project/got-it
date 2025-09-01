@@ -134,34 +134,36 @@ document.addEventListener("DOMContentLoaded", function() {
     const rankWrap = document.querySelector(".rank-wrap");
     const rankPlaceholder = document.querySelector(".rank-placeholder");
     const mainContent = document.querySelector("#main.content-wrap");
-    const headerHeight = header.offsetHeight;
-    const headerGap = 40;
-    const transitionPoint = headerHeight + headerGap;
-
-    window.addEventListener("scroll", () => {
-        const scrollY = window.scrollY || document.documentElement.scrollTop;
-
-        // 부모 요소의 현재 위치를 실시간으로 계산
-        const mainRect = mainContent.getBoundingClientRect();
-        const mainLeft = mainRect.left;
-
-        if (scrollY > transitionPoint) {
-            // fixed 클래스 추가
-            rankWrap.classList.add("fixed");
-            rankPlaceholder.classList.add("visible");
-            
-            // 부모의 left 값을 랭킹 배너에 적용
-            rankWrap.style.left = `${mainLeft}px`;
-            
-        } else {
-            // fixed 클래스 제거
-            rankWrap.classList.remove("fixed");
-            rankPlaceholder.classList.remove("visible");
-
-            // left 값 초기화
-            rankWrap.style.left = '';
-        }
-    });
+	if (rankWrap && rankPlaceholder && mainContent) {
+	    const headerHeight = header.offsetHeight;
+	    const headerGap = 40;
+	    const transitionPoint = headerHeight + headerGap;
+	
+	    window.addEventListener("scroll", () => {
+	        const scrollY = window.scrollY || document.documentElement.scrollTop;
+		
+	        // 부모 요소의 현재 위치를 실시간으로 계산
+	        const mainRect = mainContent.getBoundingClientRect();
+	        const mainLeft = mainRect.left;
+	
+	        if (scrollY > transitionPoint) {
+	            // fixed 클래스 추가
+	            rankWrap.classList.add("fixed");
+	            rankPlaceholder.classList.add("visible");
+	            
+	            // 부모의 left 값을 랭킹 배너에 적용
+	            rankWrap.style.left = `${mainLeft}px`;
+	            
+	        } else {
+	            // fixed 클래스 제거
+	            rankWrap.classList.remove("fixed");
+	            rankPlaceholder.classList.remove("visible");
+	
+	            // left 값 초기화
+	            rankWrap.style.left = '';
+	        }
+	    });
+	}
     // ======================================
     // 랭킹 배너 고정 끝
     // ======================================
@@ -203,12 +205,30 @@ document.addEventListener("DOMContentLoaded", function() {
     // ==========================================
 	
 	// ======================================
-    // view.html 수정/삭제 패
+    // view.html 수정/삭제 드롭다운 메뉴 
     // ======================================
-	 // const header = document.querySelector('header');
-
+	const viewContentWrap = document.querySelector('.content-wrap#view');
+	if (viewContentWrap) { 
+		const editWrap = document.querySelector('.edit-wrap');
+		const editButton = document.querySelector('.edit-button');
+		const editDropdownMenu = document.querySelector('.edit-dropdown-menu');
+	
+		// 드롭다운 토글
+		editButton.addEventListener('click', (event) => {
+		  event.stopPropagation(); // 버튼 클릭 시 이벤트 전파 막기
+		  editDropdownMenu.classList.toggle('active');
+		});
+	
+		// 드롭다운 바깥 클릭 시 닫기
+		document.addEventListener('click', (event) => {
+		  if (!editWrap.contains(event.target)) {
+		    editDropdownMenu.classList.remove('active');
+		  }
+		});
+	}
 	  // ======================================
-	  // 헤더 + 아이콘/프로필 드롭다운 메뉴 끝 
+	  // view.html 수정/삭제 드롭다운 메뉴 끝 
 	  // ======================================
+	 
 
 });
