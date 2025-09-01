@@ -1,5 +1,9 @@
 package gotit.board;
 
+import java.util.ArrayList;
+
+import gotit.model.Board;
+
 public class BoardService {
 	private BoardDAO dao;
 	
@@ -11,5 +15,9 @@ public class BoardService {
 	
 	public static BoardService getInstance() {
 		return instance;
+	}
+	
+	public ArrayList<Board> list() {
+		return dao.getList();
 	}
 }

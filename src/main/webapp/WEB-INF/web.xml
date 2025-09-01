@@ -7,4 +7,11 @@
     <welcome-file>index.htm</welcome-file>
     <welcome-file>index.xhtml</welcome-file>
   </welcome-file-list>
+  <context>
+	<Resource name="jdbc/gotit" auth="Container"
+		type="javax.sql.DataSource" maxTotal="100" maxIdle="30"
+		maxWaitMillis="10000" username="got" password="got12"
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/got_it_schema?serverTimezone=UTC" />
+	</context>
 </web-app>
