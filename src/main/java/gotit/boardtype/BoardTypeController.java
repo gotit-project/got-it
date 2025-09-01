@@ -16,6 +16,5 @@ public class BoardTypeController extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 	
 		String test = "";
-		
 	}
 }
