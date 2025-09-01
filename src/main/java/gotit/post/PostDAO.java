@@ -44,30 +44,30 @@ public class PostDAO {
 	        List<Post> list = new ArrayList<Post>();
 	        
 	        Connection con = null;
-	        Statement stmt = null;
+	        PreparedStatement pstmt = null;
 	        ResultSet rs = null;
 	        try{
 	            con = ds.getConnection();
-	            stmt = con.createStatement();
-	            rs = stmt.executeQuery(LIST);
+	            pstmt = con.prepareStatement(LIST);
+	            rs = pstmt.executeQuery();
 	            while(rs.next()){
-	                long post_id = rs.getInt(1);
+	                long post_id = rs.getLong("post_id");
+	                long board_id = rs.getLong("board_id");
+	                long user_id = rs.getLong("user_id");
 	                String title = rs.getString("title");
 	                String content = rs.getString("content");
-	                String writer = rs.getString("writer");
-	                long views = rs.getInt("views");
-	                long likes = rs.getInt("likes");
-	                long bookmarks = rs.getInt("bookmarks");
+	                boolean deleted = rs.getBoolean("deleted");
 	                java.sql.Date created_at = rs.getDate("created_at");
+	                java.sql.Date updated_at = rs.getDate("updated_at");
 
-	                list.add(new Post(post_id, title, content, writer, views, likes, bookmarks, created_at));
+	                list.add(new Post(post_id, board_id, user_id, title, content, deleted, created_at, updated_at));
 	            }
 	            return list;
 	        }catch(SQLException se){
 	            return null;
 	        }finally {
 	            try { if (rs != null) rs.close(); } catch(Exception e) {}
-	            try { if (stmt != null) stmt.close(); } catch(Exception e) {}
+	            try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
 	            try { if (con != null) con.close(); } catch(Exception e) {}
 	        }
 
@@ -115,36 +115,39 @@ public class PostDAO {
 //
 //		}
 //							   
-//		public PostDTO select(long seq) {
-//			Connection con = null;
-//		    PreparedStatement pstmt = null;
-//		    ResultSet rs = null;
-//		    try {    
-//		        con = ds.getConnection();
-//		        pstmt = con.prepareStatement(SELECT);
-//		        pstmt.setLong(1, seq);
-//		        rs = pstmt.executeQuery();
-//		        if(rs.next()){
-//		        	String writer = rs.getString(2);
-//	                String email = rs.getString(3);
-//	                String subject = rs.getString(4);
-//	                String content = rs.getString(5);
-//	                String fname = rs.getString(6);
-//	                java.sql.Date rdate = rs.getDate(8);
-//		        	return new PostDTO(seq, writer, email, subject, content, fname, rdate); 
-//		        } else {
-//		            return null; // 글 없음
-//		        }
-//	              
-//		    }catch(SQLException se){
-//		        return null;
-//		    }finally {
-//		        try { if (rs != null) rs.close(); } catch(Exception e) {}
-//		        try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
-//		        try { if (con != null) con.close(); } catch(Exception e) {}
-//		    }
-//
-//		}
+		public Post select(long seq) {
+			Connection con = null;
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    try {    
+		        con = ds.getConnection();
+		        pstmt = con.prepareStatement(SELECT);
+		        pstmt.setLong(1, seq);
+		        rs = pstmt.executeQuery();
+		        if(rs.next()){
+		        	long post_id = rs.getLong("post_id");
+	                long board_id = rs.getLong("board_id");
+	                long user_id = rs.getLong("user_id");
+	                String title = rs.getString("title");
+	                String content = rs.getString("content");
+	                boolean deleted = rs.getBoolean("deleted");
+	                java.sql.Date created_at = rs.getDate("created_at");
+	                java.sql.Date updated_at = rs.getDate("updated_at");
+
+		        	return new Post(post_id, board_id, user_id, title, content, deleted, created_at, updated_at); 
+		        } else {
+		            return null; // 글 없음
+		        }
+	              
+		    }catch(SQLException se){
+		        return null;
+		    }finally {
+		        try { if (rs != null) rs.close(); } catch(Exception e) {}
+		        try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
+		        try { if (con != null) con.close(); } catch(Exception e) {}
+		    }
+
+		}
 //		
 //		public boolean update(PostDTO dto) {
 //			Connection con = null;

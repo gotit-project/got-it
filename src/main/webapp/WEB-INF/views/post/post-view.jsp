@@ -94,19 +94,32 @@
                             <button>공유</button>
                             <button>북마크</button>
                         </div>
+                        <!--로그인 하면 보이는 수정/삭제 버튼 패널-->
+        				<!-- css 로 보임/숨김 처리 하므로 html 코드 다 넣어주시면 됩니다. -->
+                        <div class="edit-wrap">
+	                        <button class="profile-button">
+	                            수빈
+	                        </button>
+	                        <div class="profile-dropdown-menu">
+	                            <div class="profile-info">
+	                                <strong>내 계정</strong>
+	                                <p>park@gmail.com</p>
+	                                <p><span>박수빈</span> 님, 안녕하세요.</p>
+	                            </div>
+	                            <div class="menu-divider"></div>
+	                            <a href="#" class="profile-menu-item">북마크 페이지</a>
+	                            <div class="menu-divider"></div>
+	                            <a href="#" class="profile-menu-item">로그아웃</a>
+	                        </div>
+	                    </div>
                     </div>
                     <div class="post-item">
-                        <p class="post-title">현대시 작품 해석이 잘 안돼요.</p>
+                    	<c:forEach items="${list}" var="dto">
+                        <p class="post-title">${dto.title}</p>
                         <p class="post-content">
-                            이번에 배운 김소월 시 「진달래꽃」에서 ‘떠나는 임에 대한 마음’ 부분을 교과서에서 감정 이입하라고 했는데,
-                            저는 단순한 이별의 아픔으로만 이해했어요. 그런데 선생님은 ‘이별을 수용하는 태도’라고 말씀하시더라고요.
-                            <br/>
-                            <br/>
-                            → 감정을 수용하면서도 아픔을 표현하는 문학적 장치를 어떻게 구분해야 하나요?
-                            <br/>
-                            <br/>
-                            도와주세요ㅠㅠ
+                            ${dto.content}
                         </p>
+                        </c:forEach>
                     </div>
                     <div class="post-bottom">
                         <div class="post-keywork">

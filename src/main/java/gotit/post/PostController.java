@@ -23,7 +23,7 @@ public class PostController extends HttpServlet {
 //				case "input" : input(request, response); break;
 //				case "insert" : insert(request, response); break;
 //				case "del" : del(request, response); break;
-//				case "sel" : sel(request, response); break;
+				case "select" : select(request, response); break;
 //				case "edit" : edit(request, response); break; 
 //			    case "update" : update(request, response); break;
 				default: list(request, response);
@@ -45,7 +45,7 @@ public class PostController extends HttpServlet {
 	    request.setAttribute("list", list);
 	    
 	    //이동할 뷰 경로를 정함. 현재 서블릿 매핑 폴더 구조 기준으로 상대경로 
-	    String view = "/WEB-INF/views/board/post-list.jsp";
+	    String view = "/WEB-INF/views/post/post-list.jsp";
 	    //다른 리소스(JSP)로 제어를 넘겨주는 도우미 
 	    RequestDispatcher rd = request.getRequestDispatcher(view);
 	    //서버 내부 이동(forward). url은 바뀌지 않고 request객체가 JSP까지 전달됨 
@@ -100,24 +100,23 @@ public class PostController extends HttpServlet {
 //	    rd.forward(request, response);
 //	}
 //	
-//	private void sel(HttpServletRequest request, HttpServletResponse response) 
-//	        throws ServletException, IOException {
-//		
-//		PostService service = PostService.getInstance();
-//		
-//		String seqStr = request.getParameter("seq");
-//	
-//		long seq = Long.parseLong(seqStr);	
-//		
-//	
-//		PostDTO dto = service.selectS(seq);
-//		
-//		request.setAttribute("dto", dto);
-//		
-//		//넘어갈 페이지 
-//	    RequestDispatcher rd = request.getRequestDispatcher("content.jsp");
-//	    rd.forward(request, response);
-//	}
+	private void select(HttpServletRequest request, HttpServletResponse response) 
+	        throws ServletException, IOException {
+		
+		PostService service = PostService.getInstance();
+		
+		String postIdStr = request.getParameter("postId");
+	
+		long postId = Long.parseLong(postIdStr);	
+		
+		Post dto = service.selectS(postId);
+		
+		request.setAttribute("dto", dto);
+		
+		//넘어갈 페이지 
+	    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/post-view.jsp");
+	    rd.forward(request, response);
+	}
 //	
 //	private void update(HttpServletRequest request, HttpServletResponse response) 
 //	        throws ServletException, IOException {
