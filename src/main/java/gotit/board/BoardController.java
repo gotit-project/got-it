@@ -16,7 +16,6 @@ public class BoardController extends HttpServlet {
 	public void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String type = request.getParameter("type");  // 게시판 이름
-		String action = request.getParameter("action");
 		
 		if (type != null) {
 			 type = type.trim();
