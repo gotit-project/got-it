@@ -220,11 +220,11 @@
 						    </tr>
 						</c:if>
 						<c:forEach items="${list}" var="dto">
-                        <a href="view.html">
+                        <a href="post.do?m=select&postId=${dto.post_id}">
                             <div class="post-item">
                                 <div class="post-item-header">
                                     <img src="../assets/img/common/post_info_profile02.png" class="profile" alt="프로필 사진">
-                                    <p class="writer">${dto.writer}</p>
+                                    <p class="writer">${dto.user_id}</p>
                                     <span class="time">3시간 전</span>
                                 </div>
                             </div>
@@ -240,11 +240,11 @@
                                 <div class="post-counts">
                                     <div class="view-count">
                                         <img src="../assets/img/main/post_info_icon01.png" alt="조회수">
-                                        <p>${dto.views}</p>
+                                        <p>111</p>
                                     </div>
                                     <div class="thumb-count">
                                         <img src="../assets/img/main/post_info_icon02.png" alt="좋아요수">
-                                        <p>${dto.likes}</p>
+                                        <p>2</p>
                                     </div>
                                     <div class="comment-count">
                                         <img src="../assets/img/main/post_info_icon03.png" alt="댓글수">

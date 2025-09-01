@@ -21,7 +21,7 @@ import jakarta.servlet.http.Part;
 
 public class PostService {
 	//실제 DB접근은 DAO가 담당하고, Sercive는 DAO를 사용
-	private Post dao;
+	private PostDAO dao;
 
 	//싱글톤 패턴 : Service객체를 단 하나만 생성해 사용
 	//static final이므로 프로그램 시작 시 한번만 만들어
@@ -30,7 +30,7 @@ public class PostService {
 	//외부에서 new BoardServic 호출 못하게 함
 	private PostService() {
 		//내부에서 DAO를 초기화->Service와 DAO가 1:1로 묶여 항상 같이 움직임 
-		dao = new Post();
+		dao = new PostDAO();
 	}
 	
 	//DB핸들링 하는 메서드는 이것 호출해서 사용
@@ -52,9 +52,9 @@ public class PostService {
 //		return dao.delete(seq);
 //	}
 //	
-//	public PostDTO selectS(long seq) {
-//		return dao.select(seq);
-//	}
+	public Post selectS(long postId) {
+		return dao.select(postId);
+	}
 //	
 //	public boolean updateS(PostDTO dto) {
 //		return dao.update(dto);

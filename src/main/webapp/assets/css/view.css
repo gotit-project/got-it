@@ -44,6 +44,7 @@
   color: var(--background-main);
 }
 #view .post-item-wrap {
+  width: 100%;
   position: relative;
 }
 #view .post-item-wrap::before {
