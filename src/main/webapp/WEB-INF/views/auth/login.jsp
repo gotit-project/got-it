@@ -14,6 +14,28 @@ pageEncoding="UTF-8"%>
       rel="stylesheet"
       href="${pageContext.request.contextPath}/assets/css/auth.css"
     />
+    <script>
+		document.addEventListener("DOMContentLoaded", () => {
+		  const result = ${result};
+		  const msgEl = document.getElementById("login-error");
+		
+		  if (!result || !msgEl) return;
+		
+		  switch (parseInt(result)) {
+		    case 1:
+		      msgEl.textContent = "등록되지 않은 이메일입니다.";
+		      break;
+		    case 2:
+		      msgEl.textContent = "비밀번호가 올바르지 않습니다.";
+		      break;
+		    case 3:
+		        window.location.href = "${pageContext.request.contextPath}/index.do";
+		      break;
+		    default:
+		      msgEl.textContent = "";
+		  }
+		});
+</script>
   </head>
   <body>
     <div class="auth-container">
@@ -26,7 +48,7 @@ pageEncoding="UTF-8"%>
           </h1>
         </div>
 
-        <form class="auth-form" action="/auth/login" method="post" novalidate>
+        <form class="auth-form" action="auth.do?mode=login-action" method="post" novalidate>
           <div class="auth-content">
             <div class="auth-title">
               <h2>GOT IT에 오신 것을 환영합니다!</h2>
@@ -53,7 +75,7 @@ pageEncoding="UTF-8"%>
                   type="password"
                   class="inp-fd"
                   id="passwd"
-                  name="password"
+                  name="passwd"
                   placeholder=""
                   required
                   autocomplete="current-password"
@@ -63,7 +85,7 @@ pageEncoding="UTF-8"%>
 
               <!-- 도움말/아이디 찾기 -->
               <div class="help-text-wrap">
-                <p class="error-message" aria-live="polite"></p>
+                <p id="login-error" class="error-message" aria-live="polite"></p>
                 <p class="help-text">
                   <a href="/auth/remember">아이디 및 비밀번호를 잊으셨나요?</a>
                 </p>
@@ -79,7 +101,7 @@ pageEncoding="UTF-8"%>
             </button>
 
             <p class="signup-text">
-              계정이 없으신가요? <a href="auth.do?mode=signup">회원가입</a>
+              계정이 없으신가요? <a href="auth.do?mode=signup-form">회원가입</a>
             </p>
           </div>
         </form>
