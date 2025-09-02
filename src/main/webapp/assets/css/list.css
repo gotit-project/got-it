@@ -217,7 +217,7 @@
   transition: 0.3s;
 }
 #list .board-list a:hover {
-  background: var(--color-bg-point);
+  background: var(--color-bg-point-sub);
 }
 #list .board-fixed-list {
   width: 100%;
