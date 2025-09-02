@@ -1,122 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=utf-8" import="java.sql.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+<%@ page import="gotit.common.util.DateUtils" %>
     
 <!DOCTYPE html>
 <html lang="ko">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>got it</title>
-        <link rel="stylesheet" href="../assets/css/reset.css">
-        <link rel="stylesheet" href="../assets/css/common.css">
-        <link rel="stylesheet" href="../assets/css/list.css">
+        <title>Got !t</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/header.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/footer.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/list.css">
+        <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
     </head>
     <body>
 
-        <!-- ======================================
-            로그인 하면     : <header id="login">
-            디폴트(비로그인) : <header id="default">
-            --------------------------------------
-            - login 아이디가 없으면
-               <div class="header-right"> 가 존재 x
-            - index.html 헤더 참고
-        ====================================== -->
-       <header id="login">
-            <div class="nav">
-                <a href="index.html" class="logo">
-                    <img src="../assets/img/common/logo.svg" alt="로고">
-                </a>
-                <ul>
-                    <li><a href="index.html">홈</a></li>
-                    <li><a href="list.html">Q&A</a></li>
-                    <li><a href="list.html">지식나눔</a></li>
-                    <li><a href="list.html">자유게시판</a></li>
-                    <li><a href="list.html">공지사항</a></li>
-                </ul>
-                <div class="header-right">
-                    <div class="write-button-wrap">
-                        <button class="write-button-group">
-                            <span class="plus-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 5V19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </span>
-                            <span class="dropdown-arrow-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M6 9L12 15L18 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </span>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a href="#" class="menu-item">
-                                새 글 쓰기
-                            </a>
-                            <div class="menu-divider"></div>
-                            <a href="#" class="menu-item with-icon">
-                                <span><strong>Q&amp;A</strong>에 글쓰기</span>
-                                <span class="icon">❓</span>
-                            </a>
-                            <a href="#" class="menu-item with-icon">
-                                <span><strong>지식</strong>에 글쓰기</span>
-                                <span class="icon">📚</span>
-                            </a>
-                            <a href="#" class="menu-item with-icon">
-                                <span><strong>커뮤니티</strong>에 글쓰기</span>
-                                <span class="icon">😊</span>
-                            </a>
-                            <a href="#" class="menu-item with-icon">
-                                <span><strong>이벤트</strong>에 글쓰기</span>
-                                <span class="icon">🔥</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="profile-wrap">
-                        <button class="profile-button">
-                            수빈
-                        </button>
-                        <div class="profile-dropdown-menu">
-                            <div class="profile-info">
-                                <strong>내 계정</strong>
-                                <p>park@gmail.com</p>
-                                <p><span>박수빈</span> 님, 안녕하세요.</p>
-                            </div>
-                            <div class="menu-divider"></div>
-                            <a href="#" class="profile-menu-item">북마크 페이지</a>
-                            <div class="menu-divider"></div>
-                            <a href="#" class="profile-menu-item">로그아웃</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-    
-        <!--모바일 메뉴 패널-->
-        <!-- css 로 보임/숨김 처리 하므로 html 코드 다 넣어주시면 됩니다. -->
-        <button class="mobile-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <div class="overlay"></div>
-        <nav class="mobile-panel">
-            <div class="mobile-menu-top">
-                <img src="../assets/img/common/logo.svg" alt="로고">
-            </div>
-            <div class="mobile-menu-item">
-                <a href="index.html">홈</a>
-                <a href="list.html">Q&A</a>
-                <a href="list.html">지식나눔</a>
-                <a href="list.html">자유게시판</a>
-                <a href="list.html">공지사항</a>
-            </div>
-            <div class="mobile-menu-bottom">
-                <a href="#">로그인</a>
-                <a href="#">회원가입</a>
-            </div>
-        </nav>
+        <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
         <!-- 컨텐츠 -->
         <div id="list" class="content-wrap">
@@ -131,7 +32,7 @@
                     <div class="filter-wrap">
                         <div class="filter-top">
 			                <div class="write-button-wrap">
-			                    <a href="post.do?m=write" class="write-button">작성하기</a>
+			                    <a href="post.do?mode=write" class="write-button">작성하기</a>
 			                </div>
 					    
                            <!-- ======================================
@@ -214,33 +115,34 @@
                     </a>
                     <div class="board-list">
                     	 <!-- 게시글 한 묶음 -->
-                    	 <c:if test="${empty list}">
+                    	 <c:if test="${empty postList}">
 						    <tr>
 						    <td align='center' colspan="5">데이터가 하나도 없음</td>
 						    </tr>
 						</c:if>
-						<c:forEach items="${list}" var="dto">
-                        <a href="post.do?m=select&postId=${dto.post_id}">
+						<c:forEach items="${postList}" var="postDto">
+                        <a href="post.do?mode=select&postId=${postDto.postId}">
                             <div class="post-item">
                                 <div class="post-item-header">
                                     <img src="../assets/img/common/post_info_profile02.png" class="profile" alt="프로필 사진">
-                                    <p class="writer">${dto.user_id}</p>
-                                    <span class="time">3시간 전</span>
+                                    <p class="writer">${postDto.userId}</p>
+                                    <%-- 이 부분에서 `DateUtils` 클래스를 사용합니다 --%>
+            						<span class="time">${DateUtils.formatTimeAgo(postDto.updatedAt)}</span>
                                 </div>
                             </div>
-                            <p class="post-title">${dto.title}</p>
+                            <p class="post-title">${postDto.title}</p>
                             <p class="post-content">
-                                ${dto.content}
+                                ${postDto.content}
                             </p>
                             <div class="post-bottom">
                                 <div class="post-keyword">
                                     <span class="category">국어</span>
-                                    <span class="hashtag">#${dto.tag}</span>
+                                    <span class="hashtag">#${postDto.tag}</span>
                                 </div>
                                 <div class="post-counts">
                                     <div class="view-count">
                                         <img src="../assets/img/main/post_info_icon01.png" alt="조회수">
-                                        <p>111</p>
+                                        <p>${postDto.viewCounts}</p>
                                     </div>
                                     <div class="thumb-count">
                                         <img src="../assets/img/main/post_info_icon02.png" alt="좋아요수">
@@ -258,7 +160,7 @@
                     </div>
                 </div>
             </div>
-
+		
             <!-- 게시글 페이징 -->
             <div class="pagination">
                 <!-- 이전 버튼 -->
