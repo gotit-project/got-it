@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
+        <script src="${pageContext.request.contextPath}/assets/js/common/header.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
     </head>
     <body>

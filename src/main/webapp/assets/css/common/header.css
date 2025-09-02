@@ -196,7 +196,10 @@ header#login .menu-item .with-icon {
   justify-content: space-between;
 }
 header .profile-button {
-  background-color: var(--color-bg-sub);
+  background-image: url("../../img/common/student.png");
+  background-repeat: no-repeat;   /* 반복 여부 */
+  background-size: cover;         /* 크기 맞추기 */
+  background-position: center;    /* 위치 */
   color: var(--color-bg-white);
   font-weight: 700;
   border: none;

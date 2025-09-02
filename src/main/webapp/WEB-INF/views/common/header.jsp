@@ -7,7 +7,7 @@
        <div class="header-right"> 가 생성됨
 ====================================== -->
 
-<header id="default">
+<header id="default" data-logged-in="${not empty sessionScope.loginOkUser}">
   <div class="nav">
     <a href="index.html" class="logo">
       <img
@@ -23,8 +23,8 @@
       <li><a href="list.html">공지사항</a></li>
     </ul>
     <div class="link-wrap">
-      <a href="auth.do?mode=login">로그인</a>
-      <a href="auth.do?mode=signup">회원가입</a>
+      <a href="auth.do?mode=login-form">로그인</a>
+      <a href="auth.do?mode=signup-form">회원가입</a>
     </div>
     <!-- 로그인 상태 전용 UI -->
     <div class="header-right">
@@ -94,17 +94,17 @@
         </div>
       </div>
       <div class="profile-wrap">
-        <button class="profile-button">수빈</button>
+        <button class="profile-button" style="background-image: ${sessionScope.loginOkUser.nickname}"></button>
         <div class="profile-dropdown-menu">
           <div class="profile-info">
             <strong>내 계정</strong>
-            <p>park@gmail.com</p>
-            <p><span>박수빈</span> 님, 안녕하세요.</p>
+            <p>${sessionScope.loginOkUser.email}</p>
+            <p><span>${sessionScope.loginOkUser.nickname}</span> 님, 안녕하세요.</p>
           </div>
           <div class="menu-divider"></div>
           <a href="#" class="profile-menu-item">북마크 페이지</a>
           <div class="menu-divider"></div>
-          <a href="#" class="profile-menu-item">로그아웃</a>
+          <a href="auth.do?mode=logout" class="profile-menu-item">로그아웃</a>
         </div>
       </div>
     </div>

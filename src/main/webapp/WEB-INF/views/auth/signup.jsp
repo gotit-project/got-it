@@ -127,7 +127,7 @@ pageEncoding="UTF-8"%>
                 <p class="error-message" aria-live="polite"></p>
                 <p class="help-text">
                   이미 계정이 있으신가요?
-                  <a href="auth.do?mode=login">로그인</a>
+                  <a href="auth.do?mode=login-form">로그인</a>
                 </p>
               </div>
             </div>
