@@ -1,77 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=utf-8" import="java.sql.*"%>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>got-it | 글 작성</title>
-        <link rel="stylesheet" href="../assets/css/reset.css">
-        <link rel="stylesheet" href="../assets/css/common.css">
-        <link rel="stylesheet" href="../assets/css/write.css">
-        <script src="../assets/js/main.js" defer></script>
+        <title>Got !t</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/header.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/footer.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/edit.css">
+        <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
     </head>
     <body>
-        <!-- ======================================
-            로그인 하면     : <header id="login">
-            디폴트(비로그인) : <header id="default">
-            --------------------------------------
-            - login 아이디가 추가되면 
-               <div class="header-right"> 가 생성됨
-            - list.html 헤더 참고
-        ====================================== -->
-        <header id="default">
-            <div class="nav">
-                <a href="index.html" class="logo">
-                    <img src="../assets/img/common/logo.svg" alt="로고">
-                </a>
-                <ul>
-                    <li><a href="index.html">홈</a></li>
-                    <li><a href="list.html">Q&A</a></li>
-                    <li><a href="list.html">지식나눔</a></li>
-                    <li><a href="list.html">자유게시판</a></li>
-                    <li><a href="list.html">공지사항</a></li>
-                </ul>
-                <div class="link-wrap">
-                    <a href="#">로그아웃</a>
-                    <a href="#">회원가입</a>
-                </div>
-            </div>
-        </header>
 
-        <!--모바일 메뉴 패널-->
-        <!-- css 로 보임/숨김 처리 하므로 html 코드 다 넣어주시면 됩니다. -->
-        <button class="mobile-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <div class="overlay"></div>
-        <nav class="mobile-panel">
-            <div class="mobile-menu-top"> 
-                <img src="../assets/img/common/logo.svg" alt="로고">
-            </div>
-            <div class="mobile-menu-item">
-                <a href="index.html">홈</a>
-                <a href="list.html">Q&A</a>
-                <a href="list.html">지식나눔</a>
-                <a href="list.html">자유게시판</a>
-                <a href="list.html">공지사항</a>
-            </div>
-            <div class="mobile-menu-bottom">
-                <a href="#">로그인</a>
-                <a href="#">회원가입</a>
-            </div>
-        </nav>
+        <%@ include file="/WEB-INF/views/common/header.jsp" %>
         
         <!-- 컨텐츠 -->
    		<div id="write" class="content-wrap">
-		  <form action="post.do?m=insert" method="post">
+		  <form action="post.do?mode=insert" method="post">
 		  		<!-- 유저, 보드 임시아이디 -->
 		   		<input type="hidden" name="user_id" value="1"> 	
    				<input type="hidden" name="board_id" value="1">
    				
-   				<c:forEach items="${list}" var="dto">
+   				<c:forEach items="${postList}" var="postDto">
    				
 			       <div class="form-group">
 			           <label for="category">카테고리</label>
@@ -80,17 +33,17 @@
 			       
 			       <div class="form-group">
 			           <label for="title">제목</label>
-			           <input type="text" id="title" name="title" value="${dto.title}">
+			           <input type="text" id="title" name="title" value="${postDto.title}">
 			       </div>
 			       
 			       <div class="form-group">
 			           <label for="tags">태그</label>
-			           <input type="text" id="tag" name="tag" value="${dto.tag}">
+			           <input type="text" id="tag" name="tag" value="${postDto.tag}">
 			       </div>
 			       
 			       <div class="form-group">
 			           <label for="content">본문</label>
-			           <textarea id="content" name="content" rows="10">${dto.content}</textarea>
+			           <textarea id="content" name="content" rows="10">${postDto.content}</textarea>
 			       </div>
 		       </c:forEach>
 		       
