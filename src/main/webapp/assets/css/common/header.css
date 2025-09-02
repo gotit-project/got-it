@@ -1,0 +1,390 @@
+/* ====================================== */
+/* 헤더                                    */
+/* ====================================== */
+header {
+  width: 100%;
+  height: 80px;
+  background: var(--color-bg-white);
+  border-bottom: var(--color-border-default);
+  box-shadow: var(--shadow-default);
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 20px 0;
+}
+header .nav {
+  width: 80%;
+  min-width: 1024px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+}
+header .nav .logo {
+  width: 99px;
+  height: 32px;
+  display: block;
+  flex: 0;
+}
+header .nav ul {
+  display: flex;
+  gap: 10px;
+  flex: 14;
+  margin-left: 6.6%;
+}
+header .nav ul li {
+  padding: 10px 10px 10px 10px;
+}
+header .nav ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--color-text-main);
+  text-align: center;
+  transition: color 0.3s;
+}
+header .nav ul li a.active,
+header .nav ul li a:hover {
+  color: var(--background-main);
+}
+header .link-wrap {
+  display: flex;
+  gap: 12px;
+  flex: 2;
+  align-items: center;
+}
+header .link-wrap a {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  width: 80px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+header .link-wrap a:first-child {
+  border: 1px solid var(--color-text-sub2);
+  transition: 0.3s;
+}
+header .link-wrap a:first-child:hover {
+  background-color: var(--color-bg-main);
+}
+header .link-wrap a:last-child {
+  background: var(--background-main);
+  color: var(--color-text-white);
+  border: 1px solid var(--background-main);
+  transition: 0.3s;
+}
+header .link-wrap a:last-child:hover {
+  background-color: var(--background-main-hover);
+}
+
+/* 기본: 숨김 */
+.dropdown-menu,
+.profile-dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 200px;
+  background: #fff;
+  border: 1px solid var(--color-border-default);
+  border-radius: 8px;
+  box-shadow: var(--color-shadow-default);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  z-index: 1000;
+  padding: 10px;
+}
+
+/* 토글 시 노출 */
+.dropdown-menu.active,
+.profile-dropdown-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* 기본(비로그인)에서는 header-right 숨김 */
+.header-right {
+  display: none;
+}
+
+/* 헤더 로그인 했을때 */
+header#login .link-wrap {
+  display: none;
+}
+
+header#login .header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  flex: 2;
+}
+header#login .write-button-group {
+  background-color: var(--color-bg-point);
+  border-radius: 8px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: 0.3s;
+}
+header#login .write-button-group:hover {
+  background: var(--color-bg-point-hover);
+}
+header#login .plus-icon,
+header#login .dropdown-arrow-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+header#login .plus-icon {
+  width: 36px;
+  padding: 0 6px;
+}
+header#login .dropdown-arrow-icon {
+  width: 28px;
+  transition: 0.3s;
+}
+header#login .dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 200px;
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border-default);
+  border-radius: 8px;
+  box-shadow: var(--color-shadow-default);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  z-index: 1000;
+  padding: 10px;
+}
+header#login .dropdown-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+header#login .menu-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: var(--color-text-main);
+  font-size: 14px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+header#login .menu-item:hover {
+  background: var(--color-bg-gray);
+  border-radius: 6px;
+}
+header#login .menu-item .with-icon {
+  justify-content: space-between;
+}
+header .profile-button {
+  background-color: var(--color-bg-sub);
+  color: var(--color-bg-white);
+  font-weight: 700;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+header .profile-button:hover {
+  transform: scale(1.05);
+}
+header .profile-dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 200px;
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border-default);
+  border-radius: 8px;
+  box-shadow: var(--color-shadow-default);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  z-index: 1000;
+  padding: 10px;
+}
+header .profile-dropdown-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+header .profile-info {
+  padding: 10px;
+  font-size: 14px;
+}
+header .profile-info p,
+header .profile-info span,
+header .profile-info strong {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+}
+header .profile-info p:last-child {
+  margin: 0;
+}
+header .profile-menu-item {
+  display: block;
+  padding: 10px;
+  color: var(--color-text-main);
+  font-size: 14px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+header .profile-menu-item:hover {
+  background: var(--color-bg-main);
+  border-radius: 6px;
+}
+header .menu-divider {
+  height: 1px;
+  background: var(--color-bg-main);
+  margin: 5px 0;
+}
+/* === 모바일 햄버거 / 패널 기본 === */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 18px; /* 헤더 높이에 맞춰 조절 */
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  z-index: 1100;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.mobile-menu span {
+  display: block;
+  height: 2px;
+  margin: 7px 4px;
+  background: var(--color-text-main);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* 오버레이 */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1090;
+}
+
+/* 사이드 패널 */
+.mobile-panel {
+  position: fixed;
+  justify-content: space-between;
+  top: 0;
+  right: 0;
+  width: 80%;
+  max-width: 240px;
+  height: 100%;
+  background: #fff;
+  box-shadow: -6px 0 16px rgba(0, 0, 0, 0.15);
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  z-index: 1110;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.mobile-menu-top {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.mobile-menu-item {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+}
+.mobile-menu-li {
+  padding: 15px 20px;
+  border-radius: 5px;
+}
+.mobile-menu-li:hover {
+  background-color: var(--color-bg-point);
+}
+.mobile-menu-bottom {
+  display: flex;
+  border-top: var(--color-border-default);
+}
+.mobile-bottom-li {
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+.mobile-bottom-li a:hover {
+  color: var(--color-text-point);
+}
+.mobile-panel a {
+  color: var(--color-text-main);
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* 열림 상태 */
+body.menu-open .mobile-panel {
+  transform: translateX(0);
+}
+body.menu-open .overlay {
+  display: block;
+}
+body.menu-open .mobile-menu[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+body.menu-open .mobile-menu[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+body.menu-open .mobile-menu[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* ====================================== */
+/* 헤더 반응형 (모바일)                    */
+/* ====================================== */
+@media screen and (max-width: 1024px) {
+  header .nav {
+    margin: 0 20px 0 20px;
+    width: 100%;
+    min-width: 0px;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .mobile-menu {
+    display: inline-block;
+  }
+  header .nav ul {
+    display: none;
+  } /* 네가 이미 넣어둔 규칙과 동일 의도 */
+  header .link-wrap {
+    display: none;
+  } /* 동일 */
+  header .header-right {
+    display: none !important;
+  }
+}

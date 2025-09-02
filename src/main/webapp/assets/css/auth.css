@@ -1,7 +1,7 @@
-/* 로그인 스타일을 최대한 재사용하면서 회원가입 전용 일부 요소만 추가/조정 */
-
-/* --- 공통(로그인과 동일 클래스명 재사용) --- */
-.login-container {
+/* =========================
+   공통 베이스 (로그인/회원가입 공용)
+   ========================= */
+.auth-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,7 +10,7 @@
   width: 100%;
 }
 
-.login-wrap {
+.auth-wrap {
   background: #ffffff;
   width: 450px;
   border-radius: 10px;
@@ -27,7 +27,7 @@
   }
 }
 
-.login-header {
+.auth-header {
   width: 100%;
   padding: 30px;
 }
@@ -37,7 +37,7 @@
   justify-content: center;
 }
 
-.login-form {
+.auth-form {
   display: flex;
   flex-direction: column;
   padding-left: 40px;
@@ -46,28 +46,33 @@
   gap: 20px;
 }
 
-.login-content {
+.auth-content {
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 
-.login-title {
+.auth-title {
   text-align: center;
 }
 
-.login-title h2 {
-  font-size: 2.4rem;
+.auth-title h2 {
+  font-size: 24px; /* 2.4rem */
   color: var(--color-text-main);
   font-weight: 700;
 }
 
-.login-group {
+.auth-group {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
+/* ---------- 입력 그룹 ---------- */
+/* [Conflict note]
+   - register.css 에서는 배경을 white/테두리 none으로 더 "플랫"하게 사용
+   - login.css 와 시각차 크지 않아 공통 기본값을 "플랫"쪽으로 합침
+*/
 .inp-group {
   position: relative;
   border: var(--color-border-default);
@@ -80,7 +85,7 @@
 .inp-fd {
   width: 100%;
   padding: 18px 0 10px;
-  font-size: 1.4rem;
+  font-size: 14px; /* 1.4rem */
   border: none;
   background: transparent;
 }
@@ -96,27 +101,28 @@
   top: 50%;
   color: #999;
   transition: all 0.125s ease-in;
-  font-size: 1.4rem;
+  font-size: 14px; /* 1.4rem */
   transform: translateY(-50%);
   pointer-events: none;
 }
 
 .inp-fd:focus + .inp-lb,
 .inp-fd:not(:placeholder-shown) + .inp-lb {
-  font-size: 1rem;
+  font-size: 10px; /* 1rem */
   top: 20%;
   font-weight: 400;
 }
 
+/* ---------- 에러/헬프 ---------- */
 .error-message {
   color: var(--color-text-error);
-  font-size: 1.4rem;
+  font-size: 14px; /* 1.4rem */
   padding-left: 5px;
-  min-height: 1.4em;
+  min-height: 14px; /* 1.4em ≒ 14px */
 }
 
 .help-text {
-  font-size: 1.4rem;
+  font-size: 14px; /* 1.4rem */
   color: var(--color-text-point);
   text-align: right;
   font-weight: 500;
@@ -126,12 +132,16 @@
   color: var(--color-text-point);
   text-decoration: none;
 }
-
+.help-text a:visited {
+  color: var(--color-text-point);
+  text-decoration: none;
+}
 .help-text a:hover {
   text-decoration: underline;
 }
 
-.login-btn {
+/* ---------- 버튼 ---------- */
+.auth-btn {
   width: 100%;
   padding: 12px;
   background: var(--color-bg-point);
@@ -140,22 +150,22 @@
   border-radius: 5px;
   cursor: pointer;
 }
-
-.login-btn:hover {
+.auth-btn:hover {
   background: var(--color-bg-point-hover);
 }
-
-.login-btn[aria-busy="true"] {
+.auth-btn[aria-busy="true"] {
   cursor: progress;
   opacity: 0.9;
 }
 
-.login-btn-text {
+.auth-btn-text {
   color: var(--color-text-white);
-  font-size: 1.6rem;
+  font-size: 16px; /* 1.6rem */
   font-weight: 700;
 }
 
+/* ---------- 스피너 ---------- */
+/*
 .spinner {
   width: 18px;
   height: 18px;
@@ -167,69 +177,74 @@
   margin-right: 8px;
   animation: spin 0.75s linear infinite;
 }
-
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
+*/
 
+/* ---------- 하단 링크 ---------- */
 .signup-text {
-  font-size: 1.4rem;
+  font-size: 14px; /* 1.4rem */
   color: var(--color-text-sub);
   margin-top: 15px;
   text-align: center;
 }
-
 .signup-text a {
   color: var(--color-text-point);
   text-decoration: none;
   font-weight: 500;
 }
-
 .signup-text a:hover {
   text-decoration: underline;
 }
 
-/* --- 회원가입 전용 추가 --- */
+/* =========================
+   회원가입 전용 추가 블록
+   ========================= */
 .terms-wrap {
   margin-top: 4px;
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
-
 .terms-row {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 1.3rem;
+  font-size: 13px; /* 1.3rem */
   color: var(--color-text-sub);
 }
-
 .terms-row input[type="checkbox"] {
   width: 16px;
   height: 16px;
 }
-
 .terms-links {
   text-align: left;
-  font-size: 1.3rem;
+  font-size: 13px; /* 1.3rem */
 }
-
 .terms-links a {
   color: var(--color-text-point);
   text-decoration: none;
 }
-
 .terms-links a:hover {
   text-decoration: underline;
 }
 
-/* 반응형 */
-@media (max-width: 500px) {
-  .login-wrap {
+/* =========================
+   반응형
+   ========================= */
+@media (max-width: 600px) {
+  .auth-wrap {
     width: 100%;
     height: 100vh;
   }
 }
+
+/* =========================================================
+   [Duplicate/Conflict 기록]
+   - 기존 파일들에 중복으로 존재하던 .auth-* 블록은 하나로 합침
+   - .inp-group / .inp-fd 는 register 스타일(플랫)로 통일함
+   - help-text :visited 규칙은 유지(로그인 쪽 정의 보존)
+   - terms-* 는 회원가입만 사용하지만 공통 CSS에 포함(로그인 페이지에 영향 없음)
+   필요 시 form[action="/auth/login"] / form[action="/auth/register"] 로 세부 분기 가능
+   ========================================================= */
