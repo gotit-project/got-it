@@ -209,9 +209,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // ======================================
 	const viewContentWrap = document.querySelector('.content-wrap#view');
 	if (viewContentWrap) { 
-		const editWrap = document.querySelector('.edit-wrap');
-		const editButton = document.querySelector('.edit-button');
-		const editDropdownMenu = document.querySelector('.edit-dropdown-menu');
+		const editWrap = document.querySelector('.post-item-wrap .edit-wrap');
+		const editButton = document.querySelector('.post-item-wrap .edit-button');
+		const editDropdownMenu = document.querySelector('.post-item-wrap .edit-dropdown-menu');
 	
 		// 드롭다운 토글
 		editButton.addEventListener('click', (event) => {

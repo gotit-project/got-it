@@ -19,10 +19,11 @@
         <!-- 컨텐츠 -->
    		<div id="write" class="content-wrap">
 		  <form action="post.do?mode=insert" method="post">
-		  		<!-- 유저, 보드 임시아이디 -->
-		   		<input type="hidden" name="user_id" value="1"> 	
-   				<input type="hidden" name="board_id" value="1">
-   				
+		  		<!-- 유저, 보드, 카테고 임시아이디 -->
+		   		<input type="hidden" name="userId" value="1"> 	
+   				<input type="hidden" name="boardId" value="1">
+			    <input type="hidden" name="categorieId" value="1" />
+			   				
 		       <div class="form-group">
 		           <label for="category">카테고리</label>
 		           <select name="category">
@@ -38,7 +39,7 @@
 		       
 		       <div class="form-group">
 		           <label for="tags">태그</label>
-		           <input type="text" id="tag" name="tag">
+		           <input type="text" id="postTag" name="postTag">
 		       </div>
 		       
 		       <div class="form-group">

@@ -9,20 +9,18 @@ public class Comment {
 	private String content;
 	private boolean isAnswer;
 	private boolean accepted;
-	private boolean deleted;
 	private Date createdAt;
 	private Date updatedAt; 
 	
 	public Comment() {};
 	
-	public Comment(long commentId, long postId, long userId, String content, boolean isAnswer, boolean accepted, boolean deleted, Date createdAt, Date updatedAt) {
+	public Comment(long commentId, long postId, long userId, String content, boolean isAnswer, boolean accepted, Date createdAt, Date updatedAt) {
 		this.commentId = commentId;
 		this.postId = postId;
 		this.userId = userId;
 		this.content = content;
 		this.isAnswer = isAnswer;
 		this.accepted = accepted;
-		this.deleted = deleted;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
@@ -73,14 +71,6 @@ public class Comment {
 
 	public void setAccepted(boolean accepted) {
 		this.accepted = accepted;
-	}
-
-	public boolean isDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
 	}
 
 	public Date getCreatedAt() {
