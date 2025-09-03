@@ -101,12 +101,8 @@ public class AuthDAO {
 	 * 회원가입 insert
 	 ============================= */
 	public int insertUser(String name, String email, String hashedPwd, String alias) throws SQLException {
-	    String sql = """
-	        INSERT INTO users(user_name, email, password, nickname, points, badge_id, status, create_date, update_date)
-	        VALUES(?, ?, ?, ?, 0, 0, 'ACTIVE', NOW(), NOW())
-	    """;
 	    try (Connection c = ds.getConnection();
-	         PreparedStatement ps = c.prepareStatement(sql)) {
+	         PreparedStatement ps = c.prepareStatement(AUTH_SIGNUP)) {
 	        ps.setString(1, name);
 	        ps.setString(2, email);
 	        ps.setString(3, hashedPwd);
