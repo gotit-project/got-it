@@ -14,7 +14,7 @@ import gotit.model.Post;
 import gotit.model.Comment;
 import gotit.comment.CommentService;
 
-@WebServlet("/post/post.do")
+@WebServlet("/post.do")
 public class PostController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
@@ -43,12 +43,25 @@ public class PostController extends HttpServlet {
    	 * 게시글 목록들 전체 보여주
    	 * ========================== */
     private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PostService service = PostService.getInstance();
-        List<Post> list = service.listS();
-        request.setAttribute("postList", list);
+    	 PostService service = PostService.getInstance();
+    	 
+    	 //페이징 
+    	 int curPage = 1;
+         int pageSize = 5; // 한 페이지당 게시글 수
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/post-list.jsp");
-        rd.forward(request, response);
+         String pageStr = request.getParameter("page");
+         if(pageStr != null) curPage = Integer.parseInt(pageStr);
+
+         List<Post> list = service.listPageS(curPage, pageSize);
+         int totalCount = service.countS();
+         int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+
+         request.setAttribute("postList", list);
+         request.setAttribute("curPage", curPage);
+         request.setAttribute("totalPage", totalPage);
+
+         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/post-list.jsp");
+         rd.forward(request, response);
     }
 
 	/* ==========================

@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.ArrayList;
 
 import gotit.model.Post;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -50,6 +51,27 @@ public class PostService {
 	// 조회 수
 	public boolean addViewCountS(long postId) {
         return postDao.addViewCount(postId);
+    }
+	
+	//페이징
+
+    public List<Post> listPageS(int curPage, int pageSize) {
+        int start = (curPage - 1) * pageSize;
+        try {
+            return postDao.listPage(start, pageSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    public int countS() {
+        try {
+            return postDao.countPosts();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
     
 }

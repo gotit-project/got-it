@@ -163,23 +163,27 @@
 		
             <!-- 게시글 페이징 -->
             <div class="pagination">
-                <!-- 이전 버튼 -->
-                <button class="pagination-button prev" disabled>
-                    <span>‹ Previous</span>
-                </button>
-                <!-- 페이지 번호 -->
-                <button class="page active">1</button>
-                <button class="page">2</button>
-                <button class="page">3</button>
-                <button class="page">4</button>
-                <button class="page">5</button>
-                <span class="dots">...</span>
-                <button class="page">7917</button>
-                <!-- 다음 버튼 -->
-                <button class="pagination-button next">
-                    <span>Next ›</span>
-                </button>
+               <a href="post.do?page=${curPage - 1}">
+				    <button class="pagination-button prev" ${curPage == 1 ? 'disabled' : ''}>
+				        ‹ Previous
+				    </button>
+				</a>
+				
+				<c:forEach var="i" begin="1" end="${totalPage}">
+				    <a href="post.do?page=${i}">
+				        <button class="page ${i == curPage ? 'active' : ''}">${i}</button>
+				    </a>
+				</c:forEach>
+				
+				<a href="post.do?page=${curPage + 1}">
+				    <button class="pagination-button next" ${curPage == totalPage ? 'disabled' : ''}>
+				        Next ›
+				    </button>
+				</a>
+
             </div>
+            
+            
         </div>
 
        <!-- 푸터 -->

@@ -167,4 +167,53 @@ public class PostDAO {
             return false;
         }
     }
+    
+    
+    
+    // 페이징
+    
+    public List<Post> listPage(int start, int pageSize) throws SQLException {
+        List<Post> list = new ArrayList<>();
+        String sql = "SELECT * FROM posts WHERE status='ACTIVE' ORDER BY post_id DESC LIMIT ?, ?";
+        try (Connection con = ds.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, start);
+            pstmt.setInt(2, pageSize);
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Post post = new Post(
+                    rs.getLong("post_id"),
+                    rs.getLong("board_id"),
+                    rs.getLong("user_id"),
+                    rs.getInt("categorie_id"),
+                    rs.getString("post_tag"),
+                    rs.getString("title"),
+                    rs.getString("content"),
+                    rs.getInt("like_count"),
+                    rs.getInt("view_count"),
+                    rs.getString("status"),
+                    rs.getTimestamp("created_at"),
+                    rs.getTimestamp("updated_at")
+                );
+                list.add(post);
+            }
+        }
+        return list;
+    }
+
+    public int countPosts() throws SQLException {
+        String sql = "SELECT COUNT(*) FROM posts WHERE status='ACTIVE'";
+        try (Connection con = ds.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            if (rs.next()) return rs.getInt(1);
+        }
+        return 0;
+    }
+
+    
+    //
 }
