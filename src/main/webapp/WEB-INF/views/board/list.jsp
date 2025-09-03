@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/list.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/list.css">
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
     </head>
     <body>
@@ -26,8 +26,8 @@
                 <!-- 공지 게시판 -->
                 <div class="notice">
                     <div class="board-title">
-                        <strong>${sessionScope.boards.boardName}</strong>
-                        <p>좋은 질문과 답변으로 친구들의 시간을 아껴주세요.</p>
+                        <strong>${board.boardName}</strong>
+                        <p>${board.description}</p>
                     </div>
                     <div class="filter-wrap">
                         <div class="filter-top">
