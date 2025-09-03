@@ -25,11 +25,11 @@
             alert("댓글 등록에 실패하였습니다.");
         }
         location.href="post.do?mode=select&postId=${postId}";
-    }else if(kind === "comment-update"){
+    }else if(kind === "comment-delete"){
         if(flag){
-            alert("댓글이 수정 되었습니다.");
+            alert("댓글이 삭제 되었습니다.");
         }else{
-            alert("댓글 수정에 실패하였습니다.");
+            alert("댓글 삭제에 실패하였습니다.");
         }
         location.href="post.do?mode=select&postId=${postId}";
     }

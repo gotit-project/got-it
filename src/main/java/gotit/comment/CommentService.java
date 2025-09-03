@@ -49,5 +49,9 @@ public class CommentService {
 	    return commentDao.update(commentId, content);
 	}
 	
+	public boolean deleteS(long commentId) {
+	    return commentDao.delete(commentId);
+	}
+	
 }
 

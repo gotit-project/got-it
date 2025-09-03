@@ -291,6 +291,13 @@
 .comment-item textarea {
 	width: 100%;
 }
+.comment-item .edit-textarea {
+	background: var(--color-bg-white);
+	padding: 15px 20px;
+	margin: 0 0 30px;
+    border: var(--color-border-default);
+    border-radius: 10px;
+}
 .comment-item .profile-info {
   display: flex;
   align-items: center;
@@ -309,6 +316,7 @@
 .comment-item .comment-content {
   font-size: 14px;
   line-height: 1.5;
+  white-space: pre-wrap;
   margin: 10px 0 30px;
 }
 #view .comment-item-footer {
