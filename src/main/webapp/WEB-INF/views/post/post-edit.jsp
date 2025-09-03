@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/edit.css">
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/write.css">
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
     </head>
     <body>
@@ -20,9 +20,10 @@
         <!-- 컨텐츠 -->
    		<div id="write" class="content-wrap">
 		  <form action="post.do?mode=insert" method="post">
-		  		<!-- 유저, 보드 임시아이디 -->
-		   		<input type="hidden" name="user_id" value="1"> 	
-   				<input type="hidden" name="board_id" value="1">
+		  		<!-- 유저, 보드, 카테고 임시아이디 -->
+		   		<input type="hidden" name="userId" value="1"> 	
+   				<input type="hidden" name="boardId" value="1">
+			    <input type="hidden" name="categorieId" value="1" />
    				
    				<c:forEach items="${postList}" var="postDto">
    				
@@ -38,7 +39,7 @@
 			       
 			       <div class="form-group">
 			           <label for="tags">태그</label>
-			           <input type="text" id="tag" name="tag" value="${postDto.tag}">
+			           <input type="text" id="postTag" name="postTag" value="${postDto.postTag}">
 			       </div>
 			       
 			       <div class="form-group">

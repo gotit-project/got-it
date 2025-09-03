@@ -137,12 +137,12 @@
                             <div class="post-bottom">
                                 <div class="post-keyword">
                                     <span class="category">국어</span>
-                                    <span class="hashtag">#${postDto.tag}</span>
+                                    <span class="hashtag">#${postDto.postTag}</span>
                                 </div>
                                 <div class="post-counts">
                                     <div class="view-count">
                                         <img src="../assets/img/main/post_info_icon01.png" alt="조회수">
-                                        <p>${postDto.viewCounts}</p>
+                                        <p>${postDto.viewCount}</p>
                                     </div>
                                     <div class="thumb-count">
                                         <img src="../assets/img/main/post_info_icon02.png" alt="좋아요수">

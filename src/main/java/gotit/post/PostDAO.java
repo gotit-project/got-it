@@ -1,208 +1,170 @@
 package gotit.post;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
+import java.sql.*;
 import java.util.ArrayList;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import java.util.List;
+import javax.naming.*;
 import javax.sql.DataSource;
-
 
 import gotit.common.util.SqlUtils;
 import gotit.model.Post;
 
 public class PostDAO {
-	
-	 private DataSource ds;
-	 
-	 public PostDAO() {
-		    try {
-		        Context initContext = new InitialContext();
-		        Context envContext = (Context)initContext.lookup("java:/comp/env");
-		        ds = (DataSource)envContext.lookup("jdbc/gotDB");
+    private DataSource ds;
 
-		        if(ds == null) {
-		            throw new RuntimeException("DataSource lookup failed: jdbc/gotDB not found");
-		        }
-		    } catch(NamingException ne){
-		        throw new RuntimeException("JNDI NamingException", ne);
-		    }
-		}
+    public PostDAO() {
+        try {
+            Context initContext = new InitialContext();
+            Context envContext = (Context) initContext.lookup("java:/comp/env");
+            ds = (DataSource) envContext.lookup("jdbc/gotDB");
+            if(ds == null) throw new RuntimeException("DataSource lookup failed: jdbc/gotDB not found");
+        } catch(NamingException ne) {
+            throw new RuntimeException("JNDI NamingException", ne);
+        }
+    }
 
-	    public List<Post> postList() {
-	        List<Post> list = new ArrayList<Post>();
-	        
-	        Connection con = null;
-	        PreparedStatement pstmt = null;
-	        ResultSet rs = null;
-	        try{
-	            con = ds.getConnection();
-	            pstmt = con.prepareStatement(SqlUtils.POST_LIST);
-	            rs = pstmt.executeQuery();
-	            while(rs.next()){
-	                long postId = rs.getLong("post_id");
-	                long boardId = rs.getLong("board_id");
-	                long userId = rs.getLong("user_id");
-	                String title = rs.getString("title");
-	                String content = rs.getString("content");
-	                boolean deleted = rs.getBoolean("deleted");
-	                java.sql.Date createdAt = rs.getDate("created_at");
-	                java.sql.Date updatedAt = rs.getDate("updated_at");
-	                String tag = rs.getString("tag");
-	                long viewCounts = rs.getLong("view_counts");
+    public List<Post> postList() {
+        List<Post> list = new ArrayList<>();
+        try(Connection con = ds.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(SqlUtils.POST_LIST);
+            ResultSet rs = pstmt.executeQuery()) {
+            
+            while(rs.next()) {
+                long postId = rs.getLong("post_id");
+                long boardId = rs.getLong("board_id");
+                long userId = rs.getLong("user_id");
+                long categorieId = rs.getLong("categorie_id");
+                String postTag = rs.getString("post_tag");
+                String title = rs.getString("title");
+                String content = rs.getString("content");
+                String status = rs.getString("status");
+                int likeCount = rs.getInt("like_count");
+                int viewCount = rs.getInt("view_count");
 
-	                list.add(new Post(postId, boardId, userId, title, content, deleted, createdAt, updatedAt, tag, viewCounts));
-	            }
-	            return list;
-	        }catch(SQLException se){
-	            return null;
-	        }finally {
-	            try { if (rs != null) rs.close(); } catch(Exception e) {}
-	            try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
-	            try { if (con != null) con.close(); } catch(Exception e) {}
-	        }
-	    }
-	    
-	    public boolean insert(Post postDto) { 
-	        Connection con = null;
-	        PreparedStatement pstmt = null;
-		
-		    try{    
-		        con = ds.getConnection();
-		        pstmt = con.prepareStatement(SqlUtils.POST_INSERT);
-		        
-		        pstmt.setLong(1, postDto.getBoardId());
-		        pstmt.setLong(2, postDto.getUserId());
-		        pstmt.setString(3, postDto.getTitle());
-		        pstmt.setString(4, postDto.getContent());
-		        pstmt.setBoolean(5, postDto.getDeleted());
-		        pstmt.setString(6, postDto.getTag());
-		        
-		        int rowsAffected = pstmt.executeUpdate();
-		        return rowsAffected > 0; // 쿼리가 하나 이상의 행에 영향을 미쳤다면 true
-		    }catch(SQLException se){
-		    	se.printStackTrace();
-		        return false;
-		    }finally {
-		        try { 
-		        	if (pstmt != null) pstmt.close(); 
-	        	} catch(Exception e) {}
-		        try { 
-		        	if (con != null) con.close(); 
-	        	} catch(Exception e) {}
-		    }
-		}
-				   
-		public Post select(long postId) {
-				Connection con = null;
-				PreparedStatement pstmt = null;
-				ResultSet rs = null;
-			try {    
-			 con = ds.getConnection();
-				 pstmt = con.prepareStatement(SqlUtils.POST_SELECT);
-				 pstmt.setLong(1, postId);
-				 rs = pstmt.executeQuery();
-				 if(rs.next()){
-				     long boardId = rs.getLong("board_id");
-				     long userId = rs.getLong("user_id");
-				     String title = rs.getString("title");
-				     String content = rs.getString("content");
-				     boolean deleted = rs.getBoolean("deleted");
-				     java.sql.Date createdAt = rs.getDate("created_at");
-				     java.sql.Date updatedAt = rs.getDate("updated_at");
-				     String tag = rs.getString("tag");
-				     long viewCounts = rs.getLong("view_counts");
-				
-				     return new Post(postId, boardId, userId, title, content, deleted, createdAt, updatedAt, tag, viewCounts);
-				        
-				 } else {
-				     return null; 
-				 }
-			}catch(SQLException se){
-				return null;
-			}finally {
-				 try { if (rs != null) rs.close(); } catch(Exception e) {}
-				 try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
-				 try { if (con != null) con.close(); } catch(Exception e) {}
-			}
-		}
+             // list()
+                list.add(new Post(
+                    rs.getLong("post_id"),
+                    rs.getLong("board_id"),
+                    rs.getLong("user_id"),
+                    rs.getLong("categorie_id"),
+                    rs.getString("title"),
+                    rs.getString("content"),
+                    rs.getString("post_tag"),
+                    rs.getInt("like_count"),
+                    rs.getInt("view_count"),
+                    rs.getString("status"),
+                    rs.getTimestamp("created_at"),
+                    rs.getTimestamp("updated_at")
+                ));
 
-		public boolean delete(long postId) {
-		    Connection con = null;
-		    PreparedStatement pstmt = null;
-		    
-		    try{    
-		        con = ds.getConnection();
-		        pstmt = con.prepareStatement(SqlUtils.POST_DELETE);
-		        pstmt.setLong(1, postId);
-		        int i = pstmt.executeUpdate();
-		        if(i > 0) return true;
-		        else return false; 
-		    }catch(SQLException se){
-		        return false;
-		    }finally {
-		        try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
-		        try { if (con != null) con.close(); } catch(Exception e) {}
-		    }
-		}
-		
-		public boolean update(Post postDto) {
-			Connection con = null;
-		    PreparedStatement pstmt = null;
-		    try {    
-		    	   con = ds.getConnection();
-		           pstmt = con.prepareStatement(SqlUtils.POST_UPDATE);
-		           pstmt.setLong(1, postDto.getBoardId());
-			       pstmt.setLong(2, postDto.getUserId());
-			       pstmt.setString(3, postDto.getTitle());
-			       pstmt.setString(4, postDto.getContent());
-			       pstmt.setBoolean(5, postDto.getDeleted());
-			       pstmt.setString(6, postDto.getTag());
-		           
-		           int i = pstmt.executeUpdate();
-		           return i > 0;
-		    }catch(SQLException se){
-		    	  return false;
-		    }finally {
-		        try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
-		        try { if (con != null) con.close(); } catch(Exception e) {}
-		    }
-		}
-		
-		// 조회 수 
-		public boolean addViewCount(long num) {
-			Connection con = null;
-		    PreparedStatement pstmt = null;
-		    int rowCount = 0;
-		    try {
-		    	 con = ds.getConnection();
-		         pstmt = con.prepareStatement(SqlUtils.POST_VIEW_COUNT);
-		         //?에 바인딩
-		         pstmt.setLong(1, num);
-		         //INSERT or UPDATE or DELETE문을 수행하고 수정,삭제,추가된 row의 개수 리턴
-		         rowCount = pstmt.executeUpdate();
-		     } catch (SQLException se) {
-		         se.printStackTrace();
-		     } finally {
-		         try {
-		             if (pstmt != null)
-		                 pstmt.close();
-		             if (con != null)
-		                 con.close();
-		         } catch (SQLException se) {
-		        }
-		     }
+            }
+        } catch(SQLException se) {
+            se.printStackTrace();
+            return null;
+        }
+        return list;
+    }
 
-		     if (rowCount > 0) {
-		         return true;
-		     } else {
-		         return false;
-		     }
-		}
-		
+    public boolean insert(Post post) {
+        try(Connection con = ds.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(SqlUtils.POST_INSERT)) {
+
+            pstmt.setLong(1, post.getBoardId());
+            pstmt.setLong(2, post.getUserId());
+            pstmt.setLong(3, post.getCategorieId());
+            pstmt.setString(4, post.getTitle());
+            pstmt.setString(5, post.getContent());
+            pstmt.setString(6, post.getPostTag());
+
+            return pstmt.executeUpdate() > 0;
+        } catch(SQLException se) {
+            se.printStackTrace();
+            return false;
+        }
+    }
+
+    public Post select(long postId) {
+        try(Connection con = ds.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(SqlUtils.POST_SELECT)) {
+
+            pstmt.setLong(1, postId);
+            try(ResultSet rs = pstmt.executeQuery()) {
+                if(rs.next()) {
+                    long boardId = rs.getLong("board_id");
+                    long userId = rs.getLong("user_id");
+                    long categorieId = rs.getLong("categorie_id");
+                    String postTag = rs.getString("post_tag");
+                    String title = rs.getString("title");
+                    String content = rs.getString("content");
+                    int likeCount = rs.getInt("like_count");
+                    int viewCount = rs.getInt("view_count");
+                    String status = rs.getString("status");
+
+                 
+                    		
+                 // select()
+                    return new Post(
+                        rs.getLong("post_id"),
+                        rs.getLong("board_id"),
+                        rs.getLong("user_id"),
+                        rs.getLong("categorie_id"),
+                        rs.getString("post_tag"),
+                        rs.getString("title"),
+                        rs.getString("content"),
+                        rs.getInt("like_count"),
+                        rs.getInt("view_count"),
+                        rs.getString("status"),
+                        rs.getTimestamp("created_at"),
+                        rs.getTimestamp("updated_at")
+                    );
+
+                }
+            }
+        } catch(SQLException se) {
+            se.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean delete(long postId) {
+        try(Connection con = ds.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(SqlUtils.POST_DELETE)) {
+
+            pstmt.setLong(1, postId);
+            return pstmt.executeUpdate() > 0;
+        } catch(SQLException se) {
+            se.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean update(Post post) {
+        try(Connection con = ds.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(SqlUtils.POST_UPDATE)) {
+
+            pstmt.setLong(1, post.getBoardId());
+            pstmt.setLong(2, post.getUserId());
+            pstmt.setLong(3, post.getCategorieId());
+            pstmt.setString(4, post.getTitle());
+            pstmt.setString(5, post.getContent());
+            pstmt.setString(6, post.getPostTag());
+
+            return pstmt.executeUpdate() > 0;
+        } catch(SQLException se) {
+            se.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean addViewCount(long postId) {
+        try(Connection con = ds.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(SqlUtils.POST_VIEW_COUNT)) {
+
+            pstmt.setLong(1, postId);
+            return pstmt.executeUpdate() > 0;
+        } catch(SQLException se) {
+            se.printStackTrace();
+            return false;
+        }
+    }
 }

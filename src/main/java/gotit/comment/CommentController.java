@@ -67,13 +67,12 @@ public class CommentController extends HttpServlet {
 		
 		CommentService service = CommentService.getInstance();
 		long postId = Long.parseLong(request.getParameter("postId"));
-		long userId = 1L;
+		long userId = Long.parseLong(request.getParameter("userId"));
 		String content = request.getParameter("content");
 		boolean is_answer = false;
 		boolean accepted = false;
-		boolean deleted = false; 
 		
-		Comment commentDto = new Comment(-1, postId, userId, content, is_answer, accepted, deleted, null, null);
+		Comment commentDto = new Comment(-1, postId, userId, content, is_answer, accepted, null, null);
 		
 		boolean flag = service.insertS(commentDto);
 		
