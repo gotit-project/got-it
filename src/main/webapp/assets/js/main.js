@@ -229,6 +229,5 @@ document.addEventListener("DOMContentLoaded", function() {
 	  // ======================================
 	  // view.html 수정/삭제 드롭다운 메뉴 끝 
 	  // ======================================
-	 
 
 });

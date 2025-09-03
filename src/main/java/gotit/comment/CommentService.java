@@ -32,6 +32,10 @@ public class CommentService {
 	public static CommentService getInstance() {
 		return instance;
 	}
+	
+	public Comment selectS(long commentId) {
+	    return commentDao.select(commentId); // DAO의 commentId 기준 select() 호출
+	}
 
 	public List<Comment> selectListS(long postId) {
         return commentDao.selectList(postId); // DAO 호출하지않으면 무한반복으로 자기자신만 호출
@@ -39,6 +43,10 @@ public class CommentService {
 	
 	public boolean insertS(Comment commentDto) {
 		return commentDao.insert(commentDto);	
+	}
+	
+	public boolean updateS(long commentId, String content) {
+	    return commentDao.update(commentId, content);
 	}
 	
 }
