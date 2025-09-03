@@ -52,7 +52,7 @@ public class PostController extends HttpServlet {
     }
 
 	/* ==========================
-   	 * 작성하기 버튼 누르면 게시글 작성 페이지로 이 
+   	 * 작성하기 버튼 누르면 게시글 작성 페이지로 이동
    	 * ========================== */
     private void write(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/post-write.jsp");
