@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 import gotit.auth.AuthController;
+import gotit.board.BoardController;
 
 
 @WebServlet(urlPatterns={"*.do"})
@@ -24,6 +25,7 @@ public class FrontController extends HttpServlet {
 	
 	// FrontController 내에서 연결할 Controller
 	private final AuthController authController = AuthController.getInstance();
+	private final BoardController boardController = BoardController.getInstance();
  
 	@Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,7 +42,10 @@ public class FrontController extends HttpServlet {
 	        return;
 		} else if (Objects.equals(path, "/auth.do")) {
 			authController.service(request, response);
-			
+			return;
+		} else if (Objects.equals(path, "/board.do")) {
+			boardController.service(request, response);
+			return;
 		} else {
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 	        rd.forward(request, response);
