@@ -10,9 +10,21 @@ public class Comment {
 	private boolean isAnswer;
 	private boolean accepted;
 	private Date createdAt;
-	private Date updatedAt; 
+	private Date updatedAt;
+	private String nickname;
 	
 	public Comment() {};
+	
+	public Comment(long commentId, long postId, String nickname, String content, boolean isAnswer, boolean accepted, Date createdAt, Date updatedAt) {
+		this.commentId = commentId;
+		this.postId = postId;
+		this.nickname = nickname;
+		this.content = content;
+		this.isAnswer = isAnswer;
+		this.accepted = accepted;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+	}
 	
 	public Comment(long commentId, long postId, long userId, String content, boolean isAnswer, boolean accepted, Date createdAt, Date updatedAt) {
 		this.commentId = commentId;
@@ -31,6 +43,14 @@ public class Comment {
 
 	public void setCommentId(long commentId) {
 		this.commentId = commentId;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public long getPostId() {

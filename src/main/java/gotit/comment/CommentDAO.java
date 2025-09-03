@@ -59,8 +59,10 @@ public class CommentDAO {
 			     boolean accepted = rs.getBoolean("accepted");
 			     java.sql.Date createdAt = rs.getDate("created_at");
 			     java.sql.Date updatedAt = rs.getDate("updated_at");
+			     
+			     String nickname = getNickname(userId);
 			
-			     commentList.add(new Comment(commentId, postId, userId, content, isAnswer, accepted, createdAt, updatedAt));        
+			     commentList.add(new Comment(commentId, postId, nickname, content, isAnswer, accepted, createdAt, updatedAt));        
 			 } 
 		}catch(SQLException se){
 			return null;
@@ -70,7 +72,32 @@ public class CommentDAO {
 			 try { if (con != null) con.close(); } catch(Exception e) {}
 		}
 		 return commentList;
-	}  
+	} 
+	
+	private String getNickname(long userId) {
+		    Connection con = null;
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		
+		    try {
+		        con = ds.getConnection();
+		        pstmt = con.prepareStatement("select nickname from users where user_id = ?"); 
+		        pstmt.setLong(1, userId);
+		        rs = pstmt.executeQuery();
+		
+		        if (rs.next()) {
+		            String nickname = rs.getString("nickname");
+		            return nickname;
+		        }
+		    } catch (SQLException se) {
+		    	return null;
+		    } finally {
+		        try { if (rs != null) rs.close(); } catch(Exception e) {}
+		        try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
+		        try { if (con != null) con.close(); } catch(Exception e) {}
+		    }
+		    return null;
+	}
     // ======================================
     // 게시글에 맞는 댓글선택해서 보여주기 
     // ======================================
@@ -149,9 +176,11 @@ public class CommentDAO {
 	            boolean accepted = rs.getBoolean("accepted");	     
 	            java.sql.Date createdAt = rs.getDate("created_at");
 	            java.sql.Date updatedAt = rs.getDate("updated_at");
+	            
+	            String nickname = getNickname(userId);
 	
 	            comment = new Comment(
-	                commentId, postId, userId, content, isAnswer, accepted, createdAt, updatedAt
+	                commentId, postId, nickname, content, isAnswer, accepted, createdAt, updatedAt
 	            );
 	        }
 	    } catch (SQLException se) {
