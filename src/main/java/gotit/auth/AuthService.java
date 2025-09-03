@@ -1,5 +1,7 @@
 package gotit.auth;
 
+import java.sql.SQLException;
+
 import gotit.model.User;
 
 public class AuthService {
@@ -44,5 +46,24 @@ private AuthDAO dao;
 		}
 	}
 	
+	public int signup(String name, String email, String passwd, String alias) {
+	    AuthDAO dao = AuthDAO.getInstance();
+
+//	    // 1) 중복 검사
+//	    if (dao.existsByEmail(dto.getEmail())) return SignUpCode.DUPLICATE_EMAIL;
+//	    if (dao.existsByAlias(dto.getAlias())) return SignUpCode.DUPLICATE_ALIAS;
+
+	    // 2) 비번 해시 (BCrypt 권장)
+	    //String hashed = BCrypt.hashpw(dto.getRawPassword(), BCrypt.gensalt());
+
+	    // 3) 삽입
+	    try {
+	        int rows = dao.insertUser(name, email, passwd, alias);
+	        return 1; //rows == 1 ? SignUpCode.SUCCESS : SignUpCode.DB_ERROR;
+	    } catch (SQLException e) {
+	        // unique 제약 위반 등을 세부코드로 매핑해도 됨
+	        return -1; //SignUpCode.DB_ERROR;
+	    }
+	}
 	
 }

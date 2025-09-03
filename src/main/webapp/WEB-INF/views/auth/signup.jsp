@@ -22,7 +22,7 @@ pageEncoding="UTF-8"%>
 
         <form
           class="auth-form"
-          action="/auth/register"
+          action="auth.do?mode=signup-action"
           method="post"
           novalidate
           id="registerForm"
@@ -47,13 +47,28 @@ pageEncoding="UTF-8"%>
                 />
                 <label for="username" class="inp-lb">이름</label>
               </div>
+              
+               <!-- 닉네임 -->
+              <div class="inp-group">
+                <input
+                  type="text"
+                  class="inp-fd"
+                  id="alias"
+                  name="alias"
+                  placeholder=""
+                  required
+                  minlength="2"
+                  maxlength="8"
+                />
+                <label for="alias" class="inp-lb">닉네임</label>
+              </div>
 
               <!-- 이메일 -->
               <div class="inp-group">
                 <input
                   type="email"
                   class="inp-fd"
-                  id="useremail"
+                  id="email"
                   name="email"
                   placeholder=""
                   required
@@ -69,7 +84,7 @@ pageEncoding="UTF-8"%>
                   type="password"
                   class="inp-fd"
                   id="passwd"
-                  name="password"
+                  name="passwd"
                   placeholder=""
                   required
                   autocomplete="new-password"
@@ -91,21 +106,6 @@ pageEncoding="UTF-8"%>
                   minlength="8"
                 />
                 <label for="passwdConfirm" class="inp-lb">비밀번호 확인</label>
-              </div>
-
-              <!-- 닉네임 -->
-              <div class="inp-group">
-                <input
-                  type="test"
-                  class="inp-fd"
-                  id="alias"
-                  name="alias"
-                  placeholder=""
-                  required
-                  minlength="2"
-                  maxlength="8"
-                />
-                <label for="alias" class="inp-lb">닉네임</label>
               </div>
 
               <!-- 약관 동의 -->
