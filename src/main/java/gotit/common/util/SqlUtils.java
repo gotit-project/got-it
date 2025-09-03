@@ -6,6 +6,10 @@ public class SqlUtils {
 	public static final String AUTH_LOGIN = "select * from users where email=? ";
 	public static final String AUTH_SIGNUP = "insert into users (username, email, password_hash, nickname) values ( ?, ?, ?, ? )";
 	
+	//BoardDAO SQL
+	public static final String BOARD_SELECT = "select * from boards where board_name=? ";
+	public static final String CATEGORIE_SELECT = "select * from boards where board_name=? ";
+	
 	
 	//PostDAO SQL
 	public final static String POST_LIST = "select * from POSTS";

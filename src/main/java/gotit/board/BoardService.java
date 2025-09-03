@@ -15,23 +15,10 @@ public class BoardService {
 
     public static BoardService getInstance(){ return INSTANCE; }
 
-    public List<Board> getBoards(String typeCode) {
+    public Board getBoard(String boardName) {
         try {
-            if (typeCode == null || typeCode.isBlank()) {
-                return dao.findAll();
-            }
-            return dao.findByTypeCode(typeCode);
+            return dao.findByBoard(boardName);
         } catch (SQLException e) {
-            // TODO: 로깅
-            return Collections.emptyList();
-        }
-    }
-
-    public Board getBoard(long boardId) {
-        try {
-            return dao.findById(boardId);
-        } catch (SQLException e) {
-            // TODO: 로깅
             return null;
         }
     }
