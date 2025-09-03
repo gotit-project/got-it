@@ -36,19 +36,18 @@ public class BoardDAO {
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(BOARD_SELECT);
-			
 			pstmt.setString(1, boardName);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				long boardId = rs.getLong(1);
+				int boardId = rs.getInt(1);
 				//String boardName = rs.getString(2);
-				String description = rs.getString(2);
-				int postCount = rs.getInt(2);
+				String description = rs.getString(3);
+				int postCount = rs.getInt(4);
 				
-				ArrayList<Categorie> categorie = findByCategorie(boardName);
-				
-				return new Board(boardId, boardName, description, postCount, null);
+				ArrayList<Categorie> categorie = findByCategorie(boardId);
+				return new Board(boardId, boardName, description, postCount, categorie);
 			}else {
+				System.out.println("안녕?");
 				return null;
 			}
 		}catch(SQLException se) {
@@ -62,7 +61,7 @@ public class BoardDAO {
 		}
     }
     
-    private ArrayList<Categorie> findByCategorie(String boardName) {
+    private ArrayList<Categorie> findByCategorie(int boardId) {
     	ArrayList<Categorie> list = new ArrayList<Categorie>();
     	Connection con = null;
 		PreparedStatement pstmt = null;
@@ -71,12 +70,12 @@ public class BoardDAO {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(CATEGORIE_SELECT);
 			
-			pstmt.setString(1, boardName);
+			pstmt.setInt(1, boardId);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
 				int categorieId = rs.getInt(1);
-	            int boardId = rs.getInt(2);
+	            //int boardId = rs.getInt(2);
 	            String categorieName = rs.getString(3);
 				list.add(new Categorie(categorieId, boardId, categorieName));
 			}

@@ -4,8 +4,6 @@ package gotit.board;
 import gotit.model.Board;
 
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.List;
 
 public class BoardService {
     private static final BoardService INSTANCE = new BoardService();
@@ -17,6 +15,7 @@ public class BoardService {
 
     public Board getBoard(String boardName) {
         try {
+        	System.out.println(boardName);
             return dao.findByBoard(boardName);
         } catch (SQLException e) {
             return null;

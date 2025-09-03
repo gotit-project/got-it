@@ -7,7 +7,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
-import java.util.List;
 
 import static gotit.core.ViewPaths.*; // 예: BOARD_LIST = "/WEB-INF/views/board/list.jsp"
 
@@ -35,9 +34,11 @@ public class BoardController {
             throws ServletException, IOException {
         String boardName = request.getParameter("name"); // QNA/KNOW/FREE/NOTICE or null
         Board board = service.getBoard(boardName);
-        request.setAttribute("boards", board);
-        System.out.println("여기까지는 옴");
-        System.out.println(board.getBoardName());
+        System.out.println(boardName);
+        
+        request.setAttribute("board", board);
+        
+        System.out.println("boards attr = " + request.getAttribute("board"));
         RequestDispatcher rd = request.getRequestDispatcher(BOARD_LIST);
         rd.forward(request, response);
     }
