@@ -26,7 +26,7 @@
                 <!-- 공지 게시판 -->
                 <div class="notice">
                     <div class="board-title">
-                        <strong>${sessionScope.boards.}</strong>
+                        <strong>${sessionScope.boards.boardName}</strong>
                         <p>좋은 질문과 답변으로 친구들의 시간을 아껴주세요.</p>
                     </div>
                     <div class="filter-wrap">
