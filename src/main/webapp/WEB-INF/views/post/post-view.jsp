@@ -14,6 +14,8 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/view.css">
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
+        <script src="${pageContext.request.contextPath}/assets/js/view.js" defer></script>
+        
     </head>
     <body>
 
@@ -36,7 +38,9 @@
                         <div class="profile-info">
                             <p class="writer">${postDto.userId}</p>
                             <%-- 이 부분에서 `DateUtils` 클래스를 사용합니다 --%>
-    						<span class="time">${DateUtils.formatTimeAgo(postDto.updatedAt)}</span>
+    						<span class="time">
+							    ${postDto.updatedAt != null ? DateUtils.formatTimeAgo(postDto.updatedAt) : ""}
+							</span>
                             <p class="view-count">조회수 <span>${postDto.viewCounts}</span></p>
                             <span class="corrected-mark">수정됨</span> 
                         </div>

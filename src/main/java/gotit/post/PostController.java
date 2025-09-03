@@ -79,7 +79,6 @@ public class PostController extends HttpServlet {
 	        throws ServletException, IOException {
 
 		String postIdStr = request.getParameter("postId");
-
 		long postId = Long.parseLong(postIdStr);	
 		
 		PostService service = PostService.getInstance();

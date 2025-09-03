@@ -29,6 +29,7 @@ public class CommentController extends HttpServlet {
 				case "insert": insert(request, response); break;  
 				case "select": select(request, response); break; 
 				case "update": update(request, response); break; 
+		    	 case "delete": delete(request, response); break; 
 				default: list(request, response);
 			}
 		}else {
@@ -93,33 +94,35 @@ public class CommentController extends HttpServlet {
 	    String content = request.getParameter("content");
 
 	    CommentService service = CommentService.getInstance();
-	    boolean flag = service.updateContentS(commentId, content);
+	    boolean flag = service.updateS(commentId, content);
 
 	    request.setAttribute("flag", flag);
-	    request.setAttribute("kind", "comment-update");
+	    response.setContentType("application/json;charset=UTF-8");
+	    response.getWriter().write("{\"flag\": " + (flag ? "true" : "false") + "}");
+	}
+	
+	private void delete(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+		
 
-	    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/msg.jsp");
-	    rd.forward(request, response);
+	    long commentId = Long.parseLong(request.getParameter("commentId"));
+	    
+
+	    CommentService service = CommentService.getInstance();
+	    boolean flag = false;
+
+	    try {
+	        flag = service.deleteS(commentId);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    response.setContentType("application/json;charset=UTF-8");
+	    response.getWriter().write("{\"flag\":" + flag + "}");
+	    response.getWriter().flush();
 	}
 
-//
-//	private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//	   
-//		String commentIdStr = request.getParameter("commentId");
-//		long commentId = Long.parseLong(commentIdStr);	
-//		
-//		CommentService service = CommentService.getInstance();
-//	    Comment commentDto = service.selectS(commentId);
-//
-//	    request.setAttribute("commentDto", commentDto);
-//	    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/post-comment-edit.jsp");
-//	    rd.forward(request, response);
-//	}
-//	
-//	
+
 	
-
-
-
 	
 }

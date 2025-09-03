@@ -21,7 +21,6 @@ public class CommentDAO {
 	 private DataSource ds;
 	 
 	 public CommentDAO() {
-		 System.out.println(">> Comment insert 실행: " );
 	
 	    try {
 	        Context initContext = new InitialContext();
@@ -168,6 +167,28 @@ public class CommentDAO {
 	
 	    return comment;
 	}
+	
 
+	public boolean delete(long commentId) {
+	    Comment comment = null;
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+	    try{    
+	        con = ds.getConnection();
+	        pstmt = con.prepareStatement(SqlUtils.COMMENT_DELETE);
+	        pstmt.setLong(1, commentId);
+	        int i = pstmt.executeUpdate();
+	        if(i > 0) return true;
+	        else return false; 
+	    }catch(SQLException se){
+	        return false;
+	    }finally {
+	        try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
+	        try { if (con != null) con.close(); } catch(Exception e) {}
+	    }
+	    
+	}
 
 }
