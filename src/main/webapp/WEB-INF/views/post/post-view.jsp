@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/view.css">
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
+         <script src="${pageContext.request.contextPath}/assets/js/main.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/view.js" defer></script>
         
     </head>
@@ -41,7 +42,7 @@
     						<span class="time">
 							    ${postDto.updatedAt != null ? DateUtils.formatTimeAgo(postDto.updatedAt) : ""}
 							</span>
-                            <p class="view-count">조회수 <span>${postDto.viewCounts}</span></p>
+                            <p class="view-count">조회수 <span>${postDto.viewCount}</span></p>
                             <span class="corrected-mark">수정됨</span> 
                         </div>
                         <!-- ======================================
@@ -78,7 +79,7 @@
                     </div>
                     <div class="post-bottom">
                         <div class="post-keywork">
-                            <span class="hashtag">#${postDto.tag}</span>
+                            <span class="hashtag">#${postDto.postTag}</span>
                         </div>
                         <button class="report-button">
                             신고

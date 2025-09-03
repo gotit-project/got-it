@@ -1,35 +1,42 @@
 package gotit.model;
 
-import java.sql.Date;
-
+import java.sql.Timestamp;
 
 public class Post {
-	private long postId;
-	private long boardId;
-	private long userId;
-	private String title;
-	private String content;
-	private boolean deleted;
-	private Date createdAt;
-	private Date updatedAt;
-	private String tag;
-	private long viewCounts; 
-	
-	
-	public Post() {};
-	
-	public Post(long postId, long boardId, long userId, String title, String content, boolean deleted, Date createdAt, Date updatedAt, String tag, long viewCounts) {
-		this.postId = postId;
-		this.boardId = boardId;
-		this.userId = userId;
-		this.title = title;
-		this.content = content;
-		this.deleted = deleted;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-		this.tag = tag;
-		this.viewCounts = viewCounts;
-	}
+	   private long postId;
+	    private long boardId;
+	    private long userId;
+	    private long categorieId;
+	    private String postTag;
+	    private String title;
+	    private String content;
+	    private int likeCount;
+	    private int viewCount;
+	    private String status;
+	    private Timestamp createdAt;
+	    private Timestamp updatedAt;
+
+	    // 모든 필드를 포함하는 생성자 하나
+	    public Post(long postId, long boardId, long userId,long categorieId, String postTag, String title, String content,
+	                int likeCount, int viewCount, String status, Timestamp createdAt, Timestamp updatedAt) {
+	        this.postId = postId;
+	        this.boardId = boardId;
+	        this.userId = userId;
+	        this.categorieId = categorieId;
+	        this.postTag = postTag;
+	        this.title = title;
+	        this.content = content;
+	        this.likeCount = likeCount;
+	        this.viewCount = viewCount;
+	        this.status = status;
+	        this.createdAt = createdAt;
+	        this.updatedAt = updatedAt;
+	    }
+
+	    // Insert용: likeCount, viewCount, createdAt, updatedAt 생략 가능
+	    public Post(long postId, long boardId, long userId, long categorieId, String postTag, String title, String content) {
+	        this(postId, boardId, categorieId, userId, postTag, title, content, 0, 0, null, null, null);
+	    }
 
 	public long getPostId() {
 		return postId;
@@ -71,46 +78,64 @@ public class Post {
 		this.content = content;
 	}
 
-	public boolean getDeleted() {
-		return deleted;
+	public String getPostTag() {
+		return postTag;
 	}
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
+	public void setPostTag(String postTag) {
+		this.postTag = postTag;
 	}
 
-	public Date getCreatedAt() {
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
+	public int getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
+	}
+
+	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date created_at) {
-		this.createdAt = created_at;
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public Date getUpdatedAt() {
+	public Timestamp getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdated_at(Date updatedAt) {
+	public void setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
+	public long getCategorieId() {
+		return categorieId;
+	}
+
+	public void setCategorieId(long categorieId) {
+		this.categorieId = categorieId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	
-	public String getTag() {
-		return tag;
-	}
 	
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
-
-	public long getViewCounts() {
-		return viewCounts;
-	}
-
-	public void setViewCounts(long viewCounts) {
-		this.viewCounts = viewCounts;
-	}
-
+	
 
 	
 }

@@ -1,6 +1,7 @@
 package gotit.common.util;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate; // java.sql.Date를 LocalDate로 변환하기 위해 추가
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -54,4 +55,10 @@ public class DateUtils {
             return years + "년 전";
         }
     }
+    
+    public static String formatTimeAgo(Timestamp ts) {
+        if (ts == null) return "";
+        return formatTimeAgo(ts.toLocalDateTime());
+    }
+
 }

@@ -57,11 +57,10 @@ public class CommentDAO {
 			     String content = rs.getString("content");
 			     boolean isAnswer = rs.getBoolean("is_answer");
 			     boolean accepted = rs.getBoolean("accepted");
-			     boolean deleted = rs.getBoolean("deleted");
 			     java.sql.Date createdAt = rs.getDate("created_at");
 			     java.sql.Date updatedAt = rs.getDate("updated_at");
 			
-			     commentList.add(new Comment(commentId, postId, userId, content, isAnswer, accepted, deleted, createdAt, updatedAt));        
+			     commentList.add(new Comment(commentId, postId, userId, content, isAnswer, accepted, createdAt, updatedAt));        
 			 } 
 		}catch(SQLException se){
 			return null;
@@ -90,7 +89,6 @@ public class CommentDAO {
 	        pstmt.setString(3, commentDto.getContent());
 	        pstmt.setBoolean(4, commentDto.isIsAnswer());
 	        pstmt.setBoolean(5, commentDto.isAccepted());
-	        pstmt.setBoolean(6, commentDto.isDeleted());
 	        
 	        int rowsAffected = pstmt.executeUpdate();
 	        return rowsAffected > 0;
@@ -148,13 +146,12 @@ public class CommentDAO {
 	            long userId = rs.getLong("user_id");
 	            String content = rs.getString("content");
 	            boolean isAnswer = rs.getBoolean("is_answer");
-	            boolean accepted = rs.getBoolean("accepted");
-	            boolean deleted = rs.getBoolean("deleted");		     
+	            boolean accepted = rs.getBoolean("accepted");	     
 	            java.sql.Date createdAt = rs.getDate("created_at");
 	            java.sql.Date updatedAt = rs.getDate("updated_at");
 	
 	            comment = new Comment(
-	                commentId, postId, userId, content, isAnswer, accepted, deleted, createdAt, updatedAt
+	                commentId, postId, userId, content, isAnswer, accepted, createdAt, updatedAt
 	            );
 	        }
 	    } catch (SQLException se) {
