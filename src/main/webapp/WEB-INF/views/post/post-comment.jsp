@@ -5,7 +5,7 @@
           <p><span>7</span> 개의 답변</p>
           <form action="${pageContext.request.contextPath}/comment.do?mode=insert&postId=${postDto.postId}" method="post">
            <!-- 유저, 보드, 카테고 임시아이디 -->
-		   		<input type="hidden" name="userId" value="1"> 	
+		   		<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
    				<input type="hidden" name="boardId" value="1">
 			    <input type="hidden" name="categorieId" value="1" />
            <div class="write-area">
@@ -27,7 +27,7 @@
 	                   <img src="../assets/img/common/post_info_profile06.png" class="comment-profile" alt="프로필 사진">
 	                   <div class="profile-info">
 	                       <div>
-	                           <p class="writer">${commentDto.userId}</p>
+	                           <p class="writer">${commentDto.nickname}</p>
 	                           <span class="time">2시간 전</span>
 	                           <span class="corrected-mark">수정됨</span> 
 	                       </div>

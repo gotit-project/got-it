@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/view.css">
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
+        <script src="${pageContext.request.contextPath}/assets/js/common/header.js" defer></script>
          <script src="${pageContext.request.contextPath}/assets/js/main.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/view.js" defer></script>
         
@@ -37,7 +38,7 @@
                     <div class="post-item-header">
                         <img src="../assets/img/common/post_info_profile02.png" class="profile" alt="프로필 사진">
                         <div class="profile-info">
-                            <p class="writer">${postDto.userId}</p>
+                            <p class="writer">${sessionScope.loginOkUser.userName}</p>
                             <%-- 이 부분에서 `DateUtils` 클래스를 사용합니다 --%>
     						<span class="time">
 							    ${postDto.updatedAt != null ? DateUtils.formatTimeAgo(postDto.updatedAt) : ""}
