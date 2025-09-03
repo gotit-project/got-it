@@ -99,3 +99,51 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+// ======================================
+// post-view.jsp 댓글 수정 버튼 클릭 시 인풋박스
+// ======================================
+ document.querySelectorAll('.edit-button').forEach(editButton => {
+      editButton.addEventListener('click', function() {
+			alert('gg');
+          const commentId = this.dataset.commentId;
+          const commentItem = document.getElementById(`comment-${commentId}`);
+          const contentP = commentItem.querySelector('.comment-content');
+          const currentText = contentP.textContent;
+
+          // 기존 내용 <p>를 <textarea>로 바꾸기
+          const textarea = document.createElement('textarea');
+          textarea.value = currentText;
+          textarea.classList.add('edit-textarea');
+
+          contentP.replaceWith(textarea);
+
+          // 수정 완료 버튼 생성
+          const saveButton = document.createElement('button');
+		  saveButton.type = "button"; // 중요!
+		  saveButton.textContent = '저장';
+		  
+          saveButton.addEventListener('click', function() {
+              const updatedContent = textarea.value;
+
+              // AJAX로 서버에 업데이트 요청
+			  fetch(`${window.location.origin}/got-it/post/comment.do?mode=update`, {
+			      method: 'POST',
+			      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			      body: `commentId=${commentId}&content=${encodeURIComponent(updatedContent)}`
+			  })
+              .then(response => response.text())
+              .then(data => {
+                  // 성공하면 textarea 다시 <p>로 바꾸기
+                  const newP = document.createElement('p');
+                  newP.classList.add('comment-content');
+                  newP.textContent = updatedContent;
+                  textarea.replaceWith(newP);
+                  saveButton.remove();
+              })
+              .catch(err => console.error(err));
+          });
+
+          commentItem.querySelector('.comment-item-footer').appendChild(saveButton);
+      });
+ });

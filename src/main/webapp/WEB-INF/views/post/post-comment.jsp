@@ -18,7 +18,7 @@
 		  <!-- 댓글 한 묶음 -->
 	      <div class="comment-area">
 	      <c:forEach items="${commentList}" var="commentDto">
-	          <div class="comment-item">
+	          <div class="comment-item" id="comment-${commentDto.commentId}">>
 	               <div class="comment-item-header">
 	                   <img src="../assets/img/common/post_info_profile06.png" class="comment-profile" alt="프로필 사진">
 	                   <div class="profile-info">
@@ -35,12 +35,13 @@
 	                       </button>
 	                   </div>
 	               </div>
-	               <p class="comment-content">
+	               <textarea class="comment-content">
 	               	${commentDto.content}
-	               </p>
+	               </textarea>
 	               <div class="comment-item-footer">
-	                   <button>댓글쓰기</button>
-	                   <button>수정</button>
+	                   <button>답글쓰기</button>
+	                   <button data-comment-id=${commentDto.commentId} class="edit-button">수정</button>
+	                   <button>삭제</button>
 	               </div>
 	          	</div>
 	          </c:forEach>

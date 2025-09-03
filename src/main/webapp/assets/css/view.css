@@ -288,6 +288,9 @@
   display: flex;
   align-items: center;
 }
+.comment-item textarea {
+	width: 100%;
+}
 .comment-item .profile-info {
   display: flex;
   align-items: center;
