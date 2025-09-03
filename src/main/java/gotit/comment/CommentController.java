@@ -15,7 +15,7 @@ import gotit.model.Comment;
 import gotit.model.Post;
 import gotit.comment.CommentService;
 
-@WebServlet("/post/comment.do")
+@WebServlet("/comment.do")
 public class CommentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    

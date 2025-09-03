@@ -3,7 +3,7 @@
 	  <!-- 댓글 -->
       <div class="comment-wrap">
           <p><span>7</span> 개의 답변</p>
-          <form action="${pageContext.request.contextPath}/post/comment.do?mode=insert&postId=${postDto.postId}" method="post">
+          <form action="${pageContext.request.contextPath}/comment.do?mode=insert&postId=${postDto.postId}" method="post">
            <!-- 유저, 보드, 카테고 임시아이디 -->
 		   		<input type="hidden" name="userId" value="1"> 	
    				<input type="hidden" name="boardId" value="1">
