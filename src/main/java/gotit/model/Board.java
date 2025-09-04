@@ -8,15 +8,15 @@ public class Board {
     private String boardName;
     private String description;
     private int postCount;
-    private ArrayList<Categorie> categorie;
+    private ArrayList<Category> categories;
     
-	public Board(int boardId, String boardName, String description, int postCount, ArrayList<Categorie> categorie) {
+	public Board(int boardId, String boardName, String description, int postCount, ArrayList<Category> categories) {
 		super();
 		this.boardId = boardId;
 		this.boardName = boardName;
 		this.description = description;
 		this.postCount = postCount;
-		this.categorie = categorie;
+		this.categories = categories;
 	}
 	
 	public int getBoardId() {
@@ -43,11 +43,11 @@ public class Board {
 	public void setPostCount(int postCount) {
 		this.postCount = postCount;
 	}
-	public ArrayList<Categorie> getCategorie() {
-		return categorie;
+	public ArrayList<Category> getCategories() {
+		return categories;
 	}
-	public void setCategorie(ArrayList<Categorie> categorie) {
-		this.categorie = categorie;
+	public void setCategorie(ArrayList<Category> categories) {
+		this.categories = categories;
 	}
     
 }

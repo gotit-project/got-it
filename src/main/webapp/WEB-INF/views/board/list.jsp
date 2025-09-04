@@ -33,7 +33,15 @@
                     <div class="filter-wrap">
                         <div class="filter-top">
 			                <div class="write-button-wrap">
-			                    <a href="post.do?mode=write" class="write-button">작성하기</a>
+			                <c:choose>
+					        <c:when test="${not empty sessionScope.loginOkUser}">
+					            <a href="post.do?mode=write&id=${board.boardId }" class="write-button">작성하기</a>
+					        </c:when>
+					        
+					        <c:otherwise>
+					            <a href="javascript:alert('로그인이 필요한 서비스입니다.');" class="write-button">작성하기</a>
+					        </c:otherwise>
+   						 </c:choose>
 			                </div>
 					    
                            <!-- ======================================
@@ -45,32 +53,26 @@
                                 - 모바일에서는 숨김 처리
                             ====================================== -->
                             <div class="category-button-wrap desktop-only">
-      <c:if test="${not empty board.categorie}">
-  <c:forEach items="${board.categorie}" var="cat">
-    <button>${cat.categorieName}</button>
-  </c:forEach>
-  <button>전체</button>
-</c:if>
+						      <c:if test="${not empty board.categories}">
+								  <c:forEach items="${board.categories}" var="cat">
+								    <button>${cat.categoryName}</button>
+							  	</c:forEach>
+								  <button>전체</button>
+							  </c:if>
                             
                             </div>
 
                             <!-- ======================================
-                                mobile-only 클래스 적용
-                                - 화면이 모바일일 때만 셀렉트박스 표시
-                                - 데스크톱에서는 숨김 처리
+                                게시판 카테고리 가져오기
                             ====================================== -->
                             <div class="category-button-wrap mobile-only">
                                 <select id="mobile-category-select">
-                                    <option>국어</option>
-                                    <option>영어</option>
-                                    <option>수학</option>
-                                    <option>사회</option>
-                                    <option>과학</option>
-                                    <option>역사</option>
-                                    <option>정보/컴퓨터</option>
-                                    <option>예체능</option>
-                                    <option>기타</option>
-                                    <option>전체</option>
+                                 	<c:if test="${not empty board.categories}">
+ 										<c:forEach items="${board.categories}" var="cat">
+                                    		<option>${cat.categoryName}</option>
+                                		</c:forEach>
+	                                    <option>전체</option>
+ 									 </c:if>
                                 </select>
                             </div>
 
@@ -91,16 +93,16 @@
                             </div>
                             <div class="paging-wrap">
                                 <div class="paging-text">
-                                    <span>1</span>
+                                    <span>${curPage}</span>
                                     <p>/</p>
-                                    <span>182</span>
+                                    <span>${totalPage}</span>
                                     <p>페이지</p>
                                 </div>
                                 <div class="paging-button">
-                                    <a class="prev" href="board.do?mode=list&name=${board.boardName}&page=${curPage - 1}">
+                                    <a class="prev" href="board.do?mode=list&id=${board.boardId}&page=${curPage - 1}">
                                         <img src="../assets/img/list/paging_button_icon.svg" alt="">
                                     </a>
-                                    <a class="next" href="board.do?mode=list&name=${board.boardName}&page=${curPage + 1}">
+                                    <a class="next" href="board.do?mode=list&id=${board.boardId}&page=${curPage + 1}">
                                         <img src="../assets/img/list/paging_button_icon.svg" alt="">
                                     </a>
                                 </div>
@@ -118,29 +120,29 @@
 						    <td align='center' colspan="5">데이터가 하나도 없음</td>
 						    </tr>
 						</c:if>
-						<c:forEach items="${postList}" var="postDto">
-                        <a href="post.do?mode=select&postId=${postDto.postId}">
+						<c:forEach items="${postList}" var="post">
+                        <a href="post.do?mode=view&postId=${post.postId}">
                             <div class="post-item">
                                 <div class="post-item-header">
                                     <img src="../assets/img/common/post_info_profile02.png" class="profile" alt="프로필 사진">
-                                    <p class="writer">${postDto.userId}</p>
+                                    <p class="writer">${post.nickName}</p>
                                     <%-- 이 부분에서 `DateUtils` 클래스를 사용합니다 --%>
-            						<span class="time">${DateUtils.formatTimeAgo(postDto.updatedAt)}</span>
+            						<span class="time">${DateUtils.formatTimeAgo(post.updatedAt)}</span>
                                 </div>
                             </div>
-                            <p class="post-title">${postDto.title}</p>
+                            <p class="post-title">${post.title}</p>
                             <p class="post-content">
-                                ${postDto.content}
+                                ${post.rawContent}
                             </p>
                             <div class="post-bottom">
                                 <div class="post-keyword">
-                                    <span class="category">국어</span>
-                                    <span class="hashtag">${postDto.postTag}</span>
+                                    <span class="category">${post.categoryName}</span>
+                                    <span class="hashtag">${post.postTag}</span>
                                 </div>
                                 <div class="post-counts">
                                     <div class="view-count">
                                         <img src="../assets/img/main/post_info_icon01.png" alt="조회수">
-                                        <p>${postDto.viewCount}</p>
+                                        <p>${post.viewCount}</p>
                                     </div>
                                     <div class="thumb-count">
                                         <img src="../assets/img/main/post_info_icon02.png" alt="좋아요수">
