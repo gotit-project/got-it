@@ -8,7 +8,7 @@ public class SqlUtils {
 	
 	//BoardDAO SQL
 	public static final String BOARD_SELECT = "select * from boards where board_name=? ";
-	public static final String CATEGORIE_SELECT = "select * from boards where board_id=? ";
+	public static final String CATEGORIE_SELECT = "select * from board_categories where board_id=? ";
 	
 	
 	//PostDAO SQL

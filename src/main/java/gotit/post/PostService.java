@@ -54,24 +54,22 @@ public class PostService {
     }
 	
 	//페이징
-
-    public List<Post> listPageS(int curPage, int pageSize) {
+    public List<Post> listPageS(int boardId, int curPage, int pageSize) {
         int start = (curPage - 1) * pageSize;
         try {
-            return postDao.listPage(start, pageSize);
+            return postDao.listPage(boardId, start, pageSize);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return new ArrayList<>();
     }
 
-    public int countS() {
+    public int countS(int boardId) {
         try {
-            return postDao.countPosts();
+            return postDao.countPosts(boardId);
         } catch (Exception e) {
-            e.printStackTrace();
+        	throw new RuntimeException("countS failed: boardId=" + boardId, e);
         }
-        return 0;
     }
     
 }

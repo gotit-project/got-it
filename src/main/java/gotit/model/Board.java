@@ -4,13 +4,13 @@ package gotit.model;
 import java.util.ArrayList;
 
 public class Board {
-    private long boardId;
+    private int boardId;
     private String boardName;
     private String description;
     private int postCount;
     private ArrayList<Categorie> categorie;
     
-	public Board(long boardId, String boardName, String description, int postCount, ArrayList<Categorie> categorie) {
+	public Board(int boardId, String boardName, String description, int postCount, ArrayList<Categorie> categorie) {
 		super();
 		this.boardId = boardId;
 		this.boardName = boardName;
@@ -19,10 +19,10 @@ public class Board {
 		this.categorie = categorie;
 	}
 	
-	public long getBoardId() {
+	public int getBoardId() {
 		return boardId;
 	}
-	public void setBoardId(long boardId) {
+	public void setBoardId(int boardId) {
 		this.boardId = boardId;
 	}
 	public String getBoardName() {
