@@ -13,10 +13,10 @@ public class BoardService {
 
     public static BoardService getInstance(){ return INSTANCE; }
 
-    public Board getBoard(String boardName) {
+    public Board getBoard(int boardId) {
         try {
-        	System.out.println(boardName);
-            return dao.findByBoard(boardName);
+        	System.out.println(boardId);
+            return dao.findByBoard(boardId);
         } catch (SQLException e) {
             return null;
         }

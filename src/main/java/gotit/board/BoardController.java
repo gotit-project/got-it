@@ -38,17 +38,12 @@ public class BoardController {
             throws ServletException, IOException {
 
         // 0) 보드 조회 (필수 파라미터 검증)
-        final String boardName = request.getParameter("name");
-        if (boardName == null || boardName.isBlank()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Required param 'name' is missing");
-            return;
-        }
-        final Board board = boardService.getBoard(boardName);
+        final int boardId = Integer.parseInt(request.getParameter("id"));
+        final Board board = boardService.getBoard(boardId);
         if (board == null) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Board not found: " + boardName);
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Board not found: ");
             return;
         }
-        final int boardId = board.getBoardId();
 
         // 1) 페이징 파라미터 (기본값 + 안전 클램프)
         int curPage = 1;                      // 1-base
@@ -88,15 +83,12 @@ public class BoardController {
         // 4) 뷰로 전달
         request.setAttribute("board", board);
         request.setAttribute("postList", list);
-        request.setAttribute("curPage", curPage);
-        request.setAttribute("totalPage", totalPage);
+        request.setAttribute("curPage", curPage); //현재 페이지
+        request.setAttribute("totalPage", totalPage); //총 페이지
         request.setAttribute("pageSize", pageSize);
         request.setAttribute("totalCount", totalCount);
 
         System.out.println("postList size = " + list.size());
-        for (Post p : list) {
-            System.out.println("postId=" + p.getPostId() + ", title=" + p.getTitle());
-        }
         // (선택) 디버깅 로그
         System.out.printf("[Board:list] boardId=%d, total=%d, pageSize=%d, totalPage=%d, cur=%d, offset=%d%n",
                 boardId, totalCount, pageSize, totalPage, curPage, offset);

@@ -22,7 +22,7 @@
 		  <form action="post.do?mode=insert" method="post">
 		  		<!-- 유저, 보드, 카테고 임시아이디 -->
 		  		<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
-   				<input type="hidden" name="boardId" value="1">
+   				<input type="hidden" name="boardId" value="${postDto.boardId}">
 			    <input type="hidden" name="categorieId" value="1" />
 			   				
 		       <div class="form-group">

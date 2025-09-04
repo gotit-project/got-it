@@ -2,7 +2,7 @@
 package gotit.board;
 
 import gotit.model.Board;
-import gotit.model.Categorie;
+import gotit.model.Category;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -29,23 +29,23 @@ public class BoardDAO {
     
     
 
-    public Board findByBoard(String boardName) throws SQLException {
+    public Board findByBoard(int boardId) throws SQLException {
     	Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(BOARD_SELECT);
-			pstmt.setString(1, boardName);
+			pstmt.setInt(1, boardId);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				int boardId = rs.getInt(1);
-				//String boardName = rs.getString(2);
+				//int boardId = rs.getInt(1);
+				String boardName = rs.getString(2);
 				String description = rs.getString(3);
 				int postCount = rs.getInt(4);
 				
-				ArrayList<Categorie> categorie = findByCategorie(boardId);
-				return new Board(boardId, boardName, description, postCount, categorie);
+				ArrayList<Category> categories = findByCategories(boardId);
+				return new Board(boardId, boardName, description, postCount, categories);
 			}else {
 				System.out.println("안녕?");
 				return null;
@@ -61,8 +61,8 @@ public class BoardDAO {
 		}
     }
     
-    private ArrayList<Categorie> findByCategorie(int boardId) {
-    	ArrayList<Categorie> list = new ArrayList<Categorie>();
+    private ArrayList<Category> findByCategories(int boardId) {
+    	ArrayList<Category> list = new ArrayList<Category>();
     	Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -74,10 +74,10 @@ public class BoardDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
-				int categorieId = rs.getInt(1);
+				int categoryId = rs.getInt(1);
 	            //int boardId = rs.getInt(2);
-	            String categorieName = rs.getString(3);
-				list.add(new Categorie(categorieId, boardId, categorieName));
+	            String categoryName = rs.getString(3);
+				list.add(new Category(categoryId, boardId, categoryName));
 			}
 			return list;
 		}catch(SQLException se) {

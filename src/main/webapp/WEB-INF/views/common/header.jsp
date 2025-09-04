@@ -16,11 +16,11 @@
       />
     </a>
     <ul>
-      <li><a href="index.html">홈</a></li>
-      <li><a href="list.html">Q&A</a></li>
-      <li><a href="list.html">지식나눔</a></li>
-      <li><a href="list.html">자유게시판</a></li>
-      <li><a href="list.html">공지사항</a></li>
+      <li><a href="/index.do">홈</a></li>
+      <li><a href="board.do?mode=list&id=1">Q&A</a></li>
+      <li><a href="board.do?mode=list&id=2">지식나눔</a></li>
+      <li><a href="board.do?mode=list&id=3">자유게시판</a></li>
+      <li><a href="board.do?mode=list&id=4">공지사항</a></li>
     </ul>
     <div class="link-wrap">
       <a href="auth.do?mode=login-form">로그인</a>
