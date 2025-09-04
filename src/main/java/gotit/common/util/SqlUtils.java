@@ -26,9 +26,20 @@ public class SqlUtils {
 	public static final String COMMENT_SELECT_ONE = "SELECT * FROM  POST_COMMENTS where comment_id = ?";
 	public final static String COMMENT_DELETE = "delete from POST_COMMENTS where COMMENT_ID=?";
 
+	//ReactionDAO SQL - LIKE
+	public final static String REACTION_LIKE_INSERT = "insert into POST_LIKES (post_id, user_id) values(?, ?)";
+	public final static String REACTION_LIKE_DELETE  = "delete from POST_LIKES where post_id=? and user_id=?";
+	public final static String REACTION_LIKE_CHECK ="SELECT COUNT(*) FROM POST_LIKES WHERE post_id=? AND user_id=?";
+	public final static String REACTION_LIKE_COUNT ="SELECT COUNT(*) FROM POST_LIKES WHERE post_id=?";
+	
+	//ReactionDAO SQL - SCRAP
+	public final static String REACTION_SCRAP_INSERT = "insert into POST_SCRAPS (post_id, user_id) values(?, ?)";
+	public final static String REACTION_SCRAP_DELETE  = "delete from POST_SCRAPS where post_id=? and user_id=?";
+	public final static String REACTION_SCRAP_CHECK ="SELECT COUNT(*) FROM POST_SCRAPS WHERE post_id=? AND user_id=?";
+	public final static String REACTION_SCRAP_COUNT ="SELECT COUNT(*) FROM POST_SCRAPS WHERE post_id=?";
+  
 	//ID -> GET DATA
 	public final static String GET_BOARD_NAME = "select board_name from boards where board_id = ?";
 	public final static String GET_NICKNAME = "select nickname from users where user_id = ?";
 	public final static String GET_CATEGORY_NAME = "select category_name from board_categories where category_id = ?";
-	
 }

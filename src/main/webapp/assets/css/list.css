@@ -1,11 +1,10 @@
 /* ====================================== */
 /* 게시판 정보                               */
 /* ====================================== */
-#list.content-wrap {
-  width: 100%;
-  max-width: 1024px;
-}
+
 #list .board-title {
+  display: flex;
+  line-height: 1;
   height: 80px;
   margin: 0 0 20px 0;
   padding: 0 0 0 40px;
@@ -172,13 +171,14 @@
 #list .filter-bottom .paging-text span {
   color: var(--color-text-sub);
 }
-#list .filter-bottom .paging-button button {
+#list .filter-bottom .paging-button a {
   width: 24px;
   height: 24px;
   position: relative;
+  display: inline-block;
 }
 
-#list .filter-bottom .paging-button button:before {
+#list .filter-bottom .paging-button a:before {
   content: '';
   display: block;
   position: absolute;
@@ -192,13 +192,16 @@
   transition: 0.3s;
   opacity: 0;
 }
-#list .filter-bottom .paging-button button:hover:before {
+#list .filter-bottom .paging-button a:hover:before {
   opacity: 1;
 }
 
 #list .filter-bottom .paging-button .next {
   margin: 0 0 0 10px;
   transform: rotate(180deg);
+}
+#list .filter-bottom .paging-button .disabled {
+	opacity: 0.5;
 }
 /* ====================================== */
 /* 게시판 정보 끝                            */
@@ -342,11 +345,7 @@
 /* ====================================== */
 /* 미디어 쿼리                               */
 /* ====================================== */
-@media screen and (max-width: 1280px) {
-  #list.content-wrap {
-    flex-wrap: wrap;
-  }
-}
+
 @media screen and (max-width: 1024px) {
   #list.content-wrap {
     flex-wrap: wrap;
