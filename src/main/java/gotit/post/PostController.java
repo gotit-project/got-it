@@ -38,7 +38,7 @@ public class PostController extends HttpServlet {
             //list(request, response);
         }
     }
-    
+
 //   	/* ==========================
 //   	 * 게시글 목록들 전체 보여주
 //   	 * ========================== */
@@ -117,7 +117,7 @@ public class PostController extends HttpServlet {
         PostService service = PostService.getInstance();
         CommentService commentService = CommentService.getInstance();
 
-        service.addViewCountS(postId); // 조회수 증가
+        service.getViewCountS(postId); // 조회수 증가
         Post postDto = service.selectS(postId);
         request.setAttribute("postDto", postDto);
 

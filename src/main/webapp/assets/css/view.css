@@ -264,7 +264,7 @@
   z-index: 1;
   color: var(--text-color-sub2);
 }
-.comment-wrap .login-text span {
+.comment-wrap .login-text a {
   color: var(--background-main);
   text-decoration: underline;
 }

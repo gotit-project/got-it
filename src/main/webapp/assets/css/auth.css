@@ -74,17 +74,19 @@
    - login.css 와 시각차 크지 않아 공통 기본값을 "플랫"쪽으로 합침
 */
 .inp-group {
+  /* 수정 */
   position: relative;
   border: var(--color-border-default);
-  padding: 0 70px 0 20px;
+  /*padding: 0 70px 0 20px;*/
   border-radius: 5px;
   margin-top: 10px;
   background: #fff;
 }
 
 .inp-fd {
+  /* 수정 */
+  padding: 18px 70px 10px 20px;
   width: 100%;
-  padding: 18px 0 10px;
   font-size: 14px; /* 1.4rem */
   border: none;
   background: transparent;

@@ -40,22 +40,26 @@ public class PostDAO {
                 String status = rs.getString("status");
                 int likeCount = rs.getInt("like_count");
                 int viewCount = rs.getInt("view_count");
-
-             // list()
-                list.add(new Post(
-                    rs.getLong("post_id"),
-                    rs.getLong("board_id"),
-                    rs.getLong("user_id"),
-                    rs.getLong("categorie_id"),
-                    rs.getString("title"),
-                    rs.getString("content"),
-                    rs.getString("post_tag"),
-                    rs.getInt("like_count"),
-                    rs.getInt("view_count"),
-                    rs.getString("status"),
-                    rs.getTimestamp("created_at"),
-                    rs.getTimestamp("updated_at")
-                ));
+          
+			    String nickName = getNickName(userId);
+			     
+			    //테이블 특정열에서 데이터 갖고오기 
+			    list.add(new Post(
+		    	    postId,
+		    	    boardId,
+		    	    nickName,
+		    	    rs.getLong("categorie_id"), 
+		    	    rs.getString("post_tag"),  
+		    	    rs.getString("title"),     
+		    	    rs.getString("content"),   
+		    	    rs.getInt("like_count"),
+		    	    rs.getInt("view_count"),
+		    	    rs.getString("status"),
+		    	    rs.getTimestamp("created_at"),
+		    	    rs.getTimestamp("updated_at")
+		    	  
+		    	));
+              
             }
         } catch(SQLException se) {
             se.printStackTrace();
@@ -64,6 +68,9 @@ public class PostDAO {
         return list;
     }
 
+
+	
+    
     public boolean insert(Post post) {
         try(Connection con = ds.getConnection();
             PreparedStatement pstmt = con.prepareStatement(SqlUtils.POST_INSERT)) {
@@ -74,6 +81,7 @@ public class PostDAO {
             pstmt.setString(4, post.getTitle());
             pstmt.setString(5, post.getContent());
             pstmt.setString(6, post.getPostTag());
+
 
             return pstmt.executeUpdate() > 0;
         } catch(SQLException se) {
@@ -87,6 +95,7 @@ public class PostDAO {
             PreparedStatement pstmt = con.prepareStatement(SqlUtils.POST_SELECT)) {
 
             pstmt.setLong(1, postId);
+            
             try(ResultSet rs = pstmt.executeQuery()) {
                 if(rs.next()) {
                     long boardId = rs.getLong("board_id");
@@ -99,7 +108,15 @@ public class PostDAO {
                     int viewCount = rs.getInt("view_count");
                     String status = rs.getString("status");
 
-                 
+
+
+    			    String nickName = getNickName(userId);
+    			    
+    			    // 조회수 증가
+                    getViewCount(postId);
+                    // 증가된 조회수 다시 읽어오기
+                    viewCount++;
+
                     		
                  // select()
                     return new Post(
@@ -115,6 +132,7 @@ public class PostDAO {
                         rs.getString("status"),
                         rs.getTimestamp("created_at"),
                         rs.getTimestamp("updated_at")
+                        
                     );
 
                 }
@@ -124,6 +142,7 @@ public class PostDAO {
         }
         return null;
     }
+
 
     public boolean delete(long postId) {
         try(Connection con = ds.getConnection();
@@ -154,8 +173,35 @@ public class PostDAO {
             return false;
         }
     }
-
-    public boolean addViewCount(long postId) {
+    
+    //닉네임 가져오기
+    private String getNickName(long userId) {
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	
+	    try {
+	        con = ds.getConnection();
+	        pstmt = con.prepareStatement("select nickname from users where user_id = ?"); 
+	        pstmt.setLong(1, userId);
+	        rs = pstmt.executeQuery();
+	
+	        if (rs.next()) {
+	            String nickname = rs.getString("nickname");
+	            return nickname;
+	        }
+	    } catch (SQLException se) {
+	    	return null;
+	    } finally {
+	        try { if (rs != null) rs.close(); } catch(Exception e) {}
+	        try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
+	        try { if (con != null) con.close(); } catch(Exception e) {}
+	    }
+	    return null;
+}
+    
+    //조회수 가져오기 
+    public boolean getViewCount(long postId) {
         try(Connection con = ds.getConnection();
             PreparedStatement pstmt = con.prepareStatement(SqlUtils.POST_VIEW_COUNT)) {
 
@@ -167,8 +213,19 @@ public class PostDAO {
         }
     }
     
-    
-    
+    //댓글수 가져오기
+    public boolean getCommentCount(long postId) {
+        try(Connection con = ds.getConnection();
+            PreparedStatement pstmt = con.prepareStatement("select co")) {
+
+            pstmt.setLong(1, postId);
+            return pstmt.executeUpdate() > 0;
+        } catch(SQLException se) {
+            se.printStackTrace();
+            return false;
+        }
+    }
+
     // 페이징
     public List<Post> listPage(int boardId, int start, int pageSize) throws SQLException {
         List<Post> list = new ArrayList<>();
@@ -215,7 +272,4 @@ public class PostDAO {
         }
         return 0;
     }
-
-    
-    //
 }

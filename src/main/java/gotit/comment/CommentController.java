@@ -20,8 +20,6 @@ public class CommentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(">> CommentController service() 실행, mode=");
-
 		String mode = request.getParameter("mode");
 		if(mode!= null) {
 			mode = mode.trim();
@@ -102,10 +100,9 @@ public class CommentController extends HttpServlet {
 	
 	private void delete(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
-		
 
 	    long commentId = Long.parseLong(request.getParameter("commentId"));
-	    
+	   
 
 	    CommentService service = CommentService.getInstance();
 	    boolean flag = false;
