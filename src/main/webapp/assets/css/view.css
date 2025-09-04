@@ -5,7 +5,6 @@
   font-weight: 500;
 }
 #view.content-wrap {
-  max-width: 1024px;
   flex-direction: column;
   gap: 0;
 }

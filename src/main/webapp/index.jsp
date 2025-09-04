@@ -32,8 +32,23 @@
                 <div class="notice">
                     <a href="/" class="board-title">공지사항</a>
                     <div class="post-item-wrap">
-                        <!-- 게시글 한 묶음 -->
-                        <a href="list.html">
+                        
+						
+						<button id="likeTest" data-post-id="1" data-user-id="1">
+						    👍 좋아요
+						</button>
+						<button id="scrapTest" data-post-id="1" data-user-id="1">
+						    👍 스크랩
+						</button>
+						<p id="likeResult">현재 좋아요 수: ${postDto.likeCount}</p>
+                        <p id="scrapResult">현재 스크 수: ${postDto.scrapCount}</p> 
+                        
+                        <span class="corrected-mark ${postDto.updatedAt.time != postDto.createdAt.time ? '' : 'hidden'}">
+						    수정됨
+						</span>
+                        
+                       <!-- 게시글 한 묶음 -->
+                        <a href="/">
                             <div class="post-item">
                                 <div class="post-item-header">
                                     <img src="../assets/img/common/post_info_profile.svg" class="profile" alt="프로필 사진">
@@ -395,7 +410,6 @@
                     </div>
                 </div>
             </div>
-            <div class="empty-wrap"></div>
         </div>
         
         <%@ include file="WEB-INF/views/common/footer.jsp" %>

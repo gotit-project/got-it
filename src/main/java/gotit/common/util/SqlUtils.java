@@ -10,7 +10,6 @@ public class SqlUtils {
 	public static final String BOARD_SELECT = "select * from boards where board_name=? ";
 	public static final String CATEGORIE_SELECT = "select * from board_categories where board_id=? ";
 	
-	
 	//PostDAO SQL
 	public final static String POST_LIST = "select * from POSTS where status = 'active'";
 	public final static String POST_INSERT = "insert into POSTS(board_id, user_id, categorie_id, post_tag, title, content) values(?, ?, ?, ?, ?, ?)";
@@ -26,4 +25,16 @@ public class SqlUtils {
 	public static final String COMMENT_SELECT_ONE = "SELECT * FROM  POST_COMMENTS where comment_id = ?";
 	public final static String COMMENT_DELETE = "delete from POST_COMMENTS where COMMENT_ID=?";
 
+	//ReactionDAO SQL - LIKE
+	public final static String REACTION_LIKE_INSERT = "insert into POST_LIKES (post_id, user_id) values(?, ?)";
+	public final static String REACTION_LIKE_DELETE  = "delete from POST_LIKES where post_id=? and user_id=?";
+	public final static String REACTION_LIKE_CHECK ="SELECT COUNT(*) FROM POST_LIKES WHERE post_id=? AND user_id=?";
+	public final static String REACTION_LIKE_COUNT ="SELECT COUNT(*) FROM POST_LIKES WHERE post_id=?";
+	
+	//ReactionDAO SQL - SCRAP
+	public final static String REACTION_SCRAP_INSERT = "insert into POST_SCRAPS (post_id, user_id) values(?, ?)";
+	public final static String REACTION_SCRAP_DELETE  = "delete from POST_SCRAPS where post_id=? and user_id=?";
+	public final static String REACTION_SCRAP_CHECK ="SELECT COUNT(*) FROM POST_SCRAPS WHERE post_id=? AND user_id=?";
+	public final static String REACTION_SCRAP_COUNT ="SELECT COUNT(*) FROM POST_SCRAPS WHERE post_id=?";
+	
 }

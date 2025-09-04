@@ -4,18 +4,20 @@
 /* 게시글 공통 레이아웃                        */
 /* ====================================== */
 .content-wrap {
-  max-width: 1600px;
+  min-width: 1024px;
+  width: 80%; 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-  padding: 0 10px;
-  margin: 120px auto 100px;
+  padding: 40px 0;
+  margin: 80px auto 100px;
 }
 .content-wrap .board-title {
   height: 60px;
+  line-height: 60px;
   margin: 0 0 10px 0;
-  display: flex;
+  display: block;
   align-items: center;
   padding: 0 20px;
   background: var(--color-bg-point-sub);
@@ -111,7 +113,6 @@
 /* 랭킹 정보                                */
 /* ====================================== */
 #main.content-wrap {
-  height: calc(100vh - 120px);
   margin-bottom: 0;
   position: relative;
 }
@@ -229,8 +230,8 @@
 /* ====================================== */
 /* 게시글 정보                               */
 /* ====================================== */
-#main .board-wrap {
-  max-width: 1024px;
+.board-wrap {
+ /* max-width: 1024px*/
   width: 100%;
 }
 #main .notice {
@@ -241,7 +242,6 @@
 #main .study {
   width: 100%;
   border-radius: 10px;
-  padding: 10px;
 }
 #main .sub-board {
   width: 100%;
@@ -252,9 +252,7 @@
 #main .study {
   width: 49%;
 }
-#main .qna {
-  margin-bottom: 30px;
-}
+
 /* ====================================== */
 /* 게시글 정보                               */
 /* ====================================== */
@@ -262,32 +260,9 @@
 /* ====================================== */
 /* 미디어 쿼리                               */
 /* ====================================== */
-@media screen and (max-width: 1800px) {
-  #main .empty-wrap {
-    display: none;
-  }
-}
-@media screen and (max-width: 1280px) {
-  .content-wrap {
-    width: 100%;
-    flex-wrap: nowrap;
-  }
-  .content-wrap .post-item-wrap {
-    flex: 8;
-  }
-  .content-wrap .rank-wrap {
-    width: 200px;
-    flex: 2;
-  }
-  .content-wrap .empty-wrap {
-    display: none;
-  }
-}
+
 @media screen and (max-width: 1024px) {
-  #main.content-wrap,
-  #main .board-wrap {
-    max-width: 100%;
-  }
+  
   #main .rank-wrap {
     display: none;
   }

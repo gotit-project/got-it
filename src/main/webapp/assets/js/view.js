@@ -93,6 +93,68 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(err => console.error(err));
     });
   });
+  
+  // =========================
+  // 좋아요 토글
+  // =========================
+  const likeButton = document.getElementById("likeTest");   // 좋아요 버튼
+  const likeResult = document.getElementById("likeResult"); // 결과 출력할 곳
+
+  likeButton.addEventListener("click", function(e) {
+      e.preventDefault();
+
+      const postId = likeButton.dataset.postId;
+      const userId = likeButton.dataset.userId;
+
+      fetch(`/reaction.do?mode=like-action&postId=${postId}&userId=${userId}`, {
+          method: "POST"
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              likeResult.textContent = "👍 좋아요 반영됨 (총 " + data.likeCount + "개)";
+          } else {
+              likeResult.textContent = "처리 실패!";
+          }
+      })
+      .catch(err => {
+          console.error(err);
+          likeResult.textContent = "에러 발생!";
+      });
+  });
+
+  // =========================
+  // 스크 토글
+  // =========================
+  const scrapButton = document.getElementById("scrapTest");   // 좋아요 버튼
+  const scrapResult = document.getElementById("scrapResult"); // 결과 출력할 곳
+
+  scrapButton.addEventListener("click", function(e) {
+      e.preventDefault();
+
+      const postId = scrapButton.dataset.postId;
+      const userId = scrapButton.dataset.userId;
+
+      fetch(`/reaction.do?mode=scrap-action&postId=${postId}&userId=${userId}`, {
+          method: "POST"
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              scrapResult.textContent = "👍 스크랩 반영됨 (총 " + data.scrapCount + "개)";
+          } else {
+              scrapResult.textContent = "처리 실패!";
+          }
+      })
+      .catch(err => {
+          console.error(err);
+          scrapResult.textContent = "에러 발생!";
+      });
+  });
+
+
+
+  
 
 
 });

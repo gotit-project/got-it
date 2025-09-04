@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8f9fb;
+            color: #333;
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .profile-info {
+            flex-grow: 1;
+        }
+        .profile-info h1 {
+            color: #2c3e50;
+            margin: 0 0 5px;
+            font-size: 2em;
+            font-weight: 700;
+        }
+        .profile-info p {
+            color: #7f8c8d;
+            margin: 0;
+            font-size: 1em;
+        }
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #4CAF50; /* Placeholder for profile picture */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .settings-icon {
+            margin-left: 20px;
+            color: #7f8c8d;
+            cursor: pointer;
+        }
+        .settings-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e9ecef;
+            padding: 0 30px;
+        }
+        .tab-button {
+            background-color: transparent;
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: color 0.3s, border-bottom 0.3s;
+            color: #7f8c8d;
+            position: relative;
+        }
+        .tab-button.active {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            margin-bottom: -1px;
+        }
+        .tab-button:hover:not(.active) {
+            color: #555;
+        }
+
+        /* Tab Content */
+        .tab-content-wrapper {
+            padding: 30px;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .post-list {
+            list-style: none;
+            padding: 0;
+        }
+        .post-item {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            border: 1px solid #f0f2f5;
+        }
+        .post-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .post-item h3 {
+            margin: 0 0 8px;
+            color: #2c3e50;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        .post-item p {
+            margin: 0;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .no-data {
+            text-align: center;
+            color: #95a5a6;
+            margin-top: 50px;
+            font-size: 1.1em;
+        }
+        .no-data-illustration {
+            width: 200px;
+            height: 150px;
+            margin: 0 auto 20px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23bdc3c7' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'%3E%3C/path%3E%3Cpolyline points='14 2 14 8 20 8'%3E%3C/polyline%3E%3Cpath d='M16 13L10 13'%3E%3C/path%3E%3Cpath d='M16 17L10 17'%3E%3C/path%3E%3Cpath d='M10 9L9 9'%3E%3C/path%3E%3C/svg%3E") no-repeat center;
+            background-size: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 프로필 헤더 -->
+        <div class="profile-header">
+            <div class="profile-info">
+                <h1>sdjadodoj</h1>
+                <p>아직 소개를 작성하지 않았습니다.</p>
+            </div>
+            <div class="profile-avatar">수빈</div>
+            <div class="settings-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18zM12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 19a7 7 0 1 1 0-14 7 7 0 0 1 0 14zM12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 탭 메뉴 -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'my-posts')">내가 작성한 게시글</button>
+            <button class="tab-button" onclick="openTab(event, 'scrapped-posts')">스크랩한 게시글</button>
+            <button class="tab-button" onclick="openTab(event, 'liked-posts')">좋아요 누른 게시글</button>
+        </div>
+
+        <!-- 탭 콘텐츠 -->
+        <div class="tab-content-wrapper">
+            <div id="my-posts" class="tab-content active">
+                <h2>내가 작성한 게시글</h2>
+                <ul class="post-list">
+                    <!-- 게시글이 없을 때 -->
+                    <li class="no-data">
+                        <div class="no-data-illustration"></div>
+                        아직 활동 내역이 없어요.
+                        <p>유익한 내용을 공유해 주실수록 활동 내역이 쌓일 거예요!</p>
+                    </li>
+                    <!-- 게시글이 있을 때
+                    <li class="post-item">
+                        <h3>JSP 게시판 만들기</h3>
+                        <p>JSP로 CRUD 게시판을 만드는 방법에 대해 공유합니다.</p>
+                    </li>
+                    -->
+                </ul>
+            </div>
+
+            <div id="scrapped-posts" class="tab-content">
+                <h2>스크랩한 게시글</h2>
+                <ul class="post-list">
+                    <li class="post-item">
+                        <h3>자바 ORM의 이해</h3>
+                        <p>객체 관계 매핑(ORM)에 대한 심도 있는 분석 글입니다.</p>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="liked-posts" class="tab-content">
+                <h2>좋아요 누른 게시글</h2>
+                <ul class="post-list">
+                    <li class="post-item">
+                        <h3>효율적인 SQL 쿼리 작성법</h3>
+                        <p>데이터베이스 성능 최적화를 위한 쿼리 팁입니다.</p>
+                    </li>
+                    <li class="post-item">
+                        <h3>CSS Flexbox 완벽 가이드</h3>
+                        <p>레이아웃을 쉽게 잡는 Flexbox 사용법에 대한 가이드입니다.</p>
+                    </li>
+                    <li class="post-item">
+                        <h3>Spring Boot 개발 시작하기</h3>
+                        <p>스프링 부트의 기본 구조와 프로젝트 생성법을 알아봅니다.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabContent, tabButtons;
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+            }
+            tabButtons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</body>
+</html>
