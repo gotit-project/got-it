@@ -9,8 +9,9 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/write.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/write.css">
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
+        <script src="${pageContext.request.contextPath}/assets/js/main.js" defer></script>
     </head>
     <body>
 
@@ -20,7 +21,7 @@
    		<div id="write" class="content-wrap">
 		  <form action="post.do?mode=insert" method="post">
 		  		<!-- 유저, 보드, 카테고 임시아이디 -->
-		   		<input type="hidden" name="userId" value="1"> 	
+		  		<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
    				<input type="hidden" name="boardId" value="1">
 			    <input type="hidden" name="categorieId" value="1" />
 			   				

@@ -49,30 +49,30 @@ public class PostService {
 	}
 	
 	// 조회 수
-	public boolean addViewCountS(long postId) {
-        return postDao.addViewCount(postId);
+	public boolean getViewCountS(long postId) {
+        return postDao.getViewCount(postId);
     }
 	
 	//페이징
-
-    public List<Post> listPageS(int curPage, int pageSize) {
-        int start = (curPage - 1) * pageSize;
-        try {
-            return postDao.listPage(start, pageSize);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<>();
-    }
-
-    public int countS() {
-        try {
-            return postDao.countPosts();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
+//
+//    public List<Post> listPageS(int curPage, int pageSize) {
+//        int start = (curPage - 1) * pageSize;
+//        try {
+//            return postDao.listPage(start, pageSize);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return new ArrayList<>();
+//    }
+//
+//    public int countS() {
+//        try {
+//            return postDao.countPosts();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return 0;
+//    }
     
 }
 

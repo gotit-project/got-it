@@ -3,41 +3,53 @@ package gotit.model;
 import java.sql.Timestamp;
 
 public class Post {
-	   private long postId;
-	    private long boardId;
-	    private long userId;
-	    private long categorieId;
-	    private String postTag;
-	    private String title;
-	    private String content;
-	    private int likeCount;
-	    private int viewCount;
-	    private String status;
-	    private Timestamp createdAt;
-	    private Timestamp updatedAt;
+    private long postId;
+    private long boardId;
+    private long userId;
+    private String nickName;
+    private long categorieId;
+    private String postTag;
+    private String title;
+    private String content;
+    private int likeCount;
+    private int viewCount;
+    private String status;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
+    private int commentCount;
 
-	    // 모든 필드를 포함하는 생성자 하나
-	    public Post(long postId, long boardId, long userId,long categorieId, String postTag, String title, String content,
-	                int likeCount, int viewCount, String status, Timestamp createdAt, Timestamp updatedAt) {
-	        this.postId = postId;
-	        this.boardId = boardId;
-	        this.userId = userId;
-	        this.categorieId = categorieId;
-	        this.postTag = postTag;
-	        this.title = title;
-	        this.content = content;
-	        this.likeCount = likeCount;
-	        this.viewCount = viewCount;
-	        this.status = status;
-	        this.createdAt = createdAt;
-	        this.updatedAt = updatedAt;
-	    }
+    // 모든 필드를 포함하는 생성자 하나
+    public Post(long postId, long boardId, long userId, long categorieId, String postTag, String title, String content,
+                int likeCount, int viewCount, String status, Timestamp createdAt, Timestamp updatedAt) {
+        this.postId = postId;
+        this.boardId = boardId;
+        this.userId = userId;
+        this.categorieId = categorieId;
+        this.postTag = postTag;
+        this.title = title;
+        this.content = content;
+        this.likeCount = likeCount;
+        this.viewCount = viewCount;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.commentCount = commentCount;
+    }
 
-	    // Insert용: likeCount, viewCount, createdAt, updatedAt 생략 가능
-	    public Post(long postId, long boardId, long userId, long categorieId, String postTag, String title, String content) {
-	        this(postId, boardId, categorieId, userId, postTag, title, content, 0, 0, null, null, null);
-	    }
-
+    // Insert용: likeCount, viewCount, createdAt, updatedAt 생략 가능
+    // 셍성자 체이닝 
+    public Post(long postId, long boardId, long userId, long categorieId, String postTag, String title, String content) {
+        this(postId, boardId, categorieId, userId, postTag, title, content, 0, 0, null, null, null);
+    }
+    
+    //user정보 받는용
+    public Post(long postId, long boardId, String nickName, long categorieId, String postTag, String title, String content,     int likeCount, int viewCount, String status, Timestamp createdAt, Timestamp updatedAt) {
+    						//userName은 아직 0
+    	this(postId, boardId, 0L, categorieId, postTag, title, content, 0, 0, null, null, null);
+    	this.nickName= nickName; //여기서 지정 
+    }
+    
+	    
 	public long getPostId() {
 		return postId;
 	}
@@ -132,6 +144,22 @@ public class Post {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public int getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
 	}
 	
 	

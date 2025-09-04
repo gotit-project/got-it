@@ -44,21 +44,27 @@ public class PostController extends HttpServlet {
    	 * ========================== */
     private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	 PostService service = PostService.getInstance();
+//    	 
+//    	 //페이징 
+//    	 int curPage = 1;
+//       int pageSize = 5; // 한 페이지당 게시글 수
+//
+//       String pageStr = request.getParameter("page");
+//       if(pageStr != null) curPage = Integer.parseInt(pageStr);
     	 
-    	 //페이징 
-    	 int curPage = 1;
-         int pageSize = 5; // 한 페이지당 게시글 수
+//    	 int totalCount = service.countS();
+//       int totalPage = (int) Math.ceil((double) totalCount / pageSize);
 
-         String pageStr = request.getParameter("page");
-         if(pageStr != null) curPage = Integer.parseInt(pageStr);
 
-         List<Post> list = service.listPageS(curPage, pageSize);
-         int totalCount = service.countS();
-         int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+//       request.setAttribute("curPage", curPage);
+//       request.setAttribute("totalPage", totalPage);
+    	 
+    	 
+    	 
 
+
+         List<Post> list = service.listS();      
          request.setAttribute("postList", list);
-         request.setAttribute("curPage", curPage);
-         request.setAttribute("totalPage", totalPage);
 
          RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/post-list.jsp");
          rd.forward(request, response);
@@ -117,7 +123,7 @@ public class PostController extends HttpServlet {
         PostService service = PostService.getInstance();
         CommentService commentService = CommentService.getInstance();
 
-        service.addViewCountS(postId); // 조회수 증가
+        service.getViewCountS(postId); // 조회수 증가
         Post postDto = service.selectS(postId);
         request.setAttribute("postDto", postDto);
 

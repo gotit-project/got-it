@@ -4,15 +4,24 @@
       <div class="comment-wrap">
           <p><span>7</span> 개의 답변</p>
           <form action="${pageContext.request.contextPath}/comment.do?mode=insert&postId=${postDto.postId}" method="post">
-           <!-- 유저, 보드, 카테고 임시아이디 -->
-		   		<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
-   				<input type="hidden" name="boardId" value="1">
-			    <input type="hidden" name="categorieId" value="1" />
-           <div class="write-area">
+       		<!-- 유저, 보드, 카테고 임시아이디 -->
+	   		<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
+  			<input type="hidden" name="boardId" value="1">
+		    <input type="hidden" name="categorieId" value="1" />
+            <div class="write-area">
                 <div class="top-row">
                    <img src="../assets/img/common/post_info_profile.svg" alt="프로필 이미지">
-                   <textarea name="content"></textarea>
-                   <!-- <p class="login-text">댓글을 작성하려면 <span>로그인</span>이 필요합니다.</p> --> 
+                 
+                    <c:choose>
+			        	<c:when test="${not empty sessionScope.loginOkUser}">
+					    	<textarea name="content"></textarea>
+					    </c:when>
+					    <c:otherwise>
+					        <textarea name="content" readonly></textarea>
+					        	<p class="login-text">댓글을 작성하려면 <a href="auth.do?mode=login-form">로그인</a>이 필요합니다.</p>
+					     </c:otherwise>
+   					</c:choose>
+					    
                </div>
                <div class="button-row">
                    <button type="submit">작성하기</button>

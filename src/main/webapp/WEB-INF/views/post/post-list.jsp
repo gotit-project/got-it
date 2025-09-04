@@ -32,9 +32,16 @@
                     </div>
                     <div class="filter-wrap">
                         <div class="filter-top">
-			                <div class="write-button-wrap">
-			                    <a href="post.do?mode=write" class="write-button">작성하기</a>
-			                </div>
+                        
+                         <c:choose>
+					        <c:when test="${not empty sessionScope.loginOkUser}">
+					            <a href="post.do?mode=write" class="write-button">작성하기</a>
+					        </c:when>
+					        
+					        <c:otherwise>
+					            <a href="javascript:alert('로그인이 필요한 서비스입니다.');" class="write-button">작성하기</a>
+					        </c:otherwise>
+   						 </c:choose>
 					    
                            <!-- ======================================
                                 1. 버튼 active 클래스 추가
@@ -126,9 +133,13 @@
                             <div class="post-item">
                                 <div class="post-item-header">
                                     <img src="../assets/img/common/post_info_profile02.png" class="profile" alt="프로필 사진">
-                                    <p class="writer">${sessionScope.loginOkUser.userName}</p>
+                                    <input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
+                                    <p class="writer">${postDto.nickName}</p>
                                     <%-- 이 부분에서 `DateUtils` 클래스를 사용합니다 --%>
-            						<span class="time">${DateUtils.formatTimeAgo(postDto.updatedAt)}</span>
+            						<span class="time">
+									  ${postDto.updatedAt != null ? DateUtils.formatTimeAgo(postDto.updatedAt) : '방금 전'}
+									</span>
+
                                 </div>
                             </div>
                             <p class="post-title">${postDto.title}</p>
@@ -162,7 +173,7 @@
                 </div>
             </div>
 		
-            <!-- 게시글 페이징 -->
+            <!-- 게시글 페이징 --><%-- 
             <div class="pagination">
                <a href="post.do?page=${curPage - 1}">
 				    <button class="pagination-button prev" ${curPage == 1 ? 'disabled' : ''}>
@@ -181,9 +192,7 @@
 				        Next ›
 				    </button>
 				</a>
-
-            </div>
-            
+            </div> --%>
             
         </div>
 

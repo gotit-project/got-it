@@ -13,8 +13,8 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/view.css">
-        <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/common/header.js" defer></script>
+        <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
          <script src="${pageContext.request.contextPath}/assets/js/main.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/view.js" defer></script>
         
@@ -38,7 +38,8 @@
                     <div class="post-item-header">
                         <img src="../assets/img/common/post_info_profile02.png" class="profile" alt="프로필 사진">
                         <div class="profile-info">
-                            <p class="writer">${sessionScope.loginOkUser.userName}</p>
+                        	<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
+                            <p class="writer">${postDto.userId}</p>
                             <%-- 이 부분에서 `DateUtils` 클래스를 사용합니다 --%>
     						<span class="time">
 							    ${postDto.updatedAt != null ? DateUtils.formatTimeAgo(postDto.updatedAt) : ""}
@@ -46,29 +47,57 @@
                             <p class="view-count">조회수 <span>${postDto.viewCount}</span></p>
                             <span class="corrected-mark">수정됨</span> 
                         </div>
-                        <!-- ======================================
-                            버튼 active 클래스 추가 <button class="active">
-                            --------------------------------------
-                            - 아이콘이 파란색으로 변경됨
-                        ====================================== -->
-                        <div class="etc-button-wrap">
-                            <button>좋아요</button>
-                            <button>공유</button>
-                            <button>북마크</button>
-                        </div>
-                        <!--로그인 하면 보이는 수정/삭제 버튼 패널-->
-        				<!-- css 로 보임/숨김 처리 하므로 html 코드 다 넣어주시면 됩니다. -->
-                        <div class="edit-wrap">
-	                        <button class="edit-button">
-	                           ···
-	                        </button>
-	                        <div class="edit-dropdown-menu">
-	                            <div class="menu-divider"></div>
-                            	<a href="post.do?mode=edit&postId=${postDto.postId}" class="edit-menu-item">수정</a>
-                            	<div class="menu-divider"></div>
-                            	<a href="post.do?mode=delete&postId=${postDto.postId}" class="edit-menu-item">삭제</a>
-	                        </div>
-	                    </div>
+                       
+        				
+                         <c:choose>
+					        <c:when test="${not empty sessionScope.loginOkUser && sessionScope.loginOkUser.userId == postDto.userId}">     <!-- ======================================
+			                            버튼 active 클래스 추가 <button class="active">
+			                            --------------------------------------
+			                            - 아이콘이 파란색으로 변경됨
+			                        ====================================== -->
+			                        <div class="etc-button-wrap">
+			                            <button>좋아요</button>
+			                            <button>공유</button>
+			                            <button>북마크</button>
+			                        </div>
+			                        <!--로그인 하면 보이는 수정/삭제 버튼 패널-->
+			        				<!-- css 로 보임/숨김 처리 하므로 html 코드 다 넣어주시면 됩니다. -->
+			        				
+        				
+        				
+                   				<div class="edit-wrap">
+			                        <button class="edit-button">
+			                           ···
+			                        </button>
+			                        <div class="edit-dropdown-menu">
+			                            <div class="menu-divider"></div>
+		                            	<a href="post.do?mode=edit&postId=${postDto.postId}" class="edit-menu-item">수정</a>
+		                            	<div class="menu-divider"></div>
+		                            	<a href="post.do?mode=delete&postId=${postDto.postId}" class="edit-menu-item">삭제</a>
+			                        </div>
+			                    </div>
+					        </c:when>
+					        
+					        <c:otherwise>
+					        
+					        		 <!-- ======================================
+			                            버튼 active 클래스 추가 <button class="active">
+			                            --------------------------------------
+			                            - 아이콘이 파란색으로 변경됨
+			                        ====================================== -->
+			                        <div class="etc-button-wrap">
+			                            <button>좋아요</button>
+			                            <button>공유</button>
+			                            <button>북마크</button>
+			                        </div>
+			                        <!--로그인 하면 보이는 수정/삭제 버튼 패널-->
+			        				<!-- css 로 보임/숨김 처리 하므로 html 코드 다 넣어주시면 됩니다. -->
+			        				
+        				
+					         </c:otherwise>
+   						 </c:choose>
+					    
+                      
                     </div>
                     <div class="post-item">
                         <p class="post-title">${postDto.title}</p>
