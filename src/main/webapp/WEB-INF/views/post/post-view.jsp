@@ -29,9 +29,9 @@
             <div class="post-item-wrap">
                 <div class="view-title">
                     <div class="view-span-wrap">
-                        <a href="list.html">Q&A</a>
+                        <a href="board.do?mode=list&id=${post.boardId}">${post.boardName}</a>
                         <span>/</span>
-                        <a href="list.html" class="category">국어</a>
+                        <a href="list.html" class="category">${post.categoryName}</a>
                     </div>
                 </div>
                 <div>
@@ -39,18 +39,18 @@
                         <img src="../assets/img/common/post_info_profile02.png" class="profile" alt="프로필 사진">
                         <div class="profile-info">
                         	<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
-                            <p class="writer">${postDto.userId}</p>
+                            <p class="writer">${post.nickName}</p>
                             <%-- 이 부분에서 `DateUtils` 클래스를 사용합니다 --%>
     						<span class="time">
-							    ${postDto.updatedAt != null ? DateUtils.formatTimeAgo(postDto.updatedAt) : ""}
+							    ${post.updatedAt != null ? DateUtils.formatTimeAgo(post.updatedAt) : ""}
 							</span>
-                            <p class="view-count">조회수 <span>${postDto.viewCount}</span></p>
+                            <p class="view-count">조회수 <span>${post.viewCount}</span></p>
                             <span class="corrected-mark">수정됨</span> 
                         </div>
                        
         				
                          <c:choose>
-					        <c:when test="${not empty sessionScope.loginOkUser && sessionScope.loginOkUser.userId == postDto.userId}">     <!-- ======================================
+					        <c:when test="${not empty sessionScope.loginOkUser && sessionScope.loginOkUser.userId == post.userId}">     <!-- ======================================
 			                            버튼 active 클래스 추가 <button class="active">
 			                            --------------------------------------
 			                            - 아이콘이 파란색으로 변경됨
@@ -71,9 +71,9 @@
 			                        </button>
 			                        <div class="edit-dropdown-menu">
 			                            <div class="menu-divider"></div>
-		                            	<a href="post.do?mode=edit&postId=${postDto.postId}" class="edit-menu-item">수정</a>
+		                            	<a href="post.do?mode=edit&postId=${post.postId}" class="edit-menu-item">수정</a>
 		                            	<div class="menu-divider"></div>
-		                            	<a href="post.do?mode=delete&postId=${postDto.postId}" class="edit-menu-item">삭제</a>
+		                            	<a href="post.do?mode=delete&postId=${post.postId}" class="edit-menu-item">삭제</a>
 			                        </div>
 			                    </div>
 					        </c:when>
@@ -100,16 +100,16 @@
                       
                     </div>
                     <div class="post-item">
-                        <p class="post-title">${postDto.title}</p>
+                        <p class="post-title">${post.title}</p>
                         <br/>
                         <br/>
                         <p class="post-content">
-                            ${postDto.content}
+                            ${post.rawContent}
                         </p>
                     </div>
                     <div class="post-bottom">
                         <div class="post-keywork">
-                            <span class="hashtag">#${postDto.postTag}</span>
+                            <span class="hashtag">#${post.postTag}</span>
                         </div>
                         <button class="report-button">
                             신고

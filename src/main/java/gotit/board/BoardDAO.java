@@ -12,6 +12,7 @@ import static gotit.common.util.SqlUtils.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BoardDAO {
     private static final BoardDAO INSTANCE = new BoardDAO();
@@ -27,7 +28,27 @@ public class BoardDAO {
     }
     public static BoardDAO getInstance() { return INSTANCE; }
     
-    
+    public List<Board> getBoards() {
+        List<Board> list = new ArrayList<>();
+        try (Connection con = ds.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(BOARD_ALL_SELECT)) {
+            
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+				int boardId = rs.getInt(1);
+				String boardName = rs.getString(2);
+				String description = rs.getString(3);
+				int postCount = rs.getInt(4);
+	
+			     
+			    list.add(new Board(boardId, boardName, description, postCount, null));
+            }
+        }catch(SQLException se) {
+            se.printStackTrace();
+            return null;
+        }
+        return list;
+    }
 
     public Board findByBoard(int boardId) throws SQLException {
     	Connection con = null;
@@ -47,7 +68,6 @@ public class BoardDAO {
 				ArrayList<Category> categories = findByCategories(boardId);
 				return new Board(boardId, boardName, description, postCount, categories);
 			}else {
-				System.out.println("안녕?");
 				return null;
 			}
 		}catch(SQLException se) {

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8" import="java.sql.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -21,18 +22,22 @@
    		<div id="write" class="content-wrap">
 		  <form action="post.do?mode=insert" method="post">
 		  		<!-- 유저, 보드, 카테고 임시아이디 -->
+   				<input type="hidden" name="boardId" value="${board.boardId}">
 		  		<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
-   				<input type="hidden" name="boardId" value="${postDto.boardId}">
-			    <input type="hidden" name="categorieId" value="1" />
 			   				
-		       <div class="form-group">
+		       <div class="form-gxroup">
 		           <label for="category">카테고리</label>
-		           <select name="category">
-		           		<option>옵션1</option>
-		           		<option>옵션2</option>
-		           </select>
+		           <select name="categoryId">
+					  <c:if test="${not empty board.categories}">
+					    <c:forEach items="${board.categories}" var="cat">
+					      <option value="${cat.categoryId}">
+					        ${cat.categoryName}
+					      </option>
+					    </c:forEach>
+					  </c:if>
+					</select>
 		       </div>
-		       
+		      
 		       <div class="form-group">
 		           <label for="title">제목</label>
 		           <input type="text" id="title" name="title">
@@ -45,7 +50,7 @@
 		       
 		       <div class="form-group">
 		           <label for="content">본문</label>
-		           <textarea id="content" name="content" rows="10"></textarea>
+		           <textarea id="content" name="rawContent" rows="10"></textarea>
 		       </div>
 		       
 		       <div class="button-group">

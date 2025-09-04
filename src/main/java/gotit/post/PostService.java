@@ -34,8 +34,8 @@ public class PostService {
        }
     }
 
-	public boolean insertS(Post postDto) {
-		return postDao.insert(postDto);
+	public boolean insertS(Post post) {
+		return postDao.insert(post);
 	}
 	public boolean deleteS(long postId) {
 		return postDao.delete(postId);
@@ -43,8 +43,8 @@ public class PostService {
 	public Post selectS(long postId) {
 		return postDao.view(postId);
 	}	
-	public boolean updateS(Post postDto) {
-		return postDao.update(postDto);
+	public boolean updateS(Post post) {
+		return postDao.update(post);
 	}
 	
  

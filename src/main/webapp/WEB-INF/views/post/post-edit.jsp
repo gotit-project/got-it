@@ -19,34 +19,36 @@
         
         <!-- 컨텐츠 -->
    		<div id="write" class="content-wrap">
-		  <form action="post.do?mode=insert" method="post">
+		  <form action="post.do?mode=update" method="post">
 		  		<!-- 유저, 보드, 카테고 임시아이디 -->
-		   		<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
-   				<input type="hidden" name="boardId" value="1">
-			    <input type="hidden" name="categorieId" value="1" />
-   				
-   				<c:forEach items="${postList}" var="postDto">
+		   		<input type="hidden" name="boardId" value="${post.boardId}">
+		  		<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
    				
 			       <div class="form-group">
-			           <label for="category">카테고리</label>
-			           <input type="text" id="category" name="board_id">
-			       </div>
+		           <label for="category">카테고리</label>
+		           <select name="categoryId">
+					  <c:if test="${not empty post.categoryName}">
+					      <option value="${cat.categoryId}">
+					        ${cat.categoryName}
+					      </option>
+					  </c:if>
+					</select>
+		       </div>
 			       
 			       <div class="form-group">
 			           <label for="title">제목</label>
-			           <input type="text" id="title" name="title" value="${postDto.title}">
+			           <input type="text" id="title" name="title" value="${post.title}">
 			       </div>
 			       
 			       <div class="form-group">
 			           <label for="tags">태그</label>
-			           <input type="text" id="postTag" name="postTag" value="${postDto.postTag}">
+			           <input type="text" id="postTag" name="postTag" value="${post.postTag}">
 			       </div>
 			       
 			       <div class="form-group">
 			           <label for="content">본문</label>
-			           <textarea id="content" name="content" rows="10">${postDto.content}</textarea>
+			           <textarea id="content" name="content" rows="10">${post.rawContent}</textarea>
 			       </div>
-		       </c:forEach>
 		       
 		       <div class="button-group">
 		           <input type="submit" value="전송">

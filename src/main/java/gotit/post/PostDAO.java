@@ -40,7 +40,7 @@ public class PostDAO {
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
                 long postId = rs.getLong("post_id");
-                //long boardId = rs.getLong("board_id");
+                //int boardId = rs.getInt("board_id");
                 long userId = rs.getLong("user_id");
                 int categoryId = rs.getInt("category_id");
                 String postTag = rs.getString("post_tag");
@@ -105,7 +105,7 @@ public class PostDAO {
 	 * ========================== */
     public Post view(long postId) {
         try(Connection con = ds.getConnection();
-            PreparedStatement pstmt = con.prepareStatement("")) {
+            PreparedStatement pstmt = con.prepareStatement(POST_VIEW)) {
 
             pstmt.setLong(1, postId);
             
@@ -123,7 +123,7 @@ public class PostDAO {
                     int viewCount = rs.getInt("view_count");
                     int commentCount = rs.getInt("comment_count");
                     String status = rs.getString("status");
-                    Timestamp createdAt = rs.getTimestamp("create_at");
+                    Timestamp createdAt = rs.getTimestamp("created_at");
                     Timestamp updatedAt = rs.getTimestamp("updated_at");
 
     			    String boardName = getBoardName(boardId);

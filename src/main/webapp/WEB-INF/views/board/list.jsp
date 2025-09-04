@@ -35,7 +35,7 @@
 			                <div class="write-button-wrap">
 			                <c:choose>
 					        <c:when test="${not empty sessionScope.loginOkUser}">
-					            <a href="post.do?mode=write" class="write-button">작성하기</a>
+					            <a href="post.do?mode=write&id=${board.boardId }" class="write-button">작성하기</a>
 					        </c:when>
 					        
 					        <c:otherwise>
@@ -56,7 +56,7 @@
 						      <c:if test="${not empty board.categories}">
 								  <c:forEach items="${board.categories}" var="cat">
 								    <button>${cat.categoryName}</button>
-							  </c:forEach>
+							  	</c:forEach>
 								  <button>전체</button>
 							  </c:if>
                             
@@ -99,10 +99,10 @@
                                     <p>페이지</p>
                                 </div>
                                 <div class="paging-button">
-                                    <a class="prev" href="board.do?mode=list&name=${board.boardName}&page=${curPage - 1}">
+                                    <a class="prev" href="board.do?mode=list&id=${board.boardId}&page=${curPage - 1}">
                                         <img src="../assets/img/list/paging_button_icon.svg" alt="">
                                     </a>
-                                    <a class="next" href="board.do?mode=list&name=${board.boardName}&page=${curPage + 1}">
+                                    <a class="next" href="board.do?mode=list&id=${board.boardId}&page=${curPage + 1}">
                                         <img src="../assets/img/list/paging_button_icon.svg" alt="">
                                     </a>
                                 </div>
@@ -121,7 +121,7 @@
 						    </tr>
 						</c:if>
 						<c:forEach items="${postList}" var="post">
-                        <a href="post.do?mode=select&postId=${post.postId}">
+                        <a href="post.do?mode=view&postId=${post.postId}">
                             <div class="post-item">
                                 <div class="post-item-header">
                                     <img src="../assets/img/common/post_info_profile02.png" class="profile" alt="프로필 사진">
