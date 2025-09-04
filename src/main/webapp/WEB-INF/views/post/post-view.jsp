@@ -48,54 +48,34 @@
                             <span class="corrected-mark">수정됨</span> 
                         </div>
                        
-        				
-                         <c:choose>
-					        <c:when test="${not empty sessionScope.loginOkUser && sessionScope.loginOkUser.userId == post.userId}">     <!-- ======================================
-			                            버튼 active 클래스 추가 <button class="active">
-			                            --------------------------------------
-			                            - 아이콘이 파란색으로 변경됨
-			                        ====================================== -->
-			                        <div class="etc-button-wrap">
-			                            <button>좋아요</button>
-			                            <button>공유</button>
-			                            <button>북마크</button>
-			                        </div>
-			                        <!--로그인 하면 보이는 수정/삭제 버튼 패널-->
-			        				<!-- css 로 보임/숨김 처리 하므로 html 코드 다 넣어주시면 됩니다. -->
-			        				
-        				
-        				
-                   				<div class="edit-wrap">
-			                        <button class="edit-button">
-			                           ···
-			                        </button>
-			                        <div class="edit-dropdown-menu">
-			                            <div class="menu-divider"></div>
-		                            	<a href="post.do?mode=edit&postId=${post.postId}" class="edit-menu-item">수정</a>
-		                            	<div class="menu-divider"></div>
-		                            	<a href="post.do?mode=delete&postId=${post.postId}" class="edit-menu-item">삭제</a>
-			                        </div>
-			                    </div>
-					        </c:when>
-					        
-					        <c:otherwise>
-					        
-					        		 <!-- ======================================
-			                            버튼 active 클래스 추가 <button class="active">
-			                            --------------------------------------
-			                            - 아이콘이 파란색으로 변경됨
-			                        ====================================== -->
-			                        <div class="etc-button-wrap">
-			                            <button>좋아요</button>
-			                            <button>공유</button>
-			                            <button>북마크</button>
-			                        </div>
-			                        <!--로그인 하면 보이는 수정/삭제 버튼 패널-->
-			        				<!-- css 로 보임/숨김 처리 하므로 html 코드 다 넣어주시면 됩니다. -->
-			        				
-        				
-					         </c:otherwise>
-   						 </c:choose>
+        				<div class="etc-button-wrap">
+						    <button id="likeButton" class="like-button"
+						            data-post-id="${post.postId}"
+						            data-user-id="${sessionScope.loginOkUser != null ? sessionScope.loginOkUser.userId : ''}">
+						       <p id="likeResult">${post.likeCount}</p>
+						    </button>
+						
+						    <button class="share-button"></button>
+						
+						    <button id="scrapButton" class="scrap-button"
+						            data-post-id="${post.postId}"
+						            data-user-id="${sessionScope.loginOkUser != null ? sessionScope.loginOkUser.userId : ''}">
+						       <p id="scrapResult">${scrapCount}</p>
+						    </button>
+						</div>
+						
+						<c:if test="${not empty sessionScope.loginOkUser && sessionScope.loginOkUser.userId == post.userId}">
+						    <div class="edit-wrap">
+						        <button class="edit-button">···</button>
+						        <div class="edit-dropdown-menu">
+						            <div class="menu-divider"></div>
+						            <a href="post.do?mode=edit&postId=${post.postId}" class="edit-menu-item">수정</a>
+						            <div class="menu-divider"></div>
+						            <a href="post.do?mode=delete&postId=${post.postId}" class="edit-menu-item">삭제</a>
+						        </div>
+						    </div>
+						</c:if>
+						
 					    
                       
                     </div>
@@ -117,10 +97,7 @@
                     </div>
                 </div>
             </div>
-           
-         
-         <%@ include file="/WEB-INF/views/post/post-comment.jsp" %>
-         
+         	<%@ include file="/WEB-INF/views/post/post-comment.jsp" %>
         </div>
 
         <!-- 푸터 -->

@@ -98,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
       profileDropdownMenu.classList.remove("active");
     }
   });
+  
 });
 
 	
