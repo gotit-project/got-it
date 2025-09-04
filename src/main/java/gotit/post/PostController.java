@@ -32,37 +32,37 @@ public class PostController extends HttpServlet {
                 case "delete" : delete(request, response); break;
                 case "edit" : edit(request, response); break;
                 case "update": update(request, response); break;
-                default: list(request, response);
+                //default: list(request, response);
             }
         } else {
-            list(request, response);
+            //list(request, response);
         }
     }
     
-   	/* ==========================
-   	 * 게시글 목록들 전체 보여주
-   	 * ========================== */
-    private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	 PostService service = PostService.getInstance();
-    	 
-    	 //페이징 
-    	 int curPage = 1;
-         int pageSize = 5; // 한 페이지당 게시글 수
-
-         String pageStr = request.getParameter("page");
-         if(pageStr != null) curPage = Integer.parseInt(pageStr);
-
-         List<Post> list = service.listPageS(curPage, pageSize);
-         int totalCount = service.countS();
-         int totalPage = (int) Math.ceil((double) totalCount / pageSize);
-
-         request.setAttribute("postList", list);
-         request.setAttribute("curPage", curPage);
-         request.setAttribute("totalPage", totalPage);
-
-         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/post-list.jsp");
-         rd.forward(request, response);
-    }
+//   	/* ==========================
+//   	 * 게시글 목록들 전체 보여주
+//   	 * ========================== */
+//    private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//    	 PostService service = PostService.getInstance();
+//    	 
+//    	 //페이징 
+//    	 int curPage = 1;
+//         int pageSize = 5; // 한 페이지당 게시글 수
+//
+//         String pageStr = request.getParameter("page");
+//         if(pageStr != null) curPage = Integer.parseInt(pageStr);
+//
+//         List<Post> list = service.listPageS(curPage, pageSize);
+//         int totalCount = service.countS();
+//         int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+//
+//         request.setAttribute("postList", list);
+//         request.setAttribute("curPage", curPage);
+//         request.setAttribute("totalPage", totalPage);
+//
+//         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/post-list.jsp");
+//         rd.forward(request, response);
+//    }
 
 	/* ==========================
    	 * 작성하기 버튼 누르면 게시글 작성 페이지로 이동

@@ -56,7 +56,6 @@ public class PostDAO {
                     rs.getTimestamp("created_at"),
                     rs.getTimestamp("updated_at")
                 ));
-
             }
         } catch(SQLException se) {
             se.printStackTrace();
@@ -171,15 +170,15 @@ public class PostDAO {
     
     
     // 페이징
-    
-    public List<Post> listPage(int start, int pageSize) throws SQLException {
+    public List<Post> listPage(int boardId, int start, int pageSize) throws SQLException {
         List<Post> list = new ArrayList<>();
-        String sql = "SELECT * FROM posts WHERE status='ACTIVE' ORDER BY post_id DESC LIMIT ?, ?";
+        String sql = "SELECT * FROM posts WHERE status='ACTIVE'AND board_id=? ORDER BY post_id DESC LIMIT ?, OFFSET ?";
         try (Connection con = ds.getConnection();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-            pstmt.setInt(1, start);
-            pstmt.setInt(2, pageSize);
+        	pstmt.setInt(1, boardId);
+            pstmt.setInt(2, start);
+            pstmt.setInt(3, pageSize);
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -203,13 +202,16 @@ public class PostDAO {
         return list;
     }
 
-    public int countPosts() throws SQLException {
-        String sql = "SELECT COUNT(*) FROM posts WHERE status='ACTIVE'";
+    public int countPosts(int boardId) throws SQLException {
+    	String sql = "SELECT COUNT(*) FROM posts WHERE status='ACTIVE' AND board_id=?";
         try (Connection con = ds.getConnection();
-             PreparedStatement pstmt = con.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-            if (rs.next()) return rs.getInt(1);
+            pstmt.setInt(1, boardId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+                System.out.println("나 찍힘");
+            }
         }
         return 0;
     }

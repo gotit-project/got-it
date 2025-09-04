@@ -38,6 +38,9 @@ public class Post {
 	        this(postId, boardId, categorieId, userId, postTag, title, content, 0, 0, null, null, null);
 	    }
 
+	public Post() {
+		}
+
 	public long getPostId() {
 		return postId;
 	}
