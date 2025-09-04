@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/list.css">
+        <script src="${pageContext.request.contextPath}/assets/js/common/header.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
     </head>
     <body>
@@ -44,16 +45,13 @@
                                 - 모바일에서는 숨김 처리
                             ====================================== -->
                             <div class="category-button-wrap desktop-only">
-                                <button>국어</button>
-                                <button>영어</button>
-                                <button>수학</button>
-                                <button>사회</button>
-                                <button>과학</button>
-                                <button>역사</button>
-                                <button>정보/컴퓨터</button>
-                                <button>예체능</button>
-                                <button>기타</button>
-                                <button>전체</button>
+      <c:if test="${not empty board.categorie}">
+  <c:forEach items="${board.categorie}" var="cat">
+    <button>${cat.categorieName}</button>
+  </c:forEach>
+  <button>전체</button>
+</c:if>
+                            
                             </div>
 
                             <!-- ======================================
@@ -99,12 +97,12 @@
                                     <p>페이지</p>
                                 </div>
                                 <div class="paging-button">
-                                    <button class="prev">
+                                    <a class="prev" href="board.do?mode=list&name=${board.boardName}&page=${curPage - 1}">
                                         <img src="../assets/img/list/paging_button_icon.svg" alt="">
-                                    </button>
-                                    <button class="next">
+                                    </a>
+                                    <a class="next" href="board.do?mode=list&name=${board.boardName}&page=${curPage + 1}">
                                         <img src="../assets/img/list/paging_button_icon.svg" alt="">
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -137,12 +135,12 @@
                             <div class="post-bottom">
                                 <div class="post-keyword">
                                     <span class="category">국어</span>
-                                    <span class="hashtag">#${postDto.tag}</span>
+                                    <span class="hashtag">${postDto.postTag}</span>
                                 </div>
                                 <div class="post-counts">
                                     <div class="view-count">
                                         <img src="../assets/img/main/post_info_icon01.png" alt="조회수">
-                                        <p>${postDto.viewCounts}</p>
+                                        <p>${postDto.viewCount}</p>
                                     </div>
                                     <div class="thumb-count">
                                         <img src="../assets/img/main/post_info_icon02.png" alt="좋아요수">
@@ -163,22 +161,21 @@
 		
             <!-- 게시글 페이징 -->
             <div class="pagination">
-                <!-- 이전 버튼 -->
-                <button class="pagination-button prev" disabled>
-                    <span>‹ Previous</span>
-                </button>
-                <!-- 페이지 번호 -->
-                <button class="page active">1</button>
-                <button class="page">2</button>
-                <button class="page">3</button>
-                <button class="page">4</button>
-                <button class="page">5</button>
-                <span class="dots">...</span>
-                <button class="page">7917</button>
-                <!-- 다음 버튼 -->
-                <button class="pagination-button next">
-                    <span>Next ›</span>
-                </button>
+               <a href="board.do?mode=list&name=${board.boardName}&page=${curPage - 1}">
+				    <button class="pagination-button prev" ${curPage == 1 ? 'disabled' : ''}>
+				        ‹ Previous
+				    </button>
+				</a>
+				<c:forEach var="i" begin="1" end="${totalPage}">
+				    <a href="board.do?mode=list&name=${board.boardName}&page=${i}">
+				        <button class="page ${i == curPage ? 'active' : ''}">${i}</button>
+				    </a>
+				</c:forEach>
+				<a href="board.do?mode=list&name=${board.boardName}&page=${curPage + 1}">
+				    <button class="pagination-button next" ${curPage == totalPage ? 'disabled' : ''}>
+				        Next ›
+				    </button>
+				</a>
             </div>
         </div>
 

@@ -49,7 +49,6 @@ public class Post {
     	this.nickName= nickName; //여기서 지정 
     }
     
-	    
 	public long getPostId() {
 		return postId;
 	}
