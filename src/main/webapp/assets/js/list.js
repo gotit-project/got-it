@@ -1,68 +1,43 @@
 (function () {
-  const listWrap = document.querySelector('.board-list');
-  const cards = Array.from(document.querySelectorAll('.board-list a[data-category-id]'));
-  const btnWrap = document.getElementById('category-buttons');          // 데스크톱 버튼 래퍼(있으면)
-  const selectEl = document.getElementById('mobile-category-select');   // 모바일 셀렉트(있으면)
-  const emptyId = 'no-result-msg';
+  const btnWrap  = document.getElementById('category-buttons');
+  const selectEl = document.getElementById('mobile-category-select');
 
-  function ensureEmpty() {
-    let el = document.getElementById(emptyId);
-    if (!el) {
-      el = document.createElement('div');
-      el.id = emptyId;
-      el.style.cssText = 'padding:20px;text-align:center;color:#888;';
-      el.textContent = '해당 카테고리에 게시글이 없습니다.';
-      listWrap.appendChild(el);
-    }
-    return el;
-  }
+  // 현재 쿼리 파싱
+  const params = new URLSearchParams(window.location.search);
+  const curCat = params.get('categoryId') || '0';
 
-  function applyFilter(catIdStr) {
-    const want = String(catIdStr || '0'); // '0' = 전체
-    let shown = 0;
-
-    cards.forEach(a => {
-      const has = String(a.dataset.categoryId || '');
-      const match = (want === '0') ? true : (has === want);
-      a.style.display = match ? '' : 'none';
-      if (match) shown++;
+  // 버튼 active & 셀렉트 동기화
+  if (btnWrap) {
+    btnWrap.querySelectorAll('button[data-cat]').forEach(b => {
+      b.classList.toggle('active', String(b.dataset.cat) === String(curCat));
     });
-
-    ensureEmpty().style.display = (shown === 0) ? '' : 'none';
-
-    // 버튼 active 동기화
-    if (btnWrap) {
-      btnWrap.querySelectorAll('button[data-cat]').forEach(b => {
-        b.classList.toggle('active', String(b.dataset.cat) === want);
-      });
+  }
+  if (selectEl) {
+    if ([...selectEl.options].some(o => o.value === String(curCat))) {
+      selectEl.value = String(curCat);
     }
-    // 셀렉트 동기화
-    if (selectEl && String(selectEl.value) !== want) {
-      selectEl.value = want;
-    }
-
-    // URL 갱신(뒤로가기 히스토리 오염 없이)
-    const url = new URL(location.href);
-    url.searchParams.set('categoryId', want);
-    history.replaceState(null, '', url);
   }
 
-  // 버튼 클릭
+  // 공통 이동 함수: categoryId 적용 + page=1 리셋
+  function goWithCategory(catId) {
+    const p = new URLSearchParams(window.location.search);
+    p.set('categoryId', String(catId ?? '0'));
+    p.set('page', '1');                // ✅ 확실히 붙임
+    // 다른 파라미터(id, mode 등)는 그대로 보존됨
+    window.location.search = '?' + p.toString();
+  }
+
+  // 데스크톱 버튼 클릭
   if (btnWrap) {
     btnWrap.addEventListener('click', (e) => {
       const b = e.target.closest('button[data-cat]');
       if (!b) return;
-      applyFilter(b.dataset.cat);
+      goWithCategory(b.dataset.cat);
     });
   }
 
   // 모바일 셀렉트 변경
   if (selectEl) {
-    selectEl.addEventListener('change', () => applyFilter(selectEl.value));
+    selectEl.addEventListener('change', () => goWithCategory(selectEl.value));
   }
-
-  // 초기값: URL의 categoryId (없으면 전체=0)
-  const init = new URL(location.href).searchParams.get('categoryId') || '0';
-  if (selectEl) selectEl.value = init;
-  applyFilter(init);
 })();

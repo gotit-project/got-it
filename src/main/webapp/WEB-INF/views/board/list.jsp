@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8" import="java.sql.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="gotit.common.util.DateUtils" %>
+
     
 <!DOCTYPE html>
 <html lang="ko">
@@ -18,10 +19,17 @@
         <script src="${pageContext.request.contextPath}/assets/js/list.js" defer></script>
     </head>
     <body>
-
+		<%-- 안전 기본값 --%>
+		<c:set var="curPage" value="${empty curPage ? 1 : curPage}" />
+		<c:set var="totalPage" value="${empty totalPage ? 1 : totalPage}" />
+		<%-- 현재 선택된 카테고리 (없으면 0=전체) --%>
+		<c:set var="catParam" value="${empty param.categoryId ? 0 : param.categoryId}" />
+		<c:set var="pageBase" value="board.do?mode=list&id=${board.boardId}&categoryId=${catParam}" />
+		
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
         <!-- 컨텐츠 -->
+        
         <div id="list" class="content-wrap">
             <!-- 게시판 모음 -->
             <div class="board-wrap">
@@ -54,31 +62,48 @@
                                 - 모바일에서는 숨김 처리
                             ====================================== -->
                             <div class="category-button-wrap desktop-only" id="category-buttons">
-						      <c:if test="${not empty board.categories}">
-								  <c:forEach items="${board.categories}" var="cat">
-								 	 <button type="button" data-cat="${cat.categoryId}">${cat.categoryName}</button>
-							  	</c:forEach>
-								  <button type="button" data-cat="0">전체</button>
+							  <c:if test="${not empty board.categories}">
+							    <c:forEach items="${board.categories}" var="cat">
+							      <c:url var="catUrl" value="board.do">
+							        <c:param name="mode" value="list"/>
+							        <c:param name="id" value="${board.boardId}"/>
+							        <c:param name="categoryId" value="${cat.categoryId}"/>
+							        <c:param name="page" value="1"/>
+							      </c:url>
+							      <a href="${catUrl}">
+							        <button type="button" class="${cat.categoryId == catParam ? 'active' : ''}">
+							          ${cat.categoryName}
+							        </button>
+							      </a>
+							    </c:forEach>
+							
+							    <c:url var="allUrl" value="board.do">
+							      <c:param name="mode" value="list"/>
+							      <c:param name="id" value="${board.boardId}"/>
+							      <c:param name="categoryId" value="0"/>
+							      <c:param name="page" value="1"/>
+							    </c:url>
+							    <a href="${allUrl}">
+							      <button type="button" class="${catParam == 0 ? 'active' : ''}">전체</button>
+							    </a>
 							  </c:if>
-                            
-                            </div>
-
-                            <!-- ======================================
-                                게시판 카테고리 가져오기
-                            ====================================== -->
-                            <!-- 카테고리 셀렉트 (모바일) -->
-							<div class="category-button-wrap mobile-only">
-							  <select id="mobile-category-select">
-							    <c:if test="${not empty board.categories}">
-							      <c:forEach items="${board.categories}" var="cat">
-							        <option value="${cat.categoryId}">${cat.categoryName}</option>
-							      </c:forEach>
-							    <option value="0">전체</option>
-							    </c:if>
-							  </select>
 							</div>
                             
-                            
+                            <form class="category-button-wrap mobile-only" method="get" action="board.do">
+							  <input type="hidden" name="mode" value="list"/>
+							  <input type="hidden" name="id" value="${board.boardId}"/>
+							
+							  <select id="mobile-category-select" name="categoryId" onchange="this.form.submit()">
+							    <c:if test="${not empty board.categories}">
+							      <c:forEach items="${board.categories}" var="cat">
+							        <option value="${cat.categoryId}" ${cat.categoryId == catParam ? 'selected' : ''}>
+							          ${cat.categoryName}
+							        </option>
+							      </c:forEach>
+							    </c:if>
+							    <option value="0" ${catParam == 0 ? 'selected' : ''}>전체</option>
+							  </select>
+							</form>
 
                             <div class="order-button-wrap">
                                 <button>전체</button>
@@ -97,19 +122,19 @@
                             </div>
                             <div class="paging-wrap">
                                 <div class="paging-text">
-                                    <span>${curPage}</span>
+                                    <span>${page.curPage}</span>
                                     <p>/</p>
-                                    <span>${totalPage}</span>
+                                    <span>${page.totalPage}</span>
                                     <p>페이지</p>
                                 </div>
                                 <div class="paging-button">
-                                    <a class="prev" href="board.do?mode=list&id=${board.boardId}&page=${curPage - 1}">
-                                        <button ${curPage == 1 ? 'disabled' : ''}>
+                                    <a class="prev" href="board.do?mode=list&id=${board.boardId}&categoryId=${catParam}&page=${page.curPage - 1}">
+                                        <button ${page.curPage == 1 ? 'disabled' : ''}>
                                         	<img src="../assets/img/list/paging_button_icon.svg" alt="이전 버">
                                        	</button>
                                     </a>
-                                    <a class="next" href="board.do?mode=list&id=${board.boardId}&page=${curPage + 1}">
-                                        <button ${curPage == totalPage ? 'disabled' : ''}>
+                                    <a class="next" href="board.do?mode=list&id=${board.boardId}&categoryId=${catParam}&page=${page.curPage + 1}">
+                                        <button ${page.curPage == page.totalPage ? 'disabled' : ''}>
                                         	<img src="../assets/img/list/paging_button_icon.svg" alt="다음 버튼">
                                       	</button>
                                     </a>
@@ -170,24 +195,44 @@
             </div>
 		
             <!-- 게시글 페이징 -->
-            <div class="pagination">
-               <a href="board.do?mode=list&name=${board.boardName}&page=${curPage - 1}">
-				    <button class="pagination-button prev" ${curPage == 1 ? 'disabled' : ''}>
-				        ‹ Previous
-				    </button>
-				</a>
-				<c:forEach var="i" begin="1" end="${totalPage}">
-				    <a href="board.do?mode=list&name=${board.boardName}&page=${i}">
-				        <button class="page ${i == curPage ? 'active' : ''}">${i}</button>
-				    </a>
-				</c:forEach>
-				<a href="board.do?mode=list&name=${board.boardName}&page=${curPage + 1}">
-				    <button class="pagination-button next" ${curPage == totalPage ? 'disabled' : ''}>
-				        Next ›
-				    </button>
-				</a>
-            </div>
-        </div>
+			<%-- 게시글 페이징 --%>
+<c:if test="${page.totalPage >= 1}">
+  <div class="pagination">
+
+    <%-- 이전 --%>
+    <c:choose>
+      <c:when test="${page.curPage > 1}">
+        <a href="${pageBase}&page=${page.curPage - 1}">
+          <button class="pagination-button prev">‹ Previous</button>
+        </a>
+      </c:when>
+      <c:otherwise>
+        <button class="pagination-button prev" disabled>‹ Previous</button>
+      </c:otherwise>
+    </c:choose>
+
+    <%-- 번호 --%>
+    <c:forEach var="i" begin="1" end="${page.totalPage}">
+      <a href="${pageBase}&page=${i}">
+        <button class="page ${i == page.curPage ? 'active' : ''}">${i}</button>
+      </a>
+    </c:forEach>
+
+    <%-- 다음 --%>
+    <c:choose>
+      <c:when test="${page.curPage < page.totalPage}">
+        <a href="${pageBase}&page=${page.curPage + 1}">
+          <button class="pagination-button next">Next ›</button>
+        </a>
+      </c:when>
+      <c:otherwise>
+        <button class="pagination-button next" disabled>Next ›</button>
+      </c:otherwise>
+    </c:choose>
+
+  </div>
+</c:if>
+		</div>
 
        	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
     </body>

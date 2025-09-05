@@ -7,6 +7,8 @@ import javax.naming.*;
 import javax.sql.DataSource;
 
 import static gotit.common.util.SqlUtils.*;
+
+import gotit.model.Page;
 import gotit.model.Post;
 
 public class PostDAO {
@@ -28,14 +30,96 @@ public class PostDAO {
 	 * 해당하는 보드에 게시글 리스트 가져오기
 	 * paging 방식
 	 * ========================== */
-    public List<Post> listPage(int boardId, int offSet, int pageSize) throws SQLException {
+    public List<Post> listPage(int boardId, String orderBy, Page page) throws SQLException {
         List<Post> list = new ArrayList<>();
         try (Connection con = ds.getConnection();
              PreparedStatement pstmt = con.prepareStatement(POST_SELECT)) {
 
         	pstmt.setInt(1, boardId);
-            pstmt.setInt(2, offSet);
-            pstmt.setInt(3, pageSize);
+        	pstmt.setString(2, orderBy);
+        	
+            pstmt.setInt(3, page.getOffset());
+            pstmt.setInt(4, page.getPageSize());
+            
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+                long postId = rs.getLong("post_id");
+                //int boardId = rs.getInt("board_id");
+                long userId = rs.getLong("user_id");
+                int categoryId = rs.getInt("category_id");
+                String postTag = rs.getString("post_tag");
+                String title = rs.getString("title");
+                String rawContent = rs.getString("raw_content");
+                String htmlContent = rs.getString("html_content");
+                int likeCount = rs.getInt("like_count");
+                int viewCount = rs.getInt("view_count");
+                int commentCount = rs.getInt("comment_count");
+                String stateType = rs.getString("state_type");
+                Timestamp createdAt = rs.getTimestamp("created_at");
+                Timestamp updatedAt = rs.getTimestamp("updated_at");
+                
+  			    String boardName = getBoardName(boardId);
+			    String nickName = getNickName(userId);
+			    String categoryName = getCategoryName(categoryId);
+			     
+			    list.add(new Post(postId, boardId, userId, categoryId, postTag, title, rawContent,
+						htmlContent, likeCount, viewCount, commentCount, stateType, createdAt, updatedAt,
+						boardName, nickName, categoryName));
+            }
+        }catch(SQLException se) {
+            se.printStackTrace();
+            return null;
+        }
+        return list;
+    }
+    public List<Post> listPage(int boardId, int categoryId, String orderBy, Page page) throws SQLException {
+        List<Post> list = new ArrayList<>();
+        try (Connection con = ds.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(POST_CAT_SELECT)) {
+
+        	pstmt.setInt(1, boardId);
+        	pstmt.setInt(2, categoryId);
+        	pstmt.setString(3, orderBy);
+            pstmt.setInt(4, page.getOffset());
+            pstmt.setInt(5, page.getPageSize());
+            
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+                long postId = rs.getLong("post_id");
+                //int boardId = rs.getInt("board_id");
+                long userId = rs.getLong("user_id");
+                //int categoryId = rs.getInt("category_id");
+                String postTag = rs.getString("post_tag");
+                String title = rs.getString("title");
+                String rawContent = rs.getString("raw_content");
+                String htmlContent = rs.getString("html_content");
+                int likeCount = rs.getInt("like_count");
+                int viewCount = rs.getInt("view_count");
+                int commentCount = rs.getInt("comment_count");
+                String stateType = rs.getString("state_type");
+                Timestamp createdAt = rs.getTimestamp("created_at");
+                Timestamp updatedAt = rs.getTimestamp("updated_at");
+                
+  			    String boardName = getBoardName(boardId);
+			    String nickName = getNickName(userId);
+			    String categoryName = getCategoryName(categoryId);
+			    			     
+			    list.add(new Post(postId, boardId, userId, categoryId, postTag, title, rawContent,
+						htmlContent, likeCount, viewCount, commentCount, stateType, createdAt, updatedAt,
+						boardName, nickName, categoryName));
+            }
+        }catch(SQLException se) {
+            se.printStackTrace();
+            return null;
+        }
+        return list;
+    }
+    public List<Post> getMainPosts(int boardId) throws SQLException {
+        List<Post> list = new ArrayList<>();
+        try (Connection con = ds.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(POST_SELECT)) {
+
+        	pstmt.setInt(1, boardId);
             
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
@@ -58,14 +142,6 @@ public class PostDAO {
 			    String nickName = getNickName(userId);
 			    String categoryName = getCategoryName(categoryId);
 			    
-			    
-			    System.out.println(postId);
-			    System.out.println(userId);
-			    System.out.println(categoryId);
-			    System.out.println(postTag);
-			    System.out.println(title);
-	
-			     
 			    list.add(new Post(postId, boardId, userId, categoryId, postTag, title, rawContent,
 						htmlContent, likeCount, viewCount, commentCount, stateType, createdAt, updatedAt,
 						boardName, nickName, categoryName));
@@ -186,6 +262,20 @@ public class PostDAO {
              PreparedStatement pstmt = con.prepareStatement(sql)) {
 
             pstmt.setInt(1, boardId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+                System.out.println("나 찍힘");
+            }
+        }
+        return 0;
+    }
+    public int countCatPosts(int boardId, int categoryId) throws SQLException {
+    	String sql = "SELECT COUNT(*) FROM posts WHERE state_type='ACTIVE' AND board_id=? AND category_id=?";
+        try (Connection con = ds.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, boardId);
+            pstmt.setInt(2, categoryId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) return rs.getInt(1);
                 System.out.println("나 찍힘");

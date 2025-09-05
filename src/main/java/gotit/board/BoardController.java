@@ -1,7 +1,9 @@
 // gotit.board.BoardController.java
 package gotit.board;
 
+import gotit.common.util.PageUtils;
 import gotit.model.Board;
+import gotit.model.Page;
 import gotit.model.Post;
 import gotit.post.PostService;
 import jakarta.servlet.RequestDispatcher;
@@ -36,63 +38,62 @@ public class BoardController {
 
     private void list(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	List<Post> list = null;
+    	int curPage = 1;                      // 1-base
+        int pageSize = 20;                    // 기본 페이지 크기
+    	int boardId = Integer.parseInt(request.getParameter("id"));
+        int catParam = Integer.parseInt(request.getParameter("categoryId"));
+        String sortParam = request.getParameter("sort");
+        String orderBy;
 
-        // 0) 보드 조회 (필수 파라미터 검증)
-        final int boardId = Integer.parseInt(request.getParameter("id"));
-        final Board board = boardService.getBoard(boardId);
+        // 기본값은 최신순
+        if (sortParam == null || sortParam.isBlank()) {
+            orderBy = "p.created_at DESC";
+        } else {
+            switch (sortParam) {
+                case "new":      // 최신순
+                    orderBy = "p.created_at DESC";
+                    break;
+                case "like":     // 좋아요순
+                    orderBy = "p.like_count DESC";
+                    break;
+                case "comment":  // 댓글순
+                    orderBy = "p.comment_count DESC";
+                    break;
+                case "view":     // 조회순(추가 예시)
+                    orderBy = "p.view_count DESC";
+                    break;
+                default:         // 안전장치 (예상 외 값이면 최신순으로 fallback)
+                    orderBy = "p.created_at DESC";
+                    break;
+            }
+        }
+
+        Board board = boardService.getBoard(boardId);
         if (board == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Board not found: ");
             return;
         }
-
-        // 1) 페이징 파라미터 (기본값 + 안전 클램프)
-        int curPage = 1;                      // 1-base
-        int pageSize = 10;                    // 기본 페이지 크기
-
-        try {
-            String pageStr = request.getParameter("page");
-            if (pageStr != null && !pageStr.isBlank()) {
-                curPage = Integer.parseInt(pageStr.trim());
-            }
-        } catch (NumberFormatException ignore) {}
-        if (curPage < 1) curPage = 1;
-
-        try {
-            String sizeStr = request.getParameter("size");
-            if (sizeStr != null && !sizeStr.isBlank()) {
-                pageSize = Integer.parseInt(sizeStr.trim());
-            }
-        } catch (NumberFormatException ignore) {}
-        if (pageSize < 1) pageSize = 10;      // 0 금지
-        // 필요하면 상한도 걸 수 있음: if (pageSize > 100) pageSize = 100;
-
-        // 2) 총 건수 (목록과 동일 조건으로 카운트)
-        final int totalCount = postService.countS(boardId); // status='ACTIVE' + board_id=? 가정
-        final int totalPage  = Math.max(1, (int) Math.ceil(totalCount / (double) pageSize));
+        curPage = Integer.parseInt(request.getParameter("page"));
+        int totalCount = 0;
+        Page page = null;
         
-        // 현재 페이지 상한/하한 클램프
-        if (curPage > totalPage) curPage = totalPage;
-        if (curPage < 1) curPage = 1;
-
-        // 3) 목록 조회 (offset 기반)
-        int offset = (curPage - 1) * pageSize;
-        if (offset < 0) offset = 0;           // 방어
-        final List<Post> list = postService.listPageS(boardId, offset, pageSize);
-        // ※ DAO에서는 LIMIT ? OFFSET ? 라면 바인딩 순서가 (pageSize, offset)인지 꼭 확인
+        if (catParam == 0) {
+        	totalCount = postService.countS(boardId);
+        	page = new Page(curPage, pageSize, totalCount);
+        	list = postService.listPageS(boardId , orderBy, page);
+        } else {
+        	totalCount = postService.countCatS(boardId, catParam);
+        	page = new Page(curPage, pageSize, totalCount);
+        	list = postService.listCatPageS(boardId ,catParam , orderBy, page);
+        }
 
         // 4) 뷰로 전달
         request.setAttribute("board", board);
         request.setAttribute("postList", list);
-        request.setAttribute("curPage", curPage); //현재 페이지
-        request.setAttribute("totalPage", totalPage); //총 페이지
-        request.setAttribute("pageSize", pageSize);
-        request.setAttribute("totalCount", totalCount);
-
-        System.out.println("postList size = " + list.size());
-        // (선택) 디버깅 로그
-        System.out.printf("[Board:list] boardId=%d, total=%d, pageSize=%d, totalPage=%d, cur=%d, offset=%d%n",
-                boardId, totalCount, pageSize, totalPage, curPage, offset);
-
+        request.setAttribute("page", page);
+        request.setAttribute("catParam", catParam);
+        
         RequestDispatcher rd = request.getRequestDispatcher(BOARD_LIST);
         rd.forward(request, response);
     }

@@ -12,7 +12,7 @@ header {
   top: 0;
   display: flex;
   justify-content: center;
-  padding: 20px 0 20px 0;
+  padding: 10px 0 10px 0;
 }
 header .nav {
   width: 80%;
@@ -23,11 +23,12 @@ header .nav {
   margin: auto;
 }
 header .nav .logo {
-  width: 99px;
-  height: 32px;
+  width: 120px;
+  height: 60px;
   display: block;
   flex: 0;
 }
+
 header .nav ul {
   display: flex;
   gap: 10px;

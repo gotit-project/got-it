@@ -12,7 +12,8 @@ public class SqlUtils {
 	public static final String CATEGORIE_SELECT = "select * from board_categories where board_id=? ";
 	
 	//PostDAO SQL
-	public final static String POST_SELECT = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? ORDER BY post_id DESC LIMIT ?, ?";
+	public final static String POST_SELECT = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? ORDER BY ? LIMIT ?, ?";
+	public final static String POST_CAT_SELECT = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? AND category_id=? ORDER BY ? LIMIT ?, ?";
 	public final static String POST_INSERT = "INSERT INTO posts (board_id, user_id, category_id, post_tag, title, raw_content, html_content) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	public final static String POST_VIEW = "select * from POSTS where POST_ID=?";
 	public final static String POST_DELETE = "update POSTS set state_type = 'DELETED' where POST_ID =?";

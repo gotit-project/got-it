@@ -3,6 +3,7 @@ package gotit.post;
 import java.util.List;
 import java.util.ArrayList;
 
+import gotit.model.Page;
 import gotit.model.Post;
 
 public class PostService {
@@ -16,15 +17,32 @@ public class PostService {
 		return instance;
 	}
 	
-	
-   public List<Post> listPageS(int boardId, int offSet, int pageSize) {
+   public List<Post> getMainPosts(int boardId) {
         try {
-            return postDao.listPage(boardId, offSet, pageSize);
+            return postDao.getMainPosts(boardId);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return new ArrayList<>();
     }
+	
+	
+   public List<Post> listPageS(int boardId, String orderBy, Page page) {
+        try {
+            return postDao.listPage(boardId, orderBy, page);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+   public List<Post> listCatPageS(int boardId, int categoryId, String orderBy, Page page) {
+	   try {
+		   return postDao.listPage(boardId, categoryId, orderBy, page);
+	   } catch (Exception e) {
+		   e.printStackTrace();
+	   }
+	   return new ArrayList<>();
+   }
    
     public int countS(int boardId) {
        try {
@@ -32,6 +50,14 @@ public class PostService {
        } catch (Exception e) {
        	throw new RuntimeException("countS failed: boardId=" + boardId, e);
        }
+    }
+    
+    public int countCatS(int boardId, int categoryId) {
+    	try {
+    		return postDao.countCatPosts(boardId, categoryId);
+    	} catch (Exception e) {
+    		throw new RuntimeException("countS failed: boardId=" + boardId, e);
+    	}
     }
 
 	public boolean insertS(Post post) {

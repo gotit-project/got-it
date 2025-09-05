@@ -3,11 +3,12 @@
 <header id="default" data-logged-in="${not empty sessionScope.loginOkUser}">
   <div class="nav">
     <a href="/index.do" class="logo">
-      <img
-        src="${pageContext.request.contextPath}/assets/img/common/logo.svg"
-        alt="로고"
-      />
-    </a>
+  		<img id="logo-img"
+       src="${pageContext.request.contextPath}/assets/img/common/logo.svg"
+       data-src="${pageContext.request.contextPath}/assets/img/common/logo.svg"
+       data-hover-src="${pageContext.request.contextPath}/assets/img/common/logo_hover.svg"
+       alt="로고" />
+</a>
     <ul>
       <li><a href="/index.do">홈</a></li>
       <li><a href="board.do?mode=list&id=1">Q&A</a></li>
