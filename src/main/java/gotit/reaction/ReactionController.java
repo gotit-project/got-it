@@ -55,7 +55,7 @@ public class ReactionController  extends HttpServlet {
 	    long userId = Long.parseLong(request.getParameter("userId"));
 
 	    Reaction reactionDto = new Reaction(postId, userId);
-	    boolean success = service.likeToggle(reactionDto);
+	    boolean success = service.scrapToggle(reactionDto);
 
 	    int scrapCount = service.scrapCountByPostId(postId);
 

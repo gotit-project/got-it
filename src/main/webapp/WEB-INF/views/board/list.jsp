@@ -104,10 +104,14 @@
                                 </div>
                                 <div class="paging-button">
                                     <a class="prev" href="board.do?mode=list&id=${board.boardId}&page=${curPage - 1}">
-                                        <img src="../assets/img/list/paging_button_icon.svg" alt="">
+                                        <button ${curPage == 1 ? 'disabled' : ''}>
+                                        	<img src="../assets/img/list/paging_button_icon.svg" alt="이전 버">
+                                       	</button>
                                     </a>
                                     <a class="next" href="board.do?mode=list&id=${board.boardId}&page=${curPage + 1}">
-                                        <img src="../assets/img/list/paging_button_icon.svg" alt="">
+                                        <button ${curPage == totalPage ? 'disabled' : ''}>
+                                        	<img src="../assets/img/list/paging_button_icon.svg" alt="다음 버튼">
+                                      	</button>
                                     </a>
                                 </div>
                             </div>

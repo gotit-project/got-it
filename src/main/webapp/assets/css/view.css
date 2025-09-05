@@ -126,40 +126,50 @@
   font-weight: 500;
   color: var(--background-main);
 }
+#view .corrected-mark.hidden {
+	display: none;
+}
 #view .etc-button-wrap button {
   width: 24px;
   height: 24px;
-  text-indent: -999em;
   transition: 0.3s;
+  position: relative;
 }
-#view .etc-button-wrap button:first-child {
+#view .etc-button-wrap #likeResult,
+#view .etc-button-wrap #scrapResult {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: -20px;
+}
+#view .etc-button-wrap button.like-button{
   background: url(../img/view/thumbs_icon.svg) no-repeat center / contain;
 }
-#view .etc-button-wrap button:first-child:hover {
+#view .etc-button-wrap button.like-button:hover {
   opacity: 0.7;
 }
-#view .etc-button-wrap button:first-child.active {
+#view .etc-button-wrap button.like-button.active {
   background-image: url(../img//view//thumbs_active_icon.svg);
 }
 
-#view .etc-button-wrap button:nth-child(2) {
+#view .etc-button-wrap button.share-button {
   margin: 0 15px;
   background: url(../img/view/share_icon.svg) no-repeat center / contain;
 }
-#view .etc-button-wrap button:nth-child(2):hover {
+#view .etc-button-wrap button.share-button:hover {
   opacity: 0.7;
 }
-#view .etc-button-wrap button:nth-child(2).active {
+#view .etc-button-wrap button.share-button.active {
   background-image: url(../img//view//share_active_icon.svg);
 }
 
-#view .etc-button-wrap button:last-child {
+#view .etc-button-wrap button.scrap-button {
   background: url(../img/view/bookmark_icon.svg) no-repeat center / contain;
 }
-#view .etc-button-wrap button:last-child:hover {
+#view .etc-button-wrap button.scrap-button:hover {
   opacity: 0.7;
 }
-#view .etc-button-wrap button:last-child.active {
+#view .etc-button-wrap button.scrap-button.active {
   background-image: url(../img//view//bookmark_active_icon.svg);
 }
 #view .edit-wrap {

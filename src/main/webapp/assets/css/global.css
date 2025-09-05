@@ -61,7 +61,6 @@ html {
 
   /* 그림자 */
   --color-shadow-default: 0px 1px 4px 0px rgba(0, 0, 0, 0.3);
-  --color-shadow-default: 0px 1px 4px 0px rgba(0, 0, 0, 0.3);
   --color-shadow-primary: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -233,7 +232,7 @@ textarea {
 
 textarea {
   box-sizing: border-box;
-  resize: none;
+  resize: none !important;
 }
 article,
 aside,

@@ -15,6 +15,7 @@ import gotit.model.Board;
 import gotit.model.Comment;
 import gotit.board.BoardService;
 import gotit.comment.CommentService;
+import gotit.reaction.ReactionDAO;
 
 @WebServlet("/post.do")
 public class PostController extends HttpServlet {
@@ -84,13 +85,18 @@ public class PostController extends HttpServlet {
    	 * ========================== */
     private void view(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long postId = Long.parseLong(request.getParameter("postId"));
-
+        ReactionDAO reactionDAO = new ReactionDAO(); 
         //service.getViewCountS(postId); // 조회수 증가
+        
+        //스크랩 수 조회 
+        int scrapCount = reactionDAO.scrapCountByPostId(postId);
+        
         Post post = postService.selectS(postId);
         request.setAttribute("post", post);
 
         List<Comment> commentList = commentService.selectListS(postId);
         request.setAttribute("commentList", commentList);
+        request.setAttribute("scrapCount", scrapCount); 
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/post-view.jsp");
         rd.forward(request, response);

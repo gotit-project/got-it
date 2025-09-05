@@ -54,9 +54,9 @@
 #list .category-button-wrap {
   max-width: 655px;
   display: flex;
-  flex: 2;
-  gap: 10px;
-  justify-content: space-between;
+  flex-wrap: wrap;   
+  gap: 30px;         
+  justify-content: center; 
 }
 #list .category-button-wrap button {
   height: 34px;
@@ -200,7 +200,7 @@
   margin: 0 0 0 10px;
   transform: rotate(180deg);
 }
-#list .filter-bottom .paging-button .disabled {
+#list .filter-bottom .paging-button button:disabled {
 	opacity: 0.5;
 }
 /* ====================================== */
