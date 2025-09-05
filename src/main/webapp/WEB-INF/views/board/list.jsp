@@ -106,14 +106,13 @@
 							</form>
 
                             <div class="order-button-wrap">
-                                <button>전체</button>
                                 <button>최신순</button>
                             </div>
                         </div>
                          <div class="filter-bottom">
-                            <button class="refresh-button">
-                                <img src="../assets/img/list/refresh_button_icon.svg" alt="새로고침">
-                            </button>
+                            <button type="button" class="refresh-button" onclick="location.reload()">
+							  <img src="${pageContext.request.contextPath}/assets/img/list/refresh_button_icon.svg" alt="새로고침">
+							</button>
                             <div class="search-wrap">
                                 <input type="text"  class="search-box" placeholder="지식나눔에서 검색">
                                 <button class="search-button">
@@ -170,7 +169,7 @@
                             <div class="post-bottom">
                                 <div class="post-keyword">
                                     <span class="category">${post.categoryName}</span>
-                                    <span class="hashtag">${post.postTag}</span>
+                                    <span class="hashtag">#${post.postTag}</span>
                                 </div>
                                 <div class="post-counts">
                                     <div class="view-count">

@@ -11,10 +11,10 @@
 </a>
     <ul>
       <li><a href="/index.do">홈</a></li>
-      <li><a href="board.do?mode=list&id=1">Q&A</a></li>
-      <li><a href="board.do?mode=list&id=2">지식나눔</a></li>
-      <li><a href="board.do?mode=list&id=3">자유게시판</a></li>
-      <li><a href="board.do?mode=list&id=4">공지사항</a></li>
+      <li><a href="board.do?mode=list&id=1&categoryId=0&page=1">Q&A</a></li>
+      <li><a href="board.do?mode=list&id=2&categoryId=0&page=1">지식나눔</a></li>
+      <li><a href="board.do?mode=list&id=3&categoryId=0&page=1">자유게시판</a></li>
+      <li><a href="board.do?mode=list&id=4&categoryId=0&page=1">공지사항</a></li>
     </ul>
     <div class="link-wrap">
       <a href="auth.do?mode=login-form">로그인</a>
@@ -124,11 +124,11 @@
       />
     </div>
     <ul class="mobile-menu-item">
-      <li class="mobile-menu-li"><a href="index.html">홈</a></li>
-      <li class="mobile-menu-li"><a href="index.html">Q&A</a></li>
-      <li class="mobile-menu-li"><a href="index.html">지식나눔</a></li>
-      <li class="mobile-menu-li"><a href="index.html">자유게시판</a></li>
-      <li class="mobile-menu-li"><a href="index.html">공지사항</a></li>
+      <li class="mobile-menu-li"><a href="index.do">홈</a></li>
+      <li class="mobile-menu-li"><a href="board.do?mode=list&id=1&categoryId=0&page=1">Q&A</a></li>
+      <li class="mobile-menu-li"><a href="board.do?mode=list&id=2&categoryId=0&page=1">지식나눔</a></li>
+      <li class="mobile-menu-li"><a href="board.do?mode=list&id=3&categoryId=0&page=1">자유게시판</a></li>
+      <li class="mobile-menu-li"><a href="board.do?mode=list&id=4&categoryId=0&page=1">공지사항</a></li>
     </ul>
   </div>
   <ul class="mobile-menu-bottom">

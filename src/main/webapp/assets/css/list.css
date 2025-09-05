@@ -75,6 +75,8 @@
 #list .order-button-wrap {
   width: 140px;
   display: flex;
+  justify-content: center;
+  
 }
 #list .order-button-wrap button:first-child {
   width: 50px;

@@ -18,15 +18,6 @@
     }
   }
 
-  // 공통 이동 함수: categoryId 적용 + page=1 리셋
-  function goWithCategory(catId) {
-    const p = new URLSearchParams(window.location.search);
-    p.set('categoryId', String(catId ?? '0'));
-    p.set('page', '1');                // ✅ 확실히 붙임
-    // 다른 파라미터(id, mode 등)는 그대로 보존됨
-    window.location.search = '?' + p.toString();
-  }
-
   // 데스크톱 버튼 클릭
   if (btnWrap) {
     btnWrap.addEventListener('click', (e) => {
@@ -41,3 +32,4 @@
     selectEl.addEventListener('change', () => goWithCategory(selectEl.value));
   }
 })();
+

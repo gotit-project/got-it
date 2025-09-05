@@ -5,6 +5,7 @@
 /* ====================================== */
 .content-wrap {
   min-width: 1024px;
+  min-height: 90vh;
   width: 60%; 
   display: flex;
   flex-wrap: wrap;

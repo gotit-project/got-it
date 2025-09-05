@@ -1,7 +1,6 @@
 // gotit.board.BoardController.java
 package gotit.board;
 
-import gotit.common.util.PageUtils;
 import gotit.model.Board;
 import gotit.model.Page;
 import gotit.model.Post;
@@ -40,7 +39,7 @@ public class BoardController {
             throws ServletException, IOException {
     	List<Post> list = null;
     	int curPage = 1;                      // 1-base
-        int pageSize = 20;                    // 기본 페이지 크기
+        int pageSize = 10;                    // 기본 페이지 크기
     	int boardId = Integer.parseInt(request.getParameter("id"));
         int catParam = Integer.parseInt(request.getParameter("categoryId"));
         String sortParam = request.getParameter("sort");
