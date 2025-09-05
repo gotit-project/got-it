@@ -36,7 +36,7 @@
 	                   <img src="../assets/img/common/post_info_profile06.png" class="comment-profile" alt="프로필 사진">
 	                   <div class="profile-info">
 	                       <div>
-	                           <p class="writer">${commentDto.nickname}</p>
+	                           <p class="writer">${commentDto.nickname}닉네임 </p>
 	                           <span class="time"></span>
 	                           <span class="corrected-mark">수정됨</span> 
 	                       </div>
@@ -49,18 +49,32 @@
 	                   </div>
 	               </div>
 	               <p class="comment-content">${commentDto.content}</p>
+	               
+	          
+   					
+   					
 	               <div class="comment-item-footer">
-	                   <button>답글쓰기</button>
-	                   <button data-comment-id="${commentDto.commentId}" class="edit-button">수정</button>
-	                   <button data-comment-id="${commentDto.commentId}" class="delete-button">삭제</button>
-	               </div>
+			            <c:choose>
+			                <c:when test="${sessionScope.loginOkUser.userId == commentDto.userId}">
+			                    <button data-comment-id="${commentDto.commentId}" 
+			                            data-post-id="${post.postId}" 
+			                            class="edit-button">수정</button>
+			                    <button data-comment-id="${commentDto.commentId}" 
+			                            data-post-id="${post.postId}" 
+			                            class="delete-button">삭제</button>
+			                </c:when>
+			                <c:otherwise>
+			                </c:otherwise>
+			            </c:choose>
+					</div>
+	               
 	          	</div>
 	          </c:forEach>
 	      </div>
 	      <!-- 댓글 한 묶음 끝 -->
 	
 	      <!-- 대댓글 한 묶음 -->
-	      <div class="recomment-area">
+	     <!--  <div class="recomment-area">
           <div class="recomment-item">
               <div class="recomment-item-header">
                   <img src="../assets/img/common/post_info_profile02.png" class="comment-profile" alt="프로필 사진">
@@ -76,7 +90,7 @@
                   <button>수정</button>
               </div>
           </div>
-      </div>
+      </div> -->
       	  <!-- 대댓글 한 묶음 끝 -->
       </div>
     

@@ -30,7 +30,7 @@
                     <div class="view-span-wrap">
                         <a href="board.do?mode=list&id=${post.boardId}">${post.boardName}</a>
                         <span>/</span>
-                        <a href="board.do?mode=list&id=${post.boardId}&categoryId=${post.categoryId}" class="category">${post.categoryName}</a>
+                        <a href="board.do?mode=list&id=${post.boardId}&categoryId=${post.categoryId}" class="z">${post.categoryName}</a>
                     </div>
                 </div>
                 <div>

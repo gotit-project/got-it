@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/write.css">
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
-        <script src="${pageContext.request.contextPath}/assets/js/main.js" defer></script>
+        <script src="${pageContext.request.contextPath}/assets/js/common/header.js" defer></script>
     </head>
     <body>
 

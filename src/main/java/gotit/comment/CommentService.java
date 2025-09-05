@@ -23,7 +23,7 @@ public class CommentService {
 	}
 
 	public List<Comment> selectListS(long postId) {
-        return commentDao.selectList(postId); // DAO 호출하지않으면 무한반복으로 자기자신만 호출
+        return commentDao.selectList(postId) ; // DAO 호출하지않으면 무한반복으로 자기자신만 호출
     }
 	
 	public boolean insertS(Comment commentDto) {

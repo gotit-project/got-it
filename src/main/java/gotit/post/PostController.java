@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import gotit.model.Post;
@@ -46,6 +47,15 @@ public class PostController extends HttpServlet {
             //list(request, response);
         }
     }
+//    
+//    /* ==========================
+//   	 * 메인페이지에서 리스트 보여주기 
+//   	 * ========================== */
+//    private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        List<Post> postList = postService.selectAll(); // DB에서 게시글 리스트 가져오기
+//        request.setAttribute("postList", postList);
+//        request.getRequestDispatcher("/index.jsp").forward(request, response);
+//    }
     
     /* ==========================
    	 * 작성하기 버튼 누르면 게시글 작성 페이지로 이동
@@ -58,6 +68,7 @@ public class PostController extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/post-write.jsp");
         rd.forward(request, response);
     }
+    
     /* ==========================
    	 * 게시글 작성 처리 
    	 * ========================== */
@@ -76,10 +87,23 @@ public class PostController extends HttpServlet {
         
         request.setAttribute("post", post);
         request.setAttribute("flag", flag);
-        request.setAttribute("kind", "insert");
+//      request.setAttribute("kind", "insert");
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/msg.jsp");
-        rd.forward(request, response);
+//      RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/msg.jsp");
+//      rd.forward(request, response);
+        
+        
+        
+        //작성 되면 alert 띄우기 
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        if(flag) {
+            out.println("<script>alert('게시글이 작성되었습니다!'); location.href='post.do?mode=view&postId=" + post.getPostId() + "';</script>");
+        } else {
+            out.println("<script>alert('게시글 작성에 실패했습니다.'); history.back();</script>");
+        }
+        out.flush();
     }
 
     /* ==========================
@@ -127,14 +151,24 @@ public class PostController extends HttpServlet {
    	 * 게시글 상태 deleted 로 변경 
    	 * ========================== */
     private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        long postId = Long.parseLong(request.getParameter("postId"));
-        boolean flag = postService.deleteS(postId);
+    	long postId = Long.parseLong(request.getParameter("postId"));
+    	Post post = postService.selectS(postId); // postId로 DB에서 게시글 가져오기
+    	boolean flag = postService.deleteS(postId);
+
 
         request.setAttribute("flag", flag);
         request.setAttribute("kind", "delete");
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/msg.jsp");
-        rd.forward(request, response);
+        //작성 되면 alert 띄우기 
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        if(flag) {																
+            out.println("<script>alert('게시글이 삭제되었습니다!'); location.href='board.do?mode=list&id=" + post.getBoardId() + "&categoryId=" + post.getCategoryId() + "';</script>");
+        } else {
+            out.println("<script>alert('게시글 삭제에 실패했습니다.'); history.back();</script>");
+        }
+        out.flush();
     }
 
     /* ==========================
@@ -173,7 +207,15 @@ public class PostController extends HttpServlet {
         request.setAttribute("flag", flag);
         request.setAttribute("kind", "update");
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/msg.jsp");
-        rd.forward(request, response);
+        //작성 되면 alert 띄우기 
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        if(flag) {
+            out.println("<script>alert('게시글이 수정되었습니다!'); location.href='post.do?mode=view&postId=" + post.getPostId() + "';</script>");
+        } else {
+            out.println("<script>alert('게시글 수정에 실패했습니다.'); history.back();</script>");
+        }
+        out.flush();
     }
 }

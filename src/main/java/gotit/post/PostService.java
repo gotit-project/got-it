@@ -46,8 +46,10 @@ public class PostService {
 	public boolean updateS(Post post) {
 		return postDao.update(post);
 	}
-	
- 
+
+    public List<Post> selectPostsByBoard(long boardId) {
+        return postDao.selectPostsByBoard(boardId); // DAO에서 DB 조회
+    }
 
 
     

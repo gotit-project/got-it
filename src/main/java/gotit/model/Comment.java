@@ -36,6 +36,18 @@ public class Comment {
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
+	
+	
+	public Comment(long commentId, long postId, long userId, String nicknam, String content, boolean isAnswer, boolean accepted, Date createdAt, Date updatedAt) {
+		this.commentId = commentId;
+		this.postId = postId;
+		this.userId = userId;
+		this.content = content;
+		this.isAnswer = isAnswer;
+		this.accepted = accepted;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+	}
 
 	public long getCommentId() {
 		return commentId;

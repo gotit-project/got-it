@@ -60,7 +60,7 @@ public class CommentDAO {
 			     
 			     String nickname = getNickname(userId);
 			
-			     commentList.add(new Comment(commentId, postId, nickname, content, isAnswer, accepted, createdAt, updatedAt));        
+			     commentList.add(new Comment(commentId, postId, userId, nickname, content, isAnswer, accepted, createdAt, updatedAt));        
 			 } 
 		}catch(SQLException se){
 			return null;
@@ -165,7 +165,6 @@ public class CommentDAO {
 	        pstmt = con.prepareStatement(SqlUtils.COMMENT_SELECT_ONE); 
 	        pstmt.setLong(1, commentId);
 	        rs = pstmt.executeQuery();
-	
 	        if (rs.next()) {
 	            long postId = rs.getLong("post_id");
 	            long userId = rs.getLong("user_id");
@@ -174,13 +173,16 @@ public class CommentDAO {
 	            boolean accepted = rs.getBoolean("accepted");	     
 	            java.sql.Date createdAt = rs.getDate("created_at");
 	            java.sql.Date updatedAt = rs.getDate("updated_at");
-	            
+
 	            String nickname = getNickname(userId);
-	
+
+	            // userId 포함 생성자로 Comment 생성
 	            comment = new Comment(
-	                commentId, postId, nickname, content, isAnswer, accepted, createdAt, updatedAt
+	                commentId, postId, userId, content, isAnswer, accepted, createdAt, updatedAt
 	            );
+	            comment.setNickname(nickname); // nickname 따로 세팅
 	        }
+
 	    } catch (SQLException se) {
 	        se.printStackTrace();
 	    } finally {

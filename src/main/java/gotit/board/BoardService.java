@@ -30,5 +30,10 @@ public class BoardService {
         }
     }
     
+
+    public List<Board> selectAllBoards() {
+        return dao.selectAllBoards(); // DAO에서 DB 조회
+    }
+    
     
 }
