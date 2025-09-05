@@ -45,7 +45,9 @@
 							    ${post.updatedAt != null ? DateUtils.formatTimeAgo(post.updatedAt) : ""}
 							</span>
                             <p class="view-count">조회수 <span>${post.viewCount}</span></p>
-                            <span class="corrected-mark">수정됨</span> 
+                            <span class="corrected-mark ${post.updatedAt.time != post.createdAt.time ? '' : 'hidden'}">
+						    	수정됨
+							</span>
                         </div>
                        
         				<div class="etc-button-wrap">

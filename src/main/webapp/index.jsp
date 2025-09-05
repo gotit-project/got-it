@@ -32,21 +32,7 @@
                 <div class="notice">
                     <a href="/" class="board-title">공지사항</a>
                     <div class="post-item-wrap">
-                        
-						
-						<button id="likeTest" data-post-id="1" data-user-id="1">
-						    👍 좋아요
-						</button>
-						<button id="scrapTest" data-post-id="1" data-user-id="1">
-						    👍 스크랩
-						</button>
-						<p id="likeResult">현재 좋아요 수: ${postDto.likeCount}</p>
-                        <p id="scrapResult">현재 스크 수: ${postDto.scrapCount}</p> 
-                        
-                        <span class="corrected-mark ${postDto.updatedAt.time != postDto.createdAt.time ? '' : 'hidden'}">
-						    수정됨
-						</span>
-                        
+                 
                        <!-- 게시글 한 묶음 -->
                         <a href="/">
                             <div class="post-item">

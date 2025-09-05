@@ -126,6 +126,9 @@
   font-weight: 500;
   color: var(--background-main);
 }
+#view .corrected-mark.hidden {
+	display: none;
+}
 #view .etc-button-wrap button {
   width: 24px;
   height: 24px;
