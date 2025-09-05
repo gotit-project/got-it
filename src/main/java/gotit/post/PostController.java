@@ -13,9 +13,11 @@ import java.util.List;
 import gotit.model.Post;
 import gotit.model.Board;
 import gotit.model.Comment;
+import gotit.model.User;
 import gotit.board.BoardService;
 import gotit.comment.CommentService;
 import gotit.reaction.ReactionDAO;
+import gotit.reaction.ReactionService;
 
 @WebServlet("/post.do")
 public class PostController extends HttpServlet {
@@ -89,10 +91,29 @@ public class PostController extends HttpServlet {
         //service.getViewCountS(postId); // 조회수 증가
         
         //스크랩 수 조회 
-        //int scrapCount = reactionDAO.scrapCountByPostId(postId);
+       // int scrapCount = reactionDAO.scrapCountByPostId(postId);
+
         
         Post post = postService.selectS(postId);
         request.setAttribute("post", post);
+        
+        
+        // 로그인 유저 정보 가져오기
+        User loginUser = (User) request.getSession().getAttribute("loginOkUser");
+        boolean userLiked = false;
+        boolean userScrapped = false;
+
+        if (loginUser != null) {
+            long loginUserId = loginUser.getUserId();
+            ReactionService reactionService = ReactionService.getInstance();
+            userLiked = reactionService.hasUserLiked(postId, loginUserId);
+            userScrapped = reactionService.hasUserScrapped(postId, loginUserId);
+        }
+
+        request.setAttribute("userLiked", userLiked);
+        request.setAttribute("userScrapped", userScrapped);
+
+        
 
         List<Comment> commentList = commentService.selectListS(postId);
         request.setAttribute("commentList", commentList);

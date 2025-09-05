@@ -68,23 +68,6 @@ public class ReactionDAO {
 	    return false;
 	}
 	
-	public int likeCountByPostId(long postId) {
-	    try (Connection con = ds.getConnection();
-	         PreparedStatement pstmt = con.prepareStatement(REACTION_LIKE_COUNT)) {
-	        pstmt.setLong(1, postId);
-	        try (ResultSet rs = pstmt.executeQuery()) {
-	            if (rs.next()) {
-	                return rs.getInt(1);
-	            }
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return 0;
-	}
-
-	
-
 	public boolean scrapInsert(Reaction reaction) {
 		try(Connection con = ds.getConnection();
 	        PreparedStatement pstmt = con.prepareStatement(REACTION_SCRAP_INSERT)) {
@@ -129,19 +112,42 @@ public class ReactionDAO {
 	    return false;
 	}
 	
-	public int scrapCountByPostId(long postId) {
-	    try (Connection con = ds.getConnection();
-	         PreparedStatement pstmt = con.prepareStatement(REACTION_SCRAP_COUNT)) {
-	        pstmt.setLong(1, postId);
-	        try (ResultSet rs = pstmt.executeQuery()) {
-	            if (rs.next()) {
-	                return rs.getInt(1);
-	            }
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return 0;
-	}
+
+    // 좋아요 체크
+    public boolean hasUserLiked(long postId, long userId) {
+        // DB에서 postId, userId로 좋아요 존재 여부 확인
+        String sql = "SELECT COUNT(*) FROM post_likes WHERE post_id = ? AND user_id = ?";
+        try (Connection con = ds.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setLong(1, postId);
+            ps.setLong(2, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+          System.out.println("hasUserLiked실행");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // 스크랩 체크
+    public boolean hasUserScrapped(long postId, long userId) {
+        String sql = "SELECT COUNT(*) FROM post_scraps WHERE post_id = ? AND user_id = ?";
+        try (Connection con = ds.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setLong(1, postId);
+            ps.setLong(2, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+	
 
 }

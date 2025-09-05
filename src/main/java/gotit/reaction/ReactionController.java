@@ -31,38 +31,53 @@ public class ReactionController  extends HttpServlet {
 	}
         
 	private void likeToggle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    ReactionService service = ReactionService.getInstance();
+		  ReactionService service = ReactionService.getInstance();
 
-	    long postId = Long.parseLong(request.getParameter("postId"));
-	    long userId = Long.parseLong(request.getParameter("userId"));
+		    long postId = Long.parseLong(request.getParameter("postId"));
+		    long userId = Long.parseLong(request.getParameter("userId"));
 
-	    Reaction reactionDto = new Reaction(postId, userId);
-	    boolean success = service.likeToggle(reactionDto);
+		    Reaction reactionDto = new Reaction(postId, userId);
+		    boolean success = service.likeToggle(reactionDto);
 
-	    int likeCount = service.likeCountByPostId(postId);
-
-	    response.setContentType("application/json; charset=UTF-8");
-	    PrintWriter out = response.getWriter();
-	    out.print("{\"success\": " + success + ", \"likeCount\": " + likeCount + "}");
-	    out.flush();
+		    response.setContentType("application/json; charset=UTF-8");
+		    PrintWriter out = response.getWriter();
+		    out.print("{\"success\": " + success + "}");
+		    out.flush();
 	}
 
+	
+	private void hasUserLiked (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    ReactionService service = ReactionService.getInstance();
+	    long postId = Long.parseLong(request.getParameter("postId"));
+        long userId = Long.parseLong(request.getParameter("userId"));
+
+        Reaction reactionDto = new Reaction(postId, userId);
+        service.likeToggle(reactionDto);
+
+        // 성공 여부만 반환 (클라이언트에서는 active 클래스 토글만 사용)
+        response.setContentType("application/json; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.print("{\"success\": true}");
+        out.flush();
+		
+		
+        
+	}
 
 	private void scrapToggle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    ReactionService service = ReactionService.getInstance();
+		  ReactionService service = ReactionService.getInstance();
 
-	    long postId = Long.parseLong(request.getParameter("postId"));
-	    long userId = Long.parseLong(request.getParameter("userId"));
+		    long postId = Long.parseLong(request.getParameter("postId"));
+		    long userId = Long.parseLong(request.getParameter("userId"));
 
-	    Reaction reactionDto = new Reaction(postId, userId);
-	    boolean success = service.scrapToggle(reactionDto);
+		    Reaction reactionDto = new Reaction(postId, userId);
+		    boolean success = service.scrapToggle(reactionDto);
 
-	    int scrapCount = service.scrapCountByPostId(postId);
-
-	    response.setContentType("application/json; charset=UTF-8");
-	    PrintWriter out = response.getWriter();
-	    out.print("{\"success\": " + success + ", \"scrapCount\": " + scrapCount + "}");
-	    out.flush();
+		    response.setContentType("application/json; charset=UTF-8");
+		    PrintWriter out = response.getWriter();
+		    out.print("{\"success\": " + success + "}");
+		    out.flush();
+	    
 	}
         
 	

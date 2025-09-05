@@ -29,75 +29,45 @@ document.addEventListener("DOMContentLoaded", () => {
  // 좋아요 토글
  // =========================
  const likeButton = document.getElementById("likeButton");
- const likeResult = document.getElementById("likeResult");
+   if(likeButton) {
+     likeButton.addEventListener("click", function(e) {
+       e.preventDefault();
+       const postId = likeButton.dataset.postId;
+       const userId = likeButton.dataset.userId;
+       if(!userId) { alert("로그인이 필요합니다."); return; }
 
- if (likeButton && likeResult) {
-   likeButton.addEventListener("click", function (e) {
-     e.preventDefault();
-
-     const postId = likeButton.dataset.postId;
-     const userId = likeButton.dataset.userId;
-
-     if (!userId) {
-       alert("로그인이 필요합니다.");
-       return;
-     }
-
-     // active 토글
-     toggleActive(likeButton);
-
-     fetch(`/reaction.do?mode=like-action&postId=${postId}&userId=${userId}`, {
-       method: "POST",
-     })
-       .then((response) => response.json())
-       .then((data) => {
-         if (data.success) {
-           likeResult.textContent = data.likeCount;
-         }
-       })
-       .catch((err) => {
-         console.error(err);
-         likeResult.textContent = "에러 발생!";
-       });
-   });
- }
+       fetch(`/reaction.do?mode=like-action&postId=${postId}&userId=${userId}`, { method: "POST" })
+         .then(res => res.json())
+         .then(data => {
+           if(data.success) {
+             likeButton.classList.toggle("active");
+           }
+         })
+         .catch(console.error);
+     });
+   }
 
  // =========================
  // 스크랩 토글
  // =========================
  const scrapButton = document.getElementById("scrapButton");
- const scrapResult = document.getElementById("scrapResult");
+  if(scrapButton) {
+    scrapButton.addEventListener("click", function(e) {
+      e.preventDefault();
+      const postId = scrapButton.dataset.postId;
+      const userId = scrapButton.dataset.userId;
+      if(!userId) { alert("로그인이 필요합니다."); return; }
 
- if (scrapButton && scrapResult) {
-   scrapButton.addEventListener("click", function (e) {
-     e.preventDefault();
-
-     const postId = scrapButton.dataset.postId;
-     const userId = scrapButton.dataset.userId;
-
-     if (!userId) {
-       alert("로그인이 필요합니다.");
-       return;
-     }
-
-     // active 토글
-     toggleActive(scrapButton);
-
-     fetch(`/reaction.do?mode=scrap-action&postId=${postId}&userId=${userId}`, {
-       method: "POST",
-     })
-       .then((response) => response.json())
-       .then((data) => {
-         if (data.success) {
-           scrapResult.textContent = data.scrapCount;
-         }
-       })
-       .catch((err) => {
-         console.error(err);
-         scrapResult.textContent = "에러 발생!";
-       });
-   });
- }
+      fetch(`/reaction.do?mode=scrap-action&postId=${postId}&userId=${userId}`, { method: "POST" })
+        .then(res => res.json())
+        .then(data => {
+          if(data.success) {
+            scrapButton.classList.toggle("active");
+          }
+        })
+        .catch(console.error);
+    });
+  }
 
  // =========================
  // active 토글 함수
