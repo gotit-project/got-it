@@ -85,7 +85,7 @@ public class Post {
 		this.userId = userId;
 	}
 
-	public long getCategoryId() {
+	public int getCategoryId() {
 		return categoryId;
 	}
 

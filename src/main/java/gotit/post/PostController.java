@@ -92,6 +92,7 @@ public class PostController extends HttpServlet {
         
         //스크랩 수 조회 
        // int scrapCount = reactionDAO.scrapCountByPostId(postId);
+
         
         Post post = postService.selectS(postId);
         request.setAttribute("post", post);
@@ -141,10 +142,12 @@ public class PostController extends HttpServlet {
    	 * ========================== */
     private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long postId = Long.parseLong(request.getParameter("postId"));
-        PostService service = PostService.getInstance();
+        int boardId = Integer.parseInt(request.getParameter("boardId"));
         
-        Post post = service.selectS(postId);
+        Post post = postService.selectS(postId);
+        Board board = boardService.getBoard(boardId);
         request.setAttribute("post", post);
+        request.setAttribute("board", board);
         
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/post-edit.jsp");
         rd.forward(request, response);
@@ -154,19 +157,18 @@ public class PostController extends HttpServlet {
    	 * 게시글 수정 처리 
    	 * ========================== */
     private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
         long postId = Long.parseLong(request.getParameter("postId"));
         int boardId = Integer.parseInt(request.getParameter("boardId"));
         long userId =  Long.parseLong(request.getParameter("userId"));
-        int categorieId = Integer.parseInt(request.getParameter("categorieId"));
+        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
         String postTag = request.getParameter("postTag");
         String title = request.getParameter("title");
         String rawContent = request.getParameter("rawContent");
-        String htmlContent = request.getParameter("htmlContent");        
+        //String htmlContent = request.getParameter("htmlContent"); 
+        String htmlContent = "test";
         
-        Post post = new Post(postId, boardId, userId, categorieId, postTag, title, rawContent, htmlContent, "ACTIVE");
-        PostService service = PostService.getInstance();
-        boolean flag = service.updateS(post);
+        Post post = new Post(postId, boardId, userId, categoryId, postTag, title, rawContent, htmlContent, "ACTIVE");
+        boolean flag = postService.updateS(post);
 
         request.setAttribute("flag", flag);
         request.setAttribute("kind", "update");

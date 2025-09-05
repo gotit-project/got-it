@@ -3,7 +3,7 @@
 	  <!-- 댓글 -->
       <div class="comment-wrap">
           <p><span>7</span> 개의 답변</p>
-          <form action="${pageContext.request.contextPath}/comment.do?mode=insert&postId=${postDto.postId}" method="post">
+          <form action="${pageContext.request.contextPath}/comment.do?mode=insert&postId=${post.postId}" method="post">
        		<!-- 유저, 보드, 카테고 임시아이디 -->
 	   		<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
   			<input type="hidden" name="boardId" value="1">
@@ -37,7 +37,7 @@
 	                   <div class="profile-info">
 	                       <div>
 	                           <p class="writer">${commentDto.nickname}</p>
-	                           <span class="time">2시간 전</span>
+	                           <span class="time"></span>
 	                           <span class="corrected-mark">수정됨</span> 
 	                       </div>
 	                       <button class="adopted-mark checked">
@@ -51,8 +51,8 @@
 	               <p class="comment-content">${commentDto.content}</p>
 	               <div class="comment-item-footer">
 	                   <button>답글쓰기</button>
-	                   <button data-comment-id=${commentDto.commentId} class="edit-button">수정</button>
-	                   <button data-comment-id=${commentDto.commentId} class="delete-button">삭제</button>
+	                   <button data-comment-id="${commentDto.commentId}" class="edit-button">수정</button>
+	                   <button data-comment-id="${commentDto.commentId}" class="delete-button">삭제</button>
 	               </div>
 	          	</div>
 	          </c:forEach>

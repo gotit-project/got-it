@@ -196,7 +196,7 @@ header#login .menu-item .with-icon {
   justify-content: space-between;
 }
 header .profile-button {
-  background-image: url("../../img/common/student.png");
+  background-image: url("../../img/common/default.png");
   background-repeat: no-repeat;   /* 반복 여부 */
   background-size: cover;         /* 크기 맞추기 */
   background-position: center;    /* 위치 */

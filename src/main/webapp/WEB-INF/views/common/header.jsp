@@ -87,7 +87,7 @@
         </div>
       </div>
       <div class="profile-wrap">
-        <button class="profile-button" style="background-image: ${sessionScope.loginOkUser.nickname}"></button>
+        <button class="profile-button"></button>
         <div class="profile-dropdown-menu">
           <div class="profile-info">
             <strong>내 계정</strong>

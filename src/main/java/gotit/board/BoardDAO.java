@@ -65,7 +65,7 @@ public class BoardDAO {
 				String description = rs.getString(3);
 				int postCount = rs.getInt(4);
 				
-				ArrayList<Category> categories = findByCategories(boardId);
+				List<Category> categories = findByCategories(boardId);
 				return new Board(boardId, boardName, description, postCount, categories);
 			}else {
 				return null;
@@ -81,8 +81,8 @@ public class BoardDAO {
 		}
     }
     
-    private ArrayList<Category> findByCategories(int boardId) {
-    	ArrayList<Category> list = new ArrayList<Category>();
+    private List<Category> findByCategories(int boardId) {
+    	List<Category> list = new ArrayList<Category>();
     	Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
