@@ -1,16 +1,16 @@
 // gotit.board.model.Board.java
 package gotit.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Board {
     private int boardId;
     private String boardName;
     private String description;
     private int postCount;
-    private ArrayList<Category> categories;
+    private List<Category> categories;
     
-	public Board(int boardId, String boardName, String description, int postCount, ArrayList<Category> categories) {
+	public Board(int boardId, String boardName, String description, int postCount, List<Category> categories) {
 		super();
 		this.boardId = boardId;
 		this.boardName = boardName;
@@ -43,10 +43,10 @@ public class Board {
 	public void setPostCount(int postCount) {
 		this.postCount = postCount;
 	}
-	public ArrayList<Category> getCategories() {
+	public List<Category> getCategories() {
 		return categories;
 	}
-	public void setCategorie(ArrayList<Category> categories) {
+	public void setCategorie(List<Category> categories) {
 		this.categories = categories;
 	}
     

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8" import="java.sql.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -10,7 +11,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/write.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/write.css">
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
     </head>
     <body>
@@ -21,16 +22,19 @@
    		<div id="write" class="content-wrap">
 		  <form action="post.do?mode=update" method="post">
 		  		<!-- 유저, 보드, 카테고 임시아이디 -->
-		   		<input type="hidden" name="boardId" value="${post.boardId}">
+		   		<input type="hidden" name="boardId" value="${board.boardId}">
+		   		<input type="hidden" name="postId" value="${post.postId}">
 		  		<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
    				
 			       <div class="form-group">
 		           <label for="category">카테고리</label>
-		           <select name="categoryId">
-					  <c:if test="${not empty post.categoryName}">
+		       	    <select name="categoryId">
+					  <c:if test="${not empty board.categories}">
+					    <c:forEach items="${board.categories}" var="cat">
 					      <option value="${cat.categoryId}">
 					        ${cat.categoryName}
 					      </option>
+					    </c:forEach>
 					  </c:if>
 					</select>
 		       </div>
@@ -47,7 +51,7 @@
 			       
 			       <div class="form-group">
 			           <label for="content">본문</label>
-			           <textarea id="content" name="content" rows="10">${post.rawContent}</textarea>
+			           <textarea id="content" name="rawContent" rows="10">${post.rawContent}</textarea>
 			       </div>
 		       
 		       <div class="button-group">

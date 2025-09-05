@@ -17,7 +17,7 @@
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
          <script src="${pageContext.request.contextPath}/assets/js/main.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/view.js" defer></script>
-        
+        <script src="${pageContext.request.contextPath}/assets/js/comment.js" defer></script>
     </head>
     <body>
 
@@ -31,7 +31,7 @@
                     <div class="view-span-wrap">
                         <a href="board.do?mode=list&id=${post.boardId}">${post.boardName}</a>
                         <span>/</span>
-                        <a href="list.html" class="category">${post.categoryName}</a>
+                        <a href="board.do?mode=list&id=${post.boardId}&categoryId=${post.categoryId}" class="category">${post.categoryName}</a>
                     </div>
                 </div>
                 <div>
@@ -71,9 +71,12 @@
 						        <button class="edit-button">···</button>
 						        <div class="edit-dropdown-menu">
 						            <div class="menu-divider"></div>
-						            <a href="post.do?mode=edit&postId=${post.postId}" class="edit-menu-item">수정</a>
+						            <form action="post.do?mode=edit&postId=${post.postId}" method="post">
+						              	<input type="hidden" name="boardId" value="${post.boardId}">
+						            	<button type="submit" class="edit-menu-item">수정</button>
+						            </form>
 						            <div class="menu-divider"></div>
-						            <a href="post.do?mode=delete&postId=${post.postId}" class="edit-menu-item">삭제</a>
+						            	<a href="post.do?mode=delete&postId=${post.postId}" class="edit-menu-item">삭제</a>
 						        </div>
 						    </div>
 						</c:if>

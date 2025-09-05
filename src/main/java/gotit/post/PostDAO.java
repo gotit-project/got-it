@@ -50,7 +50,7 @@ public class PostDAO {
                 int likeCount = rs.getInt("like_count");
                 int viewCount = rs.getInt("view_count");
                 int commentCount = rs.getInt("comment_count");
-                String status = rs.getString("status");
+                String stateType = rs.getString("state_type");
                 Timestamp createdAt = rs.getTimestamp("created_at");
                 Timestamp updatedAt = rs.getTimestamp("updated_at");
                 
@@ -67,7 +67,7 @@ public class PostDAO {
 	
 			     
 			    list.add(new Post(postId, boardId, userId, categoryId, postTag, title, rawContent,
-						htmlContent, likeCount, viewCount, commentCount, status, createdAt, updatedAt,
+						htmlContent, likeCount, viewCount, commentCount, stateType, createdAt, updatedAt,
 						boardName, nickName, categoryName));
             }
         }catch(SQLException se) {
@@ -122,7 +122,7 @@ public class PostDAO {
                     int likeCount = rs.getInt("like_count");
                     int viewCount = rs.getInt("view_count");
                     int commentCount = rs.getInt("comment_count");
-                    String status = rs.getString("status");
+                    String stateType = rs.getString("state_type");
                     Timestamp createdAt = rs.getTimestamp("created_at");
                     Timestamp updatedAt = rs.getTimestamp("updated_at");
 
@@ -131,7 +131,7 @@ public class PostDAO {
     			    String categoryName = getCategoryName(categoryId);
 
                     return new Post(postId, boardId, userId, categoryId, postTag, title, rawContent,
-    						htmlContent, likeCount, viewCount, commentCount, status, createdAt, updatedAt,
+    						htmlContent, likeCount, viewCount, commentCount, stateType, createdAt, updatedAt,
     						boardName, nickName, categoryName);
                 }
             }
@@ -161,13 +161,14 @@ public class PostDAO {
         try(Connection con = ds.getConnection();
             PreparedStatement pstmt = con.prepareStatement(POST_UPDATE)) {
 
-            pstmt.setLong(1, post.getBoardId());
+            pstmt.setInt(1, post.getBoardId());
             pstmt.setLong(2, post.getUserId());
-            pstmt.setLong(3, post.getCategoryId());
-            pstmt.setString(4, post.getTitle());
-            pstmt.setString(5, post.getRawContent());
-            pstmt.setString(6, post.getHtmlContent());
-            pstmt.setString(7, post.getPostTag());
+            pstmt.setInt(3, post.getCategoryId());
+            pstmt.setString(4, post.getPostTag());
+            pstmt.setString(5, post.getTitle());
+            pstmt.setString(6, post.getRawContent());
+            pstmt.setString(7, post.getHtmlContent());
+            pstmt.setLong(8, post.getPostId());
 
             return pstmt.executeUpdate() > 0;
         } catch(SQLException se) {
@@ -180,7 +181,7 @@ public class PostDAO {
 	 * 페이징 수를 구하기 위함 
 	 * ========================== */
     public int countPosts(int boardId) throws SQLException {
-    	String sql = "SELECT COUNT(*) FROM posts WHERE status='ACTIVE' AND board_id=?";
+    	String sql = "SELECT COUNT(*) FROM posts WHERE state_type='ACTIVE' AND board_id=?";
         try (Connection con = ds.getConnection();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
 
