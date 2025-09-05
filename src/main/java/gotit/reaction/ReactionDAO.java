@@ -1,8 +1,6 @@
 package gotit.reaction;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import javax.naming.*;
 import javax.sql.DataSource;
 
@@ -12,7 +10,6 @@ import gotit.model.Reaction;
 
 public class ReactionDAO {
 	private DataSource ds;
-	
 	public ReactionDAO() {
 		try {
             Context initContext = new InitialContext();
@@ -24,6 +21,9 @@ public class ReactionDAO {
         }
 	}
 	
+	/* ==========================
+   	 * 좋아요 추가 
+   	 * ========================== */
 	public boolean likeInsert(Reaction reaction) {
 		try(Connection con = ds.getConnection();
 	        PreparedStatement pstmt = con.prepareStatement(REACTION_LIKE_INSERT)) {
@@ -38,10 +38,12 @@ public class ReactionDAO {
 	    }
 	}
 	
+	/* ==========================
+   	 * 좋아요 삭
+   	 * ========================== */
 	public boolean likeDelete(Reaction reaction) {
 	    try(Connection con = ds.getConnection();
 	        PreparedStatement pstmt = con.prepareStatement(REACTION_LIKE_DELETE)) {
-	        
 	        pstmt.setLong(1, reaction.getPostId());
 	        pstmt.setLong(2, reaction.getUserId());
 	        return pstmt.executeUpdate() > 0;
@@ -51,10 +53,13 @@ public class ReactionDAO {
 	    }
 	}
 	
+	/* ==========================
+   	 * 특정 사용자가 해당 게시글에 
+   	 * 좋아요 눌렀는지 확인 
+   	 * ========================== */
 	public boolean likeExists(Reaction reaction) {
 	    try(Connection con = ds.getConnection();
 	        PreparedStatement pstmt = con.prepareStatement(REACTION_LIKE_CHECK)) {
-	        
 	        pstmt.setLong(1, reaction.getPostId());
 	        pstmt.setLong(2, reaction.getUserId());
 	        try(ResultSet rs = pstmt.executeQuery()) {
@@ -68,10 +73,12 @@ public class ReactionDAO {
 	    return false;
 	}
 	
+	/* ==========================
+   	 * 스크랩 추가 
+   	 * ========================== */
 	public boolean scrapInsert(Reaction reaction) {
 		try(Connection con = ds.getConnection();
 	        PreparedStatement pstmt = con.prepareStatement(REACTION_SCRAP_INSERT)) {
-	
 	        pstmt.setLong(1, reaction.getPostId());
 	        pstmt.setLong(2, reaction.getUserId());
 	
@@ -82,10 +89,12 @@ public class ReactionDAO {
 	    }
 	}
 	
+	/* ==========================
+   	 * 스크랩 삭제 
+   	 * ========================== */
 	public boolean scrapDelete(Reaction reaction) {
 	    try(Connection con = ds.getConnection();
 	        PreparedStatement pstmt = con.prepareStatement(REACTION_SCRAP_DELETE)) {
-	        
 	        pstmt.setLong(1, reaction.getPostId());
 	        pstmt.setLong(2, reaction.getUserId());
 	        return pstmt.executeUpdate() > 0;
@@ -95,10 +104,13 @@ public class ReactionDAO {
 	    }
 	}
 	
+	/* ==========================
+   	 * 특정 사용자가 해당 게시글에
+   	 * 스크랩 눌렀는지 확인 
+   	 * ========================== */
 	public boolean scrapExists(Reaction reaction) {
 	    try(Connection con = ds.getConnection();
 	        PreparedStatement pstmt = con.prepareStatement(REACTION_SCRAP_CHECK)) {
-	        
 	        pstmt.setLong(1, reaction.getPostId());
 	        pstmt.setLong(2, reaction.getUserId());
 	        try(ResultSet rs = pstmt.executeQuery()) {
@@ -112,13 +124,13 @@ public class ReactionDAO {
 	    return false;
 	}
 	
-
-    // 좋아요 체크
+	/* ==========================
+   	 * 좋아요 상태 확인 
+   	 * (postId, userId 기준)
+   	 * ========================== */
     public boolean hasUserLiked(long postId, long userId) {
-        // DB에서 postId, userId로 좋아요 존재 여부 확인
-        String sql = "SELECT COUNT(*) FROM post_likes WHERE post_id = ? AND user_id = ?";
         try (Connection con = ds.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+             PreparedStatement ps = con.prepareStatement(REACTION_LIKE_CHECK)) {
             ps.setLong(1, postId);
             ps.setLong(2, userId);
             ResultSet rs = ps.executeQuery();
@@ -132,11 +144,13 @@ public class ReactionDAO {
         return false;
     }
 
-    // 스크랩 체크
+    /* ==========================
+   	 * 스크 상태 확인 
+   	 * (postId, userId 기준)
+   	 * ========================== */
     public boolean hasUserScrapped(long postId, long userId) {
-        String sql = "SELECT COUNT(*) FROM post_scraps WHERE post_id = ? AND user_id = ?";
         try (Connection con = ds.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+             PreparedStatement ps = con.prepareStatement(REACTION_SCRAP_CHECK)) {
             ps.setLong(1, postId);
             ps.setLong(2, userId);
             ResultSet rs = ps.executeQuery();

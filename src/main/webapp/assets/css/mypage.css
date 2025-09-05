@@ -15,15 +15,14 @@
   gap: 20px;
 }
 .profile-info h1 {
-  color: #2c3e50;
+  color: var(--color-text-main);
   margin: 0 0 5px;
-  font-size: 2em;
+  font-size: 20px;
   font-weight: 700;
 }
 .profile-info p {
-  color: #7f8c8d;
+  color: var(--color-bg-sub3);
   margin: 0;
-  font-size: 1em;
 }
 .profile-avatar-wrap {
   position: relative;
@@ -32,8 +31,8 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-color: #4caf50;
-  color: white;
+  background-color: (--background-main);
+  color: var(--color-text-white);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,7 +42,7 @@
 }
 .settings-icon {
   margin-left: 90px;
-  color: #7f8c8d;
+  color: var(--color-bg-sub3);
   cursor: pointer;
   display: flex;
   justify-content: end;
@@ -56,8 +55,8 @@
 
 .tabs {
   display: flex;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e9ecef;
+  background-color: var(--color-bg-white);
+  border-bottom: var(--color-border-primary);
   padding: 0 30px;
   border-radius: 8px;
 }
@@ -69,13 +68,13 @@
   font-size: 14px;
   font-weight: 600;
   transition: color 0.3s, border-bottom 0.3s;
-  color: #7f8c8d;
+  color: var(--color-text-sub);
   position: relative;
   word-break: keep-all;
 }
 .tab-button.active {
-  color: #3498db;
-  border-bottom: 2px solid #3498db;
+  color: var(--background-main);
+  border-bottom: var(--background-main);
   margin-bottom: -1px;
 }
 .tab-button:hover:not(.active) {
@@ -115,7 +114,7 @@
 }
 .post-item p {
   margin: 0;
-  color: #7f8c8d;
+  color: var(--color-bg-sub2);
 }
 .no-data {
   text-align: center;
@@ -131,14 +130,12 @@
     no-repeat center;
   background-size: contain;
 }
-
-/* 기본: 숨김 */
 .settings-dropdown-menu {
   position: absolute;
   top: 50px;
   right: 0;
   width: 150px;
-  background: #fff;
+  background: var(--color-bg-white);
   border: 1px solid var(--color-border-default);
   border-radius: 8px;
   box-shadow: var(--color-shadow-default);
@@ -149,14 +146,11 @@
   z-index: 1000;
   padding: 10px;
 }
-
-/* 토글 시 노출 */
 .settings-dropdown-menu.active {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
-
 @media screen and (max-width: 780px) {
   .profile-avatar {
     width: 60px;

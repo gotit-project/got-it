@@ -77,7 +77,6 @@
 						    </div>
 						</c:if>
 						
-					    
                       
                     </div>
                     <div class="post-item">

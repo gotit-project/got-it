@@ -17,7 +17,6 @@ import gotit.model.Comment;
 import gotit.model.User;
 import gotit.board.BoardService;
 import gotit.comment.CommentService;
-import gotit.reaction.ReactionDAO;
 import gotit.reaction.ReactionService;
 
 @WebServlet("/post.do")
@@ -26,6 +25,7 @@ public class PostController extends HttpServlet {
     BoardService boardService = BoardService.getInstance();
     PostService postService = PostService.getInstance();
     CommentService commentService = CommentService.getInstance();
+    ReactionService reactionService = ReactionService.getInstance();
     
    	/* ==========================
    	 * URL 파라미터 mode 요청들을 분기함
@@ -47,30 +47,27 @@ public class PostController extends HttpServlet {
             //list(request, response);
         }
     }
-//    
-//    /* ==========================
-//   	 * 메인페이지에서 리스트 보여주기 
-//   	 * ========================== */
-//    private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        List<Post> postList = postService.selectAll(); // DB에서 게시글 리스트 가져오기
-//        request.setAttribute("postList", postList);
-//        request.getRequestDispatcher("/index.jsp").forward(request, response);
-//    }
     
     /* ==========================
-   	 * 작성하기 버튼 누르면 게시글 작성 페이지로 이동
+   	 * 작성하기 화면 이동
+   	 * 파라미터로 넘어온 boardId 받음
+   	 * 해당 board 정보 조회해서 request
    	 * ========================== */
     private void write(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String strId = request.getParameter("id");
     	int boardId = Integer.parseInt(strId);
     	Board board = boardService.getBoard(boardId);
+    	
     	request.setAttribute("board", board);
+    	
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/post-write.jsp");
         rd.forward(request, response);
     }
     
     /* ==========================
    	 * 게시글 작성 처리 
+   	 * 작성 폼에서 넘어온 데이터를 받음
+   	 * Pos 객체 생성후 Service -> DB 
    	 * ========================== */
     private void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int boardId = Integer.parseInt(request.getParameter("boardId"));
@@ -87,14 +84,7 @@ public class PostController extends HttpServlet {
         
         request.setAttribute("post", post);
         request.setAttribute("flag", flag);
-//      request.setAttribute("kind", "insert");
-
-//      RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/msg.jsp");
-//      rd.forward(request, response);
-        
-        
-        
-        //작성 되면 alert 띄우기 
+  
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -107,18 +97,15 @@ public class PostController extends HttpServlet {
     }
 
     /* ==========================
-   	 * 게시글 클릭했을 때 해당 게시글 보여주기 
+   	 * 게시글 상세보기
+   	 * postId로 게시글 조회하여 request 저장 
+   	 * 로그인한 사용자 좋아요, 스크랩 확인
+   	 * 댓글 목록 조회 후 뷰페이지 전달 
    	 * ========================== */
     private void view(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long postId = Long.parseLong(request.getParameter("postId"));
-        ReactionDAO reactionDAO = new ReactionDAO(); 
-        //service.getViewCountS(postId); // 조회수 증가
-        
-        //스크랩 수 조회 
-       // int scrapCount = reactionDAO.scrapCountByPostId(postId);
-
-        
         Post post = postService.selectS(postId);
+        
         request.setAttribute("post", post);
         
         
@@ -136,7 +123,6 @@ public class PostController extends HttpServlet {
 
         request.setAttribute("userLiked", userLiked);
         request.setAttribute("userScrapped", userScrapped);
-
         
 
         List<Comment> commentList = commentService.selectListS(postId);
@@ -148,18 +134,18 @@ public class PostController extends HttpServlet {
     }
     
     /* ==========================
-   	 * 게시글 상태 deleted 로 변경 
+   	 * 게시글 비활성화
+   	 * postId로 게시글 조회 후 상태 변경
+   	 * 성공 여부 따라 alert 
    	 * ========================== */
     private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	long postId = Long.parseLong(request.getParameter("postId"));
     	Post post = postService.selectS(postId); // postId로 DB에서 게시글 가져오기
     	boolean flag = postService.deleteS(postId);
 
-
         request.setAttribute("flag", flag);
         request.setAttribute("kind", "delete");
 
-        //작성 되면 alert 띄우기 
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -172,14 +158,16 @@ public class PostController extends HttpServlet {
     }
 
     /* ==========================
-   	 * 게시글 편집 페이지 이동 
+   	 * 게시글 수정 페이지 이동
+   	 * postId와 boardId를 받아 게시판, 게시글 조회
+   	 * 뷰페이지에 전달
    	 * ========================== */
     private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long postId = Long.parseLong(request.getParameter("postId"));
         int boardId = Integer.parseInt(request.getParameter("boardId"));
-        
         Post post = postService.selectS(postId);
         Board board = boardService.getBoard(boardId);
+        
         request.setAttribute("post", post);
         request.setAttribute("board", board);
         
@@ -189,6 +177,9 @@ public class PostController extends HttpServlet {
 
     /* ==========================
    	 * 게시글 수정 처리 
+   	 * 작성 폼에서 수정된 데이터 받아 Post 객체 생성
+   	 * DB 업데이트 실행
+   	 * 성공 여부 따라 alert 
    	 * ========================== */
     private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long postId = Long.parseLong(request.getParameter("postId"));
@@ -207,7 +198,6 @@ public class PostController extends HttpServlet {
         request.setAttribute("flag", flag);
         request.setAttribute("kind", "update");
 
-        //작성 되면 alert 띄우기 
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
 

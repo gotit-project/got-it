@@ -15,6 +15,11 @@ public class Comment {
 	
 	public Comment() {};
 	
+
+   	/* ==========================
+   	 * nickname 포함 
+   	 * 댓글 + 작성자 닉네임 필요할 떄
+   	 * ========================== */
 	public Comment(long commentId, long postId, String nickname, String content, boolean isAnswer, boolean accepted, Date createdAt, Date updatedAt) {
 		this.commentId = commentId;
 		this.postId = postId;
@@ -26,6 +31,10 @@ public class Comment {
 		this.updatedAt = updatedAt;
 	}
 	
+   	/* ==========================
+   	 * userId 포함 생성자 
+   	 * 닉네임 필요 없을 때
+   	 * ========================== */
 	public Comment(long commentId, long postId, long userId, String content, boolean isAnswer, boolean accepted, Date createdAt, Date updatedAt) {
 		this.commentId = commentId;
 		this.postId = postId;
@@ -37,7 +46,10 @@ public class Comment {
 		this.updatedAt = updatedAt;
 	}
 	
-	
+   	/* ==========================
+   	 * userId + nickname 포함 생성자 
+   	 * 유저아이디, 닉네임 둘다 필요할 때
+   	 * ========================== */
 	public Comment(long commentId, long postId, long userId, String nicknam, String content, boolean isAnswer, boolean accepted, Date createdAt, Date updatedAt) {
 		this.commentId = commentId;
 		this.postId = postId;

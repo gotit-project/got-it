@@ -1,7 +1,6 @@
 /* ====================================== */
 /* 게시판 정보                               */
 /* ====================================== */
-
 #list .board-title {
   display: flex;
   line-height: 1;
@@ -54,9 +53,9 @@
 #list .category-button-wrap {
   max-width: 655px;
   display: flex;
-  flex-wrap: wrap;   
-  gap: 30px;         
-  justify-content: center; 
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
 }
 #list .category-button-wrap button {
   height: 34px;
@@ -96,15 +95,15 @@
   line-height: 36px;
   border: var(--color-border-default);
   border-left: 0;
-  background: var(--color-bg-white) url("../img/list/order_button_icon.svg") no-repeat left 5px center /
-  20px;
+  background: var(--color-bg-white) url("../img/list/order_button_icon.svg")
+    no-repeat left 5px center / 20px;
   transition: 0.3s;
 }
 #list .order-button-wrap button:first-child:hover {
   background: var(--color-bg-sub);
 }
 #list .order-button-wrap button:last-child:hover {
-  background-color: var(--color-bg-sub);;
+  background-color: var(--color-bg-sub);
 }
 #list .filter-bottom {
   height: 54px;
@@ -117,7 +116,7 @@
   margin: 0 130px 0 0;
 }
 #list .filter-bottom .refresh-button:before {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   top: 50%;
@@ -181,7 +180,7 @@
 }
 
 #list .filter-bottom .paging-button a:before {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   top: 50%;
@@ -203,11 +202,8 @@
   transform: rotate(180deg);
 }
 #list .filter-bottom .paging-button button:disabled {
-	opacity: 0.5;
+  opacity: 0.5;
 }
-/* ====================================== */
-/* 게시판 정보 끝                            */
-/* ====================================== */
 
 /* ====================================== */
 /* 게시글 정보                               */
@@ -340,14 +336,10 @@
   color: var(--color-text-sub2);
   font-size: 14px;
 }
-/* ====================================== */
-/* 게시글 정보 끝                             */
-/* ====================================== */
 
 /* ====================================== */
 /* 미디어 쿼리                               */
 /* ====================================== */
-
 @media screen and (max-width: 1024px) {
   #list.content-wrap {
     flex-wrap: wrap;
@@ -397,6 +389,3 @@
     margin: 0;
   }
 }
-/* ======================================  */
-/* 미디어 쿼리 끝                             */
-/* ====================================== */

@@ -11,42 +11,36 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import gotit.common.util.SqlUtils;
+import static gotit.common.util.SqlUtils.*;
 import gotit.model.Comment;
 
 public class CommentDAO {
-	
 	 private DataSource ds;
-	 
 	 public CommentDAO() {
 	
 	    try {
 	        Context initContext = new InitialContext();
 	        Context envContext = (Context)initContext.lookup("java:/comp/env");
 	        ds = (DataSource)envContext.lookup("jdbc/gotDB");
-	
 	        if(ds == null) {
 	            throw new RuntimeException("DataSource lookup failed: jdbc/gotDB not found");
 	        }
 	    } catch(NamingException ne){
 	        throw new RuntimeException("JNDI NamingException", ne);
-		    }
-		    
+	    } 
 	 }
   
-	// ======================================
-	// 게시글에 맞는 댓글선택해서 보여주기
-	// ======================================   	   
+	/* ==========================
+	 * 시글에 맞는 댓글 리스트 조회
+	 * ========================== */
 	public List<Comment> selectList(long postId) {
-	
 		 	List<Comment> commentList = new ArrayList<>();
-		 
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 		try {    
 			 con = ds.getConnection();
-			 pstmt = con.prepareStatement(SqlUtils.COMMENT_SELECT);
+			 pstmt = con.prepareStatement(COMMENT_SELECT);
 			 pstmt.setLong(1, postId);
 			 rs = pstmt.executeQuery();
 			 while(rs.next()){
@@ -72,6 +66,9 @@ public class CommentDAO {
 		 return commentList;
 	} 
 	
+	/* ==========================
+	 * userId로 사용자 닉네임 조
+	 * ========================== */
 	private String getNickname(long userId) {
 		    Connection con = null;
 		    PreparedStatement pstmt = null;
@@ -79,7 +76,7 @@ public class CommentDAO {
 		
 		    try {
 		        con = ds.getConnection();
-		        pstmt = con.prepareStatement("select nickname from users where user_id = ?"); 
+		        pstmt = con.prepareStatement(GET_NICKNAME); 
 		        pstmt.setLong(1, userId);
 		        rs = pstmt.executeQuery();
 		
@@ -96,19 +93,16 @@ public class CommentDAO {
 		    }
 		    return null;
 	}
-    // ======================================
-    // 게시글에 맞는 댓글선택해서 보여주기 
-    // ======================================
 	
+	/* ==========================
+	 * 댓글 등록 
+	 * ========================== */
 	public boolean insert(Comment commentDto) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
 		try {
-
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(SqlUtils.COMMENT_INSERT);
-			 
+			pstmt = con.prepareStatement(COMMENT_INSERT);
 	        pstmt.setLong(1, commentDto.getPostId());
 	        pstmt.setLong(2, commentDto.getUserId());
 	        pstmt.setString(3, commentDto.getContent());
@@ -131,13 +125,15 @@ public class CommentDAO {
 		}
 	}
 	
+	/* ==========================
+	 * 댓글 수정 
+	 * ========================== */
 	public boolean update(long commentId, String content) {
 	    Connection con = null;
 	    PreparedStatement pstmt = null;
-	
 	    try {
 	        con = ds.getConnection();
-	        pstmt = con.prepareStatement(SqlUtils.COMMENT_UPDATE);
+	        pstmt = con.prepareStatement(COMMENT_UPDATE);
 	        pstmt.setString(1, content);
 	        pstmt.setLong(2, commentId);
 	
@@ -153,7 +149,9 @@ public class CommentDAO {
 	    }
 	}
 
-	
+	/* ==========================
+	 * 특정 댓글 하나 조회 (SELECT_ONE)
+	 * ========================== */
 	public Comment select(long commentId) {
 	    Comment comment = null;
 	    Connection con = null;
@@ -162,7 +160,7 @@ public class CommentDAO {
 	
 	    try {
 	        con = ds.getConnection();
-	        pstmt = con.prepareStatement(SqlUtils.COMMENT_SELECT_ONE); 
+	        pstmt = con.prepareStatement(COMMENT_SELECT_ONE); 
 	        pstmt.setLong(1, commentId);
 	        rs = pstmt.executeQuery();
 	        if (rs.next()) {
@@ -176,11 +174,10 @@ public class CommentDAO {
 
 	            String nickname = getNickname(userId);
 
-	            // userId 포함 생성자로 Comment 생성
 	            comment = new Comment(
 	                commentId, postId, userId, content, isAnswer, accepted, createdAt, updatedAt
 	            );
-	            comment.setNickname(nickname); // nickname 따로 세팅
+	            comment.setNickname(nickname); 
 	        }
 
 	    } catch (SQLException se) {
@@ -190,11 +187,12 @@ public class CommentDAO {
 	        try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
 	        try { if (con != null) con.close(); } catch(Exception e) {}
 	    }
-	
 	    return comment;
 	}
 	
-
+	/* ==========================
+	 * 댓글 삭제 
+	 * ========================== */
 	public boolean delete(long commentId) {
 	    Connection con = null;
 	    PreparedStatement pstmt = null;
@@ -202,7 +200,7 @@ public class CommentDAO {
 	    
 	    try{    
 	        con = ds.getConnection();
-	        pstmt = con.prepareStatement(SqlUtils.COMMENT_DELETE);
+	        pstmt = con.prepareStatement(COMMENT_DELETE);
 	        pstmt.setLong(1, commentId);
 	        int i = pstmt.executeUpdate();
 	        if(i > 0) return true;

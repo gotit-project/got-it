@@ -35,19 +35,24 @@
                  
                         <!-- 게시글 한 묶음 -->
                         
-                    	<c:forEach var="board" items="${boardList}">
-						    <div class="board-wrap">
-						        <a href="/" class="board-title">${board.name}</a>
-						        <div class="post-item-wrap">
-						            <c:forEach var="post" items="${board.posts}">
-						                <div class="post-item">
-						                    <p class="post-title">${post.title}</p>
-						                </div>
-						            </c:forEach>
+                    	<c:forEach var="post" items="${postList}">
+						    
+						    <a href="post.do?mode=view&postId=${post.postId}&boardId=${boardId}"
+						       data-category-id="${post.categoryId}"
+						       data-category-name="${post.categoryName}"
+						       data-board-id="${boardId}">
+						        <div class="post-item">
+						            <div class="post-item-header">
+						                <img src="../assets/img/common/post_info_profile02.png" class="profile" alt="프로필 사진">
+						                <p class="writer">${post.nickName}</p>
+						                <span class="time">${DateUtils.formatTimeAgo(post.updatedAt)}</span>
+						            </div>
+						            <p class="post-title">${post.title}</p>
+						            <p class="post-content">${post.rawContent}</p>
+						            <!-- 하단 생략 -->
 						        </div>
-						    </div>
+						    </a>
 						</c:forEach>
-
                         <!-- 게시글 한 묶음 끝 -->
 
                         

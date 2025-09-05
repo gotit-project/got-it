@@ -3,13 +3,13 @@ package gotit.common.util;
 public class SqlUtils {
 	
 	//AuthDAO SQL
-	public static final String AUTH_LOGIN = "select * from users where email=? ";
-	public static final String AUTH_SIGNUP = "insert into users (username, email, password_hash, nickname) values ( ?, ?, ?, ? )";
+	public final static String AUTH_LOGIN = "select * from users where email=? ";
+	public final static String AUTH_SIGNUP = "insert into users (username, email, password_hash, nickname) values ( ?, ?, ?, ? )";
 	
 	//BoardDAO SQL
-	public static final String BOARD_SELECT = "select * from boards where board_id=? ";
-	public static final String BOARD_ALL_SELECT = "select * from boards ";
-	public static final String CATEGORIE_SELECT = "select * from board_categories where board_id=? ";
+	public final static String BOARD_SELECT = "select * from boards where board_id=? ";
+	public final static String BOARD_ALL_SELECT = "select * from boards ";
+	public final static String CATEGORIE_SELECT = "select * from board_categories where board_id=? ";
 	
 	//PostDAO SQL
 	public final static String POST_SELECT = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? ORDER BY ? LIMIT ?, ?";
@@ -24,7 +24,7 @@ public class SqlUtils {
 	public final static String COMMENT_SELECT = "select * from post_comments where post_id=?";
 	public final static String COMMENT_INSERT = "insert into POST_COMMENTS(post_id, user_id, content, is_answer, accepted, created_at, updated_at) values (?, ?, ?, ?, ?, now(), now())";
 	public final static String COMMENT_UPDATE = "update POST_COMMENTS set content=? where comment_id=?";
-	public static final String COMMENT_SELECT_ONE = "SELECT comment_id, post_id, user_id, content, is_answer, accepted, created_at, updated_at FROM POST_COMMENTS WHERE comment_id = ?";
+	public final static String COMMENT_SELECT_ONE = "SELECT comment_id, post_id, user_id, content, is_answer, accepted, created_at, updated_at FROM POST_COMMENTS WHERE comment_id = ?";
 	public final static String COMMENT_DELETE = "delete from POST_COMMENTS where COMMENT_ID=?";
 
 	//ReactionDAO SQL - LIKE

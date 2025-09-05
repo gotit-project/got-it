@@ -47,18 +47,6 @@ html {
   --color-border-primary: 1px solid rgba(102, 108, 117, 0.3);
   --color-border-default: 1px solid #666c754d;
 
-  /* 텍스트
-	--color-text-black: #000;
-    --color-text-main: #111827;
-    --color-text-sub: #141921;
-	--color-text-sub2: #666c75;
-	--color-text-sub3: #B8860B;
-	--color-text-sut4: #95A5A6;
-	--color-text-sub5: #CD7F32;
-    --color-text-white: #fff;
-	--color-text-default: #4b5563;
-	*/
-
   /* 그림자 */
   --color-shadow-default: 0px 1px 4px 0px rgba(0, 0, 0, 0.3);
   --color-shadow-primary: 0 4px 8px rgba(0, 0, 0, 0.1);

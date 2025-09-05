@@ -15,7 +15,11 @@ import gotit.reaction.ReactionService;
 @WebServlet("/reaction.do")
 public class ReactionController  extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+	  ReactionService service = ReactionService.getInstance();
+	  
+ 	/* ==========================
+   	* URL 파라미터 mode 요청들을 분기함
+   	* ========================== */
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String mode = request.getParameter("mode");
         if(mode != null) {
@@ -29,54 +33,54 @@ public class ReactionController  extends HttpServlet {
         	//likeToggle(request, response);
         }
 	}
-        
-	private void likeToggle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  ReactionService service = ReactionService.getInstance();
-
-		    long postId = Long.parseLong(request.getParameter("postId"));
-		    long userId = Long.parseLong(request.getParameter("userId"));
-
-		    Reaction reactionDto = new Reaction(postId, userId);
-		    boolean success = service.likeToggle(reactionDto);
-
-		    response.setContentType("application/json; charset=UTF-8");
-		    PrintWriter out = response.getWriter();
-		    out.print("{\"success\": " + success + "}");
-		    out.flush();
-	}
-
 	
-	private void hasUserLiked (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    ReactionService service = ReactionService.getInstance();
-	    long postId = Long.parseLong(request.getParameter("postId"));
-        long userId = Long.parseLong(request.getParameter("userId"));
+	/* ==========================
+   	* 게시글 좋아요 토글 처리 
+   	* ========================== */
+	private void likeToggle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		long postId = Long.parseLong(request.getParameter("postId"));
+	    long userId = Long.parseLong(request.getParameter("userId"));
 
-        Reaction reactionDto = new Reaction(postId, userId);
-        service.likeToggle(reactionDto);
+	    Reaction reactionDto = new Reaction(postId, userId);
+	    boolean success = service.likeToggle(reactionDto);
 
-        // 성공 여부만 반환 (클라이언트에서는 active 클래스 토글만 사용)
-        response.setContentType("application/json; charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.print("{\"success\": true}");
-        out.flush();
-		
-		
-        
+	    response.setContentType("application/json; charset=UTF-8");
+	    PrintWriter out = response.getWriter();
+	    out.print("{\"success\": " + success + "}");
+	    out.flush();
 	}
-
+//
+//	/* ==========================
+//   	* 사용자가 해당 게시글에 좋아요
+//   	* 눌렀는지 확인 
+//   	* ========================== */
+//	  private void hasUserLiked (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//	  long postId = Long.parseLong(request.getParameter("postId"));
+//      long userId = Long.parseLong(request.getParameter("userId"));
+//
+//        Reaction reactionDto = new Reaction(postId, userId);
+//        service.likeToggle(reactionDto);
+//
+//        response.setContentType("application/json; charset=UTF-8");
+//        PrintWriter out = response.getWriter();
+//        out.print("{\"success\": true}");
+//        out.flush();
+//	}
+	
+	/* ==========================
+   	* 게시글 스크랩 토글 처리 
+   	* ========================== */
 	private void scrapToggle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  ReactionService service = ReactionService.getInstance();
+		long postId = Long.parseLong(request.getParameter("postId"));
+	    long userId = Long.parseLong(request.getParameter("userId"));
 
-		    long postId = Long.parseLong(request.getParameter("postId"));
-		    long userId = Long.parseLong(request.getParameter("userId"));
+	    Reaction reactionDto = new Reaction(postId, userId);
+	    boolean success = service.scrapToggle(reactionDto);
 
-		    Reaction reactionDto = new Reaction(postId, userId);
-		    boolean success = service.scrapToggle(reactionDto);
-
-		    response.setContentType("application/json; charset=UTF-8");
-		    PrintWriter out = response.getWriter();
-		    out.print("{\"success\": " + success + "}");
-		    out.flush();
+	    response.setContentType("application/json; charset=UTF-8");
+	    PrintWriter out = response.getWriter();
+	    out.print("{\"success\": " + success + "}");
+	    out.flush();
 	    
 	}
         
