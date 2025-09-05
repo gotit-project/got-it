@@ -28,6 +28,7 @@
                </div>
            </div>
           </form>	
+          
 		  <!-- 댓글 한 묶음 -->
 	      <div class="comment-area">
 	      <c:forEach items="${commentList}" var="commentDto">
@@ -50,8 +51,6 @@
 	               </div>
 	               <p class="comment-content">${commentDto.content}</p>
 	               
-	          
-   					
    					
 	               <div class="comment-item-footer">
 			            <c:choose>

@@ -110,11 +110,4 @@ public class BoardDAO {
 			}catch(SQLException se) {}
 		}
     }
-    
-    public List<Board> selectAllBoards() {
-        List<Board> list = new ArrayList<>();
-        String sql = "SELECT * FROM board";
-        // JDBC 코드로 DB 조회 후 list에 담기
-        return list;
-    }
 }

@@ -1,85 +1,85 @@
 #write {
-    min-height: calc(100vh - 150px);
-    margin-bottom: 0;
+  min-height: calc(100vh - 150px);
+  margin-bottom: 0;
 }
 
 #write form {
-    width: 100%;
-    display: flex;
-   	justify-content: center;
-    flex-direction: column;
-    gap: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
 }
 
 .form-group label {
-    font-weight: bold;
-    color: #555;
+  font-weight: bold;
+  color: #555;
 }
 
 #write input[type="text"],
 #write textarea,
 #write select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
-    box-sizing: border-box;
-    transition: border-color 0.3s;
-   	background: var(--color-bg-white);
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+  background: var(--color-bg-white);
 }
 
 #write input[type="text"]:focus,
 #write textarea:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
 
 #write textarea {
-    resize: vertical;
-    min-height: 200px;
+  resize: vertical;
+  min-height: 200px;
 }
 
 .button-group {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .button-group input[type="submit"],
 .button-group input[type="reset"] {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .button-group input[type="submit"] {
-    background-color: #007bff;
-    color: white;
+  background-color: #007bff;
+  color: white;
 }
 
 .button-group input[type="submit"]:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 .button-group input[type="reset"] {
-    background-color: #f0f0f0;
-    color: #333;
+  background-color: #f0f0f0;
+  color: #333;
 }
 
 .button-group input[type="reset"]:hover {
-    background-color: #e0e0e0;
+  background-color: #e0e0e0;
 }

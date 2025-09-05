@@ -38,8 +38,6 @@
   display: inline-block;
   border-bottom: none;
 }
-#view .view-title .view-span-wrap a:hover {
-}
 #view .view-title .view-span-wrap .category {
   color: var(--background-main);
 }
@@ -127,11 +125,11 @@
   color: var(--background-main);
 }
 #view .corrected-mark.hidden {
-	display: none;
+  display: none;
 }
 #view .etc-button-wrap {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 #view .etc-button-wrap button {
   width: 24px;
@@ -141,12 +139,12 @@
 }
 #view .etc-button-wrap #likeResult,
 #view .etc-button-wrap #scrapResult {
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-	bottom: -20px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -20px;
 }
-#view .etc-button-wrap button.like-button{
+#view .etc-button-wrap button.like-button {
   background: url(../img/view/thumbs_icon.svg) no-repeat center / contain;
 }
 #view .etc-button-wrap button.like-button:hover {
@@ -178,14 +176,14 @@
   background-image: url(../img//view//bookmark_active_icon.svg);
 }
 #view .edit-wrap {
-	position: relative;
+  position: relative;
 }
 #view .edit-wrap .edit-button {
-	width: 24px;
-	height: 24px;
-	margin: 0 0 0 15px;
-	font-size: 24px;
-	color: var(--color-text-sub2);
+  width: 24px;
+  height: 24px;
+  margin: 0 0 0 15px;
+  font-size: 24px;
+  color: var(--color-text-sub2);
 }
 #view .edit-wrap .edit-dropdown-menu {
   position: absolute;
@@ -208,7 +206,7 @@
   transform: translateY(0);
 }
 #view .edit-wrap .edit-menu-item {
-	border: none;
+  border: none;
 }
 
 /* ====================================== */
@@ -303,14 +301,14 @@
   align-items: center;
 }
 .comment-item textarea {
-	width: 100%;
+  width: 100%;
 }
 .comment-item .edit-textarea {
-	background: var(--color-bg-white);
-	padding: 15px 20px;
-	margin: 0 0 30px;
-    border: var(--color-border-default);
-    border-radius: 10px;
+  background: var(--color-bg-white);
+  padding: 15px 20px;
+  margin: 0 0 30px;
+  border: var(--color-border-default);
+  border-radius: 10px;
 }
 .comment-item .profile-info {
   display: flex;
@@ -345,10 +343,6 @@
 #view .comment-item-footer button:hover {
   color: var(--background-main);
 }
-/* ====================================== */
-/* 댓글 정보 끝                              */
-/* ====================================== */
-
 /* ====================================== */
 /* 대댓글 정보                               */
 /* ====================================== */
@@ -396,7 +390,8 @@
 .recomment-item {
   position: relative;
   padding: 20px 20px 20px 72px;
-  background: url("../img/view/recomment_icon.svg") no-repeat left 30px top 20px / 32px 32px;
+  background: url("../img/view/recomment_icon.svg") no-repeat left 30px top 20px /
+    32px 32px;
 }
 .recomment-item::before {
   width: 100%;
@@ -453,9 +448,6 @@
   font-size: 14px;
   color: var(--text-color-sub2);
 }
-/* ====================================== */
-/* 대댓글 정보 끝                             */
-/* ====================================== */
 
 /* ====================================== */
 /* 미디어 쿼리                               */
@@ -465,6 +457,3 @@
     width: 100%;
   }
 }
-/* ====================================== */
-/* 미디어 쿼리 끝                             */
-/* ====================================== */

@@ -1,5 +1,3 @@
-
-
 /* ====================================== */
 /* 게시글 공통 레이아웃                        */
 /* ====================================== */
@@ -129,8 +127,8 @@
   position: fixed;
   top: 120px;
   left: 160px;
-  width: 230px; 
-  height: auto; 
+  width: 230px;
+  height: auto;
 }
 #main .rank-wrap {
   padding: 10px;
@@ -138,11 +136,11 @@
   transition: all 0.3s ease-in-out;
 }
 #main .rank-placeholder {
-  display: none; 
+  display: none;
   flex: 0 0 230px;
 }
 #main .rank-placeholder.visible {
-  display: block; 
+  display: block;
 }
 #main .rank-wrap .title {
   height: 40px;
@@ -180,7 +178,7 @@
   line-height: 24px;
   display: inline-block;
   font-weight: 700;
-   color: var(--color-text-sub);
+  color: var(--color-text-sub);
 }
 #main .rank-wrap li .score {
   position: absolute;
@@ -224,15 +222,11 @@
   width: 15%;
   order: 0;
 }
-/* ====================================== */
-/* 랭킹 정보 끝                              */
-/* ====================================== */
 
 /* ====================================== */
 /* 게시글 정보                               */
 /* ====================================== */
 .board-wrap {
- /* max-width: 1024px*/
   width: 100%;
 }
 #main .notice {
@@ -255,15 +249,10 @@
 }
 
 /* ====================================== */
-/* 게시글 정보                               */
-/* ====================================== */
-
-/* ====================================== */
 /* 미디어 쿼리                               */
 /* ====================================== */
 
 @media screen and (max-width: 1024px) {
-  
   #main .rank-wrap {
     display: none;
   }
@@ -278,11 +267,8 @@
     margin-bottom: 30px;
   }
   #main.content-wrap {
-  height: auto;
-  margin-bottom: 0;
-  position: relative;
+    height: auto;
+    margin-bottom: 0;
+    position: relative;
+  }
 }
-}
-/* ====================================== */
-/* 미디어 쿼리 끝                             */
-/* ====================================== */

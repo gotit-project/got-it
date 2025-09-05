@@ -15,7 +15,12 @@ import gotit.model.Comment;
 @WebServlet("/comment.do")
 public class CommentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
+	CommentService service = CommentService.getInstance(); 
+
+	
+	/* ==========================
+	 * URL 파라미터 mode 요청들을 분기함
+	 * ========================== */
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mode = request.getParameter("mode");
 		if(mode!= null) {
@@ -33,18 +38,21 @@ public class CommentController extends HttpServlet {
 	}
 	
 	
-	
+	/* ==========================
+	 * 게시글 목록 보기
+	 * ========================== */
 	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    String view = "/WEB-INF/views/post/post-view.jsp"; // JSP 경로
+	    String view = "/WEB-INF/views/post/post-view.jsp"; 
 	    RequestDispatcher rd = request.getRequestDispatcher(view);
-	    rd.forward(request, response); // forward 사용
+	    rd.forward(request, response); 
 	    
 	}
 
 
+	/* ==========================
+	 * 댓글 조회
+	 * ========================== */
 	private void select(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CommentService service = CommentService.getInstance(); 
-		
 		String postIdStr = request.getParameter("postId");
 		long postId = Long.parseLong(postIdStr);	
 		
@@ -56,11 +64,11 @@ public class CommentController extends HttpServlet {
 	    
 	}
 	
-	
+	/* ==========================
+	 * 댓글 등록
+	 * ========================== */
 	private void insert(HttpServletRequest request, HttpServletResponse response) 
 	        throws ServletException, IOException {
-		
-		CommentService service = CommentService.getInstance();
 		long postId = Long.parseLong(request.getParameter("postId"));
 		long userId = Long.parseLong(request.getParameter("userId"));
 		String content = request.getParameter("content");
@@ -92,6 +100,10 @@ public class CommentController extends HttpServlet {
 //		rd.forward(request, response);
 	}
 	
+
+	/* ==========================
+	 * 댓글 수정
+	 * ========================== */
 	private void update(HttpServletRequest request, HttpServletResponse response) 
 	        throws ServletException, IOException {
 	    request.setCharacterEncoding("utf-8");
@@ -119,14 +131,14 @@ public class CommentController extends HttpServlet {
 	    response.getWriter().write("{\"flag\": " + (flag ? "true" : "false") + "}");
 	}
 	
+
+	/* ==========================
+	 * 댓글 삭제
+	 * ========================== */
 	private void delete(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
-
 		long postId = Long.parseLong(request.getParameter("postId"));
 	    long commentId = Long.parseLong(request.getParameter("commentId"));
-	   
-
-	    CommentService service = CommentService.getInstance();
 	    boolean flag = false;
 
 	    try {
