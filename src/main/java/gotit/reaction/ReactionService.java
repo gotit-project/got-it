@@ -1,51 +1,44 @@
 package gotit.reaction;
 
-import gotit.reaction.ReactionDAO;
-import gotit.reaction.ReactionService;
 import gotit.model.Reaction;
 
 public class ReactionService {
-	private ReactionDAO reactionDao;
-	
-	private static final ReactionService instance = new ReactionService();
-	
-	private ReactionService() { 
-		reactionDao = new ReactionDAO();
-	}
-	
-	public static ReactionService getInstance() {
-		return instance;
-	}
-	
-	public boolean likeInsertS(Reaction reactionDto) {
-		return reactionDao.likeInsert(reactionDto);
-	}
+    private ReactionDAO reactionDao;
+    private static final ReactionService instance = new ReactionService();
 
+    private ReactionService() {
+        reactionDao = new ReactionDAO();
+    }
+
+    public static ReactionService getInstance() {
+        return instance;
+    }
+
+    // ======================
+    // 좋아요
+    // ======================
     public boolean likeToggle(Reaction reactionDto) {
         if (reactionDao.likeExists(reactionDto)) {
-            return reactionDao.likeDelete(reactionDto); // 이미 있으면 삭제
+            return reactionDao.likeDelete(reactionDto);
         } else {
-            return reactionDao.likeInsert(reactionDto); // 없으면 추가
+            return reactionDao.likeInsert(reactionDto);
         }
     }
-
-    public int likeCountByPostId(long postId) {
-        return reactionDao.likeCountByPostId(postId);
+    public boolean hasUserLiked(long postId, long userId) {
+        return reactionDao.hasUserLiked(postId, userId);
     }
-    
-	public boolean scrapInsertS(Reaction reactionDto) {
-		return reactionDao.likeInsert(reactionDto);
-	}
 
+    // ======================
+    // 스크랩
+    // ======================
     public boolean scrapToggle(Reaction reactionDto) {
-        if (reactionDao.likeExists(reactionDto)) {
-            return reactionDao.likeDelete(reactionDto); // 이미 있으면 삭제
+        if (reactionDao.scrapExists(reactionDto)) {
+            return reactionDao.scrapDelete(reactionDto);
         } else {
-            return reactionDao.likeInsert(reactionDto); // 없으면 추가
+            return reactionDao.scrapInsert(reactionDto);
         }
     }
-
-    public int scrapCountByPostId(long postId) {
-        return reactionDao.likeCountByPostId(postId);
+    public boolean hasUserScrapped(long postId, long userId) {
+        return reactionDao.hasUserScrapped(postId, userId);
     }
 }

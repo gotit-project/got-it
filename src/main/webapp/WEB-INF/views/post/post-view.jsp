@@ -15,9 +15,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/view.css">
         <script src="${pageContext.request.contextPath}/assets/js/common/header.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
-         <script src="${pageContext.request.contextPath}/assets/js/main.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/view.js" defer></script>
-        
     </head>
     <body>
 
@@ -44,28 +42,23 @@
     						<span class="time">
 							    ${post.updatedAt != null ? DateUtils.formatTimeAgo(post.updatedAt) : ""}
 							</span>
-                            <p class="view-count">조회수 <span>${post.viewCount}</span></p>
+                            <p class="view-count">조회수</p>
                             <span class="corrected-mark ${post.updatedAt.time != post.createdAt.time ? '' : 'hidden'}">
 						    	수정됨
 							</span>
                         </div>
-                       
-        				<div class="etc-button-wrap">
-						    <button id="likeButton" class="like-button"
-						            data-post-id="${post.postId}"
-						            data-user-id="${sessionScope.loginOkUser != null ? sessionScope.loginOkUser.userId : ''}">
-						       <p id="likeResult">${post.likeCount}</p>
-						    </button>
-						
-						    <button class="share-button"></button>
-						
-						    <button id="scrapButton" class="scrap-button"
-						            data-post-id="${post.postId}"
-						            data-user-id="${sessionScope.loginOkUser != null ? sessionScope.loginOkUser.userId : ''}">
-						       <p id="scrapResult">${scrapCount}</p>
-						    </button>
+                       <div class="etc-button-wrap">
+        				<button id="likeButton" class="like-button ${userLiked ? "active" : ""}" 
+							        data-post-id="${post.postId}"
+							        data-user-id="${sessionScope.loginOkUser != null ? sessionScope.loginOkUser.userId : ''}">
+							</button>
+							
+							<button id="scrapButton" class="scrap-button ${userScrapped ? "active" : ""}"
+							        data-post-id="${post.postId}"
+							        data-user-id="${sessionScope.loginOkUser != null ? sessionScope.loginOkUser.userId : ''}">
+							</button>
+
 						</div>
-						
 						<c:if test="${not empty sessionScope.loginOkUser && sessionScope.loginOkUser.userId == post.userId}">
 						    <div class="edit-wrap">
 						        <button class="edit-button">···</button>
@@ -93,9 +86,9 @@
                         <div class="post-keywork">
                             <span class="hashtag">#${post.postTag}</span>
                         </div>
-                        <button class="report-button">
+                      <!--   <button class="report-button">
                             신고
-                        </button>
+                        </button> -->
                     </div>
                 </div>
             </div>
