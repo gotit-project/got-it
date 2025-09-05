@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
 import javax.naming.Context;
@@ -14,7 +13,6 @@ import javax.sql.DataSource;
 
 import gotit.common.util.SqlUtils;
 import gotit.model.Comment;
-import gotit.model.Post;
 
 public class CommentDAO {
 	
@@ -196,7 +194,6 @@ public class CommentDAO {
 	
 
 	public boolean delete(long commentId) {
-	    Comment comment = null;
 	    Connection con = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
