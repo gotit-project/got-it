@@ -145,6 +145,7 @@ public class PostDAO {
 			    list.add(new Post(postId, boardId, userId, categoryId, postTag, title, rawContent,
 						htmlContent, likeCount, viewCount, commentCount, stateType, createdAt, updatedAt,
 						boardName, nickName, categoryName));
+			    
             }
         }catch(SQLException se) {
             se.printStackTrace();
@@ -158,7 +159,7 @@ public class PostDAO {
 	 * ========================== */
     public boolean insert(Post post) {
         try(Connection con = ds.getConnection();
-            PreparedStatement pstmt = con.prepareStatement(POST_INSERT)) {
+            PreparedStatement pstmt = con.prepareStatement(POST_INSERT,  Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setLong(1, post.getBoardId());
             pstmt.setLong(2, post.getUserId());
@@ -167,9 +168,21 @@ public class PostDAO {
             pstmt.setString(5, post.getTitle());
             pstmt.setString(6, post.getRawContent());
             pstmt.setString(7, post.getHtmlContent());
-
-
-            return pstmt.executeUpdate() > 0;
+            
+            
+            //DB에서 자동으로 증가된 postId 가져오기
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        post.setPostId(rs.getLong(1)); // DB에서 생성된 postId 세팅
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
+            
         } catch(SQLException se) {
             se.printStackTrace();
             return false;
@@ -225,6 +238,7 @@ public class PostDAO {
 
             pstmt.setLong(1, postId);
             return pstmt.executeUpdate() > 0;
+            
         } catch(SQLException se) {
             se.printStackTrace();
             return false;
@@ -367,4 +381,7 @@ public class PostDAO {
 	    }
 	    return null;
     }
+    
+Z
+
 }

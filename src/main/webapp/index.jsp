@@ -33,86 +33,24 @@
                     <a href="/" class="board-title">공지사항</a>
                     <div class="post-item-wrap">
                  
-                       <!-- 게시글 한 묶음 -->
-                        <a href="/">
-                            <div class="post-item">
-                                <div class="post-item-header">
-                                    <img src="../assets/img/common/post_info_profile.svg" class="profile" alt="프로필 사진">
-                                    <p class="writer">운영관리자</p>
-                                    <span class="time">3시간 전</span>
-                                </div>
-                                <div class="post-counts">
-                                    <div class="view-count">
-                                        <img src="../assets/img/main/post_info_icon01.png" alt="조회수">
-                                        <p>1822</p>
-                                    </div>
-                                    <div class="thumb-count">
-                                        <img src="../assets/img/main/post_info_icon02.png" alt="좋아요수">
-                                        <p>312</p>
-                                    </div>
-                                    <div class="comment-count">
-                                        <img src="../assets/img/main/post_info_icon03.png" alt="댓글수">
-                                        <p>57</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="post-title"><span class="important">[필독]</span> 게시판 이용 수칙 안내</div>
-                        </a>
+                        <!-- 게시글 한 묶음 -->
+                        
+                    	<c:forEach var="board" items="${boardList}">
+						    <div class="board-wrap">
+						        <a href="/" class="board-title">${board.name}</a>
+						        <div class="post-item-wrap">
+						            <c:forEach var="post" items="${board.posts}">
+						                <div class="post-item">
+						                    <p class="post-title">${post.title}</p>
+						                </div>
+						            </c:forEach>
+						        </div>
+						    </div>
+						</c:forEach>
+
                         <!-- 게시글 한 묶음 끝 -->
 
-                        <!-- 게시글 한 묶음 -->
-                        <a href="list.html">
-                            <div class="post-item">
-                                <div class="post-item-header">
-                                    <img src="../assets/img/common/post_info_profile.svg" class="profile" alt="프로필 사진">
-                                    <p class="writer">운영관리자</p>
-                                    <span class="time">3시간 전</span>
-                                </div>
-                                <div class="post-counts">
-                                    <div class="view-count">
-                                        <img src="../assets/img/main/post_info_icon01.png" alt="조회수">
-                                        <p>992</p>
-                                    </div>
-                                    <div class="thumb-count">
-                                        <img src="../assets/img/main/post_info_icon02.png" alt="좋아요수">
-                                        <p>132</p>
-                                    </div>
-                                    <div class="comment-count">
-                                        <img src="../assets/img/main/post_info_icon03.png" alt="댓글수">
-                                        <p>27</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="post-title"><span class="important">[필독]</span> 폭염 대비 생활 수칙 안내</div>
-                        </a>
-                        <!-- 게시글 한 묶음 끝 -->
-                         
-                        <!-- 게시글 한 묶음 -->
-                        <a href="list.html">
-                            <div class="post-item">
-                                <div class="post-item-header">
-                                    <img src="../assets/img/common/post_info_profile.svg" class="profile" alt="프로필 사진">
-                                    <p class="writer">콘텐츠 관리자</p>
-                                    <span class="time">3시간 전</span>
-                                </div>
-                                <div class="post-counts">
-                                    <div class="view-count">
-                                        <img src="../assets/img/main/post_info_icon01.png" alt="조회수">
-                                        <p>232</p>
-                                    </div>
-                                    <div class="thumb-count">
-                                        <img src="../assets/img/main/post_info_icon02.png" alt="좋아요수">
-                                        <p>12</p>
-                                    </div>
-                                    <div class="comment-count">
-                                        <img src="../assets/img/main/post_info_icon03.png" alt="댓글수">
-                                        <p>7</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="post-title"><span>[공지]</span> 전국 영어토론대회 참가자 모집</div>
-                        </a>
-                        <!-- 게시글 한 묶음 끝 -->
+                        
                     </div>
                 </div>
                 <div class="sub-board">

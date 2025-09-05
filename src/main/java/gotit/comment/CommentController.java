@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import gotit.model.Comment;
 
@@ -72,22 +73,46 @@ public class CommentController extends HttpServlet {
 		
 		request.setAttribute("postId", postId);
 		request.setAttribute("flag", flag);
-		request.setAttribute("kind", "comment-insert");
 		
-		String view = "/WEB-INF/views/post/msg.jsp";
-		RequestDispatcher rd = request.getRequestDispatcher(view);
-		rd.forward(request, response);
+
+	    response.setContentType("text/html; charset=UTF-8");
+	    PrintWriter out = response.getWriter();
+
+	    if(flag) {
+	        out.println("<script>location.href='post.do?mode=view&postId=" + postId + "';</script>");
+	    } else {
+	        out.println("<script>alert('댓글 등록에 실패했습니다.'); history.back();</script>");
+	    }
+	    out.flush();
+	    
+//		request.setAttribute("kind", "comment-insert");
+//		
+//		String view = "/WEB-INF/views/post/msg.jsp";
+//		RequestDispatcher rd = request.getRequestDispatcher(view);
+//		rd.forward(request, response);
 	}
 	
 	private void update(HttpServletRequest request, HttpServletResponse response) 
 	        throws ServletException, IOException {
 	    request.setCharacterEncoding("utf-8");
-
+	    
+		long postId = Long.parseLong(request.getParameter("postId"));
 	    long commentId = Long.parseLong(request.getParameter("commentId"));
 	    String content = request.getParameter("content");
 
 	    CommentService service = CommentService.getInstance();
 	    boolean flag = service.updateS(commentId, content);
+	    
+
+//	    response.setContentType("text/html; charset=UTF-8");
+//	    PrintWriter out = response.getWriter();
+//
+//	    if(flag) {
+//	        out.println("<script>alert('댓글이 수정되었습니다!'); location.href='post.do?mode=view&postId=" + postId + "';</script>");
+//	    } else {
+//	        out.println("<script>alert('댓글 수정에 실패했습니다.'); history.back();</script>");
+//	    }
+//	    out.flush();
 
 	    request.setAttribute("flag", flag);
 	    response.setContentType("application/json;charset=UTF-8");
@@ -97,6 +122,7 @@ public class CommentController extends HttpServlet {
 	private void delete(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
 
+		long postId = Long.parseLong(request.getParameter("postId"));
 	    long commentId = Long.parseLong(request.getParameter("commentId"));
 	   
 
@@ -108,6 +134,17 @@ public class CommentController extends HttpServlet {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
+	    
+
+//	    response.setContentType("text/html; charset=UTF-8");
+//	    PrintWriter out = response.getWriter();
+//
+//	    if(flag) {
+//	        out.println("<script>alert('댓글이 삭제되었습니다!'); location.href='post.do?mode=view&postId=" + postId + "';</script>");
+//	    } else {
+//	        out.println("<script>alert('댓글 삭제에 실패했습니다.'); history.back();</script>");
+//	    }
+//	    out.flush();
 
 	    response.setContentType("application/json;charset=UTF-8");
 	    response.getWriter().write("{\"flag\":" + flag + "}");

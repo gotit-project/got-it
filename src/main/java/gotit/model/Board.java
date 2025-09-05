@@ -9,6 +9,7 @@ public class Board {
     private String description;
     private int postCount;
     private List<Category> categories;
+    private List<Post> posts; 
     
 	public Board(int boardId, String boardName, String description, int postCount, List<Category> categories) {
 		super();
@@ -49,5 +50,14 @@ public class Board {
 	public void setCategorie(List<Category> categories) {
 		this.categories = categories;
 	}
-    
+
+    // setter
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    // getter
+    public List<Post> getPosts() {
+        return posts;
+    }
 }

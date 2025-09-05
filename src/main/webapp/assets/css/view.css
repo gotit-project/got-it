@@ -129,6 +129,10 @@
 #view .corrected-mark.hidden {
 	display: none;
 }
+#view .etc-button-wrap {
+	display: flex;
+	align-items: center;
+}
 #view .etc-button-wrap button {
   width: 24px;
   height: 24px;
@@ -155,6 +159,7 @@
 #view .etc-button-wrap button.share-button {
   margin: 0 15px;
   background: url(../img/view/share_icon.svg) no-repeat center / contain;
+  text-indent: -999em;
 }
 #view .etc-button-wrap button.share-button:hover {
   opacity: 0.7;

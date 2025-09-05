@@ -30,7 +30,7 @@
                     <div class="view-span-wrap">
                         <a href="board.do?mode=list&id=${post.boardId}">${post.boardName}</a>
                         <span>/</span>
-                        <a href="board.do?mode=list&id=${post.boardId}&categoryId=${post.categoryId}" class="category">${post.categoryName}</a>
+                        <a href="board.do?mode=list&id=${post.boardId}&categoryId=${post.categoryId}" class="z">${post.categoryName}</a>
                     </div>
                 </div>
                 <div>
@@ -49,10 +49,12 @@
 							</span>
                         </div>
                        <div class="etc-button-wrap">
-        				<button id="likeButton" class="like-button ${userLiked ? "active" : ""}" 
+        				    <button id="likeButton" class="like-button ${userLiked ? "active" : ""}" 
 							        data-post-id="${post.postId}"
 							        data-user-id="${sessionScope.loginOkUser != null ? sessionScope.loginOkUser.userId : ''}">
 							</button>
+							
+							<button class="share-button">공유하기</button>
 							
 							<button id="scrapButton" class="scrap-button ${userScrapped ? "active" : ""}"
 							        data-post-id="${post.postId}"

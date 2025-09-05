@@ -67,23 +67,19 @@
           </span>
         </button>
         <div class="dropdown-menu">
-          <a href="#" class="menu-item"> 새 글 쓰기 </a>
           <div class="menu-divider"></div>
-          <a href="#" class="menu-item with-icon">
+          <a href="post.do?mode=write&id=1" class="menu-item with-icon">
             <span><strong>Q&A</strong>에 글쓰기</span>
             <span class="icon">❓</span>
           </a>
-          <a href="#" class="menu-item with-icon">
-            <span><strong>지식</strong>에 글쓰기</span>
+          <a href="post.do?mode=write&id=2" class="menu-item with-icon">
+            <span><strong>지식나눔</strong>에 글쓰기</span>
             <span class="icon">📚</span>
           </a>
-          <a href="#" class="menu-item with-icon">
-            <span><strong>커뮤니티</strong>에 글쓰기</span>
+          <a href="post.do?mode=write&id=3" class="menu-item with-icon">
+            <span><strong>자유게시판</strong>에 글쓰기</span>
             <span class="icon">😊</span>
           </a>
-          <a href="#" class="menu-item with-icon">
-            <span><strong>이벤트</strong>에 글쓰기</span>
-            <span class="icon">🔥</span>
           </a>
         </div>
       </div>

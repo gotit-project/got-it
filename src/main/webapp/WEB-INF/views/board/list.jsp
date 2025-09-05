@@ -44,7 +44,7 @@
 			                <div class="write-button-wrap">
 			                <c:choose>
 					        <c:when test="${not empty sessionScope.loginOkUser}">
-					            <a href="post.do?mode=write&id=${board.boardId }" class="write-button">작성하기</a>
+					            <a href="post.do?mode=write&id=${board.boardId}" class="write-button">작성하기</a>
 					        </c:when>
 					        
 					        <c:otherwise>
