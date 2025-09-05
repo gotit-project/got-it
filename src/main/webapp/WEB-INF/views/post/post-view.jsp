@@ -49,10 +49,12 @@
 							</span>
                         </div>
                        <div class="etc-button-wrap">
-        				<button id="likeButton" class="like-button ${userLiked ? "active" : ""}" 
+        				    <button id="likeButton" class="like-button ${userLiked ? "active" : ""}" 
 							        data-post-id="${post.postId}"
 							        data-user-id="${sessionScope.loginOkUser != null ? sessionScope.loginOkUser.userId : ''}">
 							</button>
+							
+							<button class="share-button">공유하기</button>
 							
 							<button id="scrapButton" class="scrap-button ${userScrapped ? "active" : ""}"
 							        data-post-id="${post.postId}"
