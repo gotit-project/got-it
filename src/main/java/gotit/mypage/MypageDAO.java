@@ -30,7 +30,7 @@ public class MypageDAO {
 	  public List<Post> list() {
 	        List<Post> list = new ArrayList<>();
 	        try(Connection con = ds.getConnection();
-	            PreparedStatement pstmt = con.prepareStatement(SqlUtils.POST_LIST);
+	            PreparedStatement pstmt = con.prepareStatement("");
 	            ResultSet rs = pstmt.executeQuery()) {
 	            
 	            while(rs.next()) {

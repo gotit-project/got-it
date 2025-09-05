@@ -8,12 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
 
 import gotit.model.Comment;
-import gotit.model.Post;
-import gotit.comment.CommentService;
 
 @WebServlet("/comment.do")
 public class CommentController extends HttpServlet {

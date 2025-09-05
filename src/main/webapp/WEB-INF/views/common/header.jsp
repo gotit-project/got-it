@@ -1,15 +1,8 @@
 <%@ page contentType="text/html;charset=utf-8" import="java.sql.*"%>
-<!-- ======================================
-    로그인 하면     : <header id="login">
-    디폴트(비로그인) : <header id="default">
-    --------------------------------------
-    - login 아이디가 추가되면 
-       <div class="header-right"> 가 생성됨
-====================================== -->
 
 <header id="default" data-logged-in="${not empty sessionScope.loginOkUser}">
   <div class="nav">
-    <a href="index.html" class="logo">
+    <a href="/index.do" class="logo">
       <img
         src="${pageContext.request.contextPath}/assets/img/common/logo.svg"
         alt="로고"

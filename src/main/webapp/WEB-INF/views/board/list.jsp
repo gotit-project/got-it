@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/list.css">
         <script src="${pageContext.request.contextPath}/assets/js/common/header.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
+        <script src="${pageContext.request.contextPath}/assets/js/list.js" defer></script>
     </head>
     <body>
 
@@ -52,12 +53,12 @@
                                 - 화면이 데스크톱일 때만 버튼 표시
                                 - 모바일에서는 숨김 처리
                             ====================================== -->
-                            <div class="category-button-wrap desktop-only">
+                            <div class="category-button-wrap desktop-only" id="category-buttons">
 						      <c:if test="${not empty board.categories}">
 								  <c:forEach items="${board.categories}" var="cat">
-								    <button>${cat.categoryName}</button>
+								 	 <button type="button" data-cat="${cat.categoryId}">${cat.categoryName}</button>
 							  	</c:forEach>
-								  <button>전체</button>
+								  <button type="button" data-cat="0">전체</button>
 							  </c:if>
                             
                             </div>
@@ -65,16 +66,19 @@
                             <!-- ======================================
                                 게시판 카테고리 가져오기
                             ====================================== -->
-                            <div class="category-button-wrap mobile-only">
-                                <select id="mobile-category-select">
-                                 	<c:if test="${not empty board.categories}">
- 										<c:forEach items="${board.categories}" var="cat">
-                                    		<option>${cat.categoryName}</option>
-                                		</c:forEach>
-	                                    <option>전체</option>
- 									 </c:if>
-                                </select>
-                            </div>
+                            <!-- 카테고리 셀렉트 (모바일) -->
+							<div class="category-button-wrap mobile-only">
+							  <select id="mobile-category-select">
+							    <c:if test="${not empty board.categories}">
+							      <c:forEach items="${board.categories}" var="cat">
+							        <option value="${cat.categoryId}">${cat.categoryName}</option>
+							      </c:forEach>
+							    <option value="0">전체</option>
+							    </c:if>
+							  </select>
+							</div>
+                            
+                            
 
                             <div class="order-button-wrap">
                                 <button>전체</button>
@@ -121,7 +125,9 @@
 						    </tr>
 						</c:if>
 						<c:forEach items="${postList}" var="post">
-                        <a href="post.do?mode=view&postId=${post.postId}">
+                        <a href="post.do?mode=view&postId=${post.postId}"
+    						data-category-id="${post.categoryId}"
+     						data-category-name="${post.categoryName}">
                             <div class="post-item">
                                 <div class="post-item-header">
                                     <img src="../assets/img/common/post_info_profile02.png" class="profile" alt="프로필 사진">
@@ -131,9 +137,7 @@
                                 </div>
                             </div>
                             <p class="post-title">${post.title}</p>
-                            <p class="post-content">
-                                ${post.rawContent}
-                            </p>
+                            <p class="post-content">${post.rawContent}</p>
                             <div class="post-bottom">
                                 <div class="post-keyword">
                                     <span class="category">${post.categoryName}</span>
@@ -146,11 +150,11 @@
                                     </div>
                                     <div class="thumb-count">
                                         <img src="../assets/img/main/post_info_icon02.png" alt="좋아요수">
-                                        <p>2</p>
+                                        <p>${post.likeCount}</p>
                                     </div>
                                     <div class="comment-count">
                                         <img src="../assets/img/main/post_info_icon03.png" alt="댓글수">
-                                        <p>57</p>
+                                        <p>${post.commentCount}</p>
                                     </div>
                                 </div>
                             </div>
