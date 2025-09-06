@@ -15,6 +15,7 @@ html {
   /* 기본컬러 */
   --background-main: #2e86de;
   --background-main-hover: #146cc4;
+  --background-main-hover-light: rgba(46, 134, 222, 0.1);
   --background-white: #fff;
   --background-sub: #f3f4f6;
 

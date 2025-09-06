@@ -10,7 +10,8 @@ public class SqlUtils {
 	public final static String BOARD_SELECT = "select * from boards where board_id=? ";
 	public final static String BOARD_ALL_SELECT = "select * from boards ";
 	public final static String CATEGORIE_SELECT = "select * from board_categories where board_id=? ";
-	
+	public final static String BOARD_POST_SELECT = "SELECT * FROM posts WHERE state_type = 'ACTIVE' AND board_id = ? ORDER BY created_at DESC LIMIT 5";
+			
 	//PostDAO SQL
 	public final static String POST_SELECT = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? ORDER BY ? LIMIT ?, ?";
 	public final static String POST_CAT_SELECT = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? AND category_id=? ORDER BY ? LIMIT ?, ?";
