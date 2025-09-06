@@ -132,8 +132,8 @@
     </ul>
   </div>
   <ul class="mobile-menu-bottom">
-    <li class="mobile-bottom-li"><a href="index.html">로그인</a></li>
-    <li class="mobile-bottom-li"><a href="index.html">회원가입</a></li>
+    <li class="mobile-bottom-li"><a href="auth.do?mode=login-form">로그인</a></li>
+    <li class="mobile-bottom-li"><a href="auth.do?mode=signup-form">회원가입</a></li>
   </ul>
 </nav>
 <!-- 모바일 메뉴 패널 끝 -->

@@ -20,6 +20,15 @@ public class Board {
 		this.categories = categories;
 	}
 	
+	// 메인페이지 생성 
+	public Board(int boardId, String boardName) {
+	    this.boardId = boardId;
+	    this.boardName = boardName;
+	    this.description = "";
+	    this.postCount = 0;
+	    this.categories = null;
+	}
+	
 	public int getBoardId() {
 		return boardId;
 	}

@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class Post {
 	// DB정보
     private long postId;
-    private int boardId;
+    private long boardId;
     private long userId;
     private int categoryId;
     private String postTag;
@@ -60,6 +60,20 @@ public class Post {
 		this.nickName = nickName;
 		this.categoryName = categoryName;
 	}
+	
+	// 메인페이지 생성
+	public Post(long postId, long boardId, long userId, String nickName, String title,Timestamp createdAt,int likeCount, int viewCount, int commentCount) {
+	    this.postId = postId;
+	    this.boardId = boardId;
+	    this.userId = userId;
+		this.nickName = nickName;
+	    this.title = title;
+	    this.createdAt = createdAt;
+	    this.likeCount = likeCount;
+		this.viewCount = viewCount;
+		this.commentCount = commentCount;
+	}
+
 
 	public long getPostId() {
 		return postId;
@@ -69,7 +83,7 @@ public class Post {
 		this.postId = postId;
 	}
 
-	public int getBoardId() {
+	public long getBoardId() {
 		return boardId;
 	}
 

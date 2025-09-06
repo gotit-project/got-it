@@ -2,7 +2,7 @@
 
 	  <!-- 댓글 -->
       <div class="comment-wrap">
-          <p><span>7</span> 개의 답변</p>
+          <p><span>${post.commentCount}</span> 개의 답변</p>
           <form action="${pageContext.request.contextPath}/comment.do?mode=insert&postId=${post.postId}" method="post">
        		<!-- 유저, 보드, 카테고 임시아이디 -->
 	   		<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">

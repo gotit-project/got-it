@@ -105,5 +105,12 @@ public class PostService {
 	public boolean updateS(Post post) {
 		return postDao.update(post);
 	}
+	
+	/* ==========================
+	* 메인페이지 게시글 띄우기 
+	* ========================== */
+	 public List<Post> getPostsByBoard(long boardId) {
+        return postDao.getPostsByBoard(boardId);
+    }
 }
 

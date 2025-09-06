@@ -327,9 +327,10 @@ header .menu-divider {
 .mobile-menu-li {
   padding: 15px 20px;
   border-radius: 5px;
+  transition: 0.3s;
 }
 .mobile-menu-li:hover {
-  background-color: var(--color-bg-point);
+  background-color: var(--background-main-hover-light);
 }
 .mobile-menu-bottom {
   display: flex;

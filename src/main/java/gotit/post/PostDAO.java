@@ -252,7 +252,7 @@ public class PostDAO {
         try(Connection con = ds.getConnection();
             PreparedStatement pstmt = con.prepareStatement(POST_UPDATE)) {
 
-            pstmt.setInt(1, post.getBoardId());
+            pstmt.setLong(1, post.getBoardId());
             pstmt.setLong(2, post.getUserId());
             pstmt.setInt(3, post.getCategoryId());
             pstmt.setString(4, post.getPostTag());
@@ -386,4 +386,37 @@ public class PostDAO {
 	    }
 	    return null;
     }
+    
+    /* ==========================
+	 * 메인에서 보여주는 게시판+게시글 
+	 * ========================== */
+    public List<Post> getPostsByBoard(long boardId) {
+    	List<Post> posts = new ArrayList<>();
+	
+	    try (Connection con = ds.getConnection();
+	         PreparedStatement pstmt = con.prepareStatement(BOARD_POST_SELECT)) {
+		        pstmt.setLong(1, boardId);
+		        ResultSet rs = pstmt.executeQuery();
+		
+		        while (rs.next()) {
+
+		            long postId = rs.getLong("post_id");
+		            long userId = rs.getLong("user_id");
+		            String title = rs.getString("title");
+		            Timestamp createdAt = rs.getTimestamp("created_at");
+		            int likeCount = rs.getInt("like_count");
+		            int viewCount = rs.getInt("view_count");
+		            int commentCount = rs.getInt("comment_count");
+		            String nickName = getNickName(userId);
+		            Post post = new Post(postId, boardId, userId, nickName, title, createdAt, likeCount, viewCount, commentCount);
+		            
+		            posts.add(post); 
+		            
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		
+		    return posts;
+		}
 }

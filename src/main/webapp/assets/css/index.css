@@ -28,6 +28,9 @@
 .content-wrap .board-title:hover {
   color: var(--background-main);
 }
+.content-wrap .board-c {
+	width: 100%;
+}
 .content-wrap .post-item-wrap {
   padding: 0 5px;
 }
