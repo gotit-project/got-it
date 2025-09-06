@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Got !t</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/reset.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">

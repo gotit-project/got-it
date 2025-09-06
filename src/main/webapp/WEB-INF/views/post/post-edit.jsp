@@ -8,11 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Got !t</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/reset.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/write.css">
-        <!-- toast ui editor -->
+         <!-- toast ui editor -->
 		<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
         <script src="${pageContext.request.contextPath}/assets/js/common/header.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
