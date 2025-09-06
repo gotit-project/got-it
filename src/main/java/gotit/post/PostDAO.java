@@ -13,7 +13,7 @@ import gotit.model.Post;
 
 public class PostDAO {
     private DataSource ds;
-
+   
     public PostDAO() {
         try {
             Context initContext = new InitialContext();
@@ -190,7 +190,7 @@ public class PostDAO {
     }
 
 	/* ==========================
-	 * 게시글 view
+	 * 게시글 view + 조회수 증가 
 	 * ========================== */
     public Post view(long postId) {
         try(Connection con = ds.getConnection();
@@ -218,9 +218,10 @@ public class PostDAO {
     			    String boardName = getBoardName(boardId);
     			    String nickName = getNickName(userId);
     			    String categoryName = getCategoryName(categoryId);
+    		    	int updatedViewCount = addViewCount(postId);
 
                     return new Post(postId, boardId, userId, categoryId, postTag, title, rawContent,
-    						htmlContent, likeCount, viewCount, commentCount, stateType, createdAt, updatedAt,
+    						htmlContent, likeCount, updatedViewCount, commentCount, stateType, createdAt, updatedAt,
     						boardName, nickName, categoryName);
                 }
             }
@@ -419,4 +420,31 @@ public class PostDAO {
 		
 		    return posts;
 		}
+    
+    /* ==========================
+	 * 조회수 카운트 
+	 * ========================== */
+	public int addViewCount(long postId) {
+		int totalViewCount = -1;
+	    try (Connection con = ds.getConnection()) {
+	        // 1. 조회수 증가
+	        try (PreparedStatement pstmt = con.prepareStatement(POST_VIEW_COUNT_INCREASE)) {
+	            pstmt.setLong(1, postId);
+	            pstmt.executeUpdate();
+	        }
+	        // 2. 최신 조회수 가져오기
+	        try (PreparedStatement pstmt2 = con.prepareStatement(POST_VIEW_COUNT_SELECT)) {
+	            pstmt2.setLong(1, postId);
+	            try (ResultSet rs = pstmt2.executeQuery()) {
+	                if (rs.next()) {
+	                    totalViewCount = rs.getInt("view_count");
+	                }
+	            }
+	        }
+	    } catch (SQLException se) {
+	        se.printStackTrace();
+	    }
+	    return totalViewCount;
+	}
 }
+
