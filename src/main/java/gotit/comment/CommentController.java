@@ -17,7 +17,6 @@ public class CommentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	CommentService service = CommentService.getInstance(); 
 
-	
 	/* ==========================
 	 * URL 파라미터 mode 요청들을 분기함
 	 * ========================== */
@@ -37,7 +36,6 @@ public class CommentController extends HttpServlet {
 		}
 	}
 	
-	
 	/* ==========================
 	 * 게시글 목록 보기
 	 * ========================== */
@@ -47,7 +45,6 @@ public class CommentController extends HttpServlet {
 	    rd.forward(request, response); 
 	    
 	}
-
 
 	/* ==========================
 	 * 댓글 조회
@@ -100,7 +97,6 @@ public class CommentController extends HttpServlet {
 //		rd.forward(request, response);
 	}
 	
-
 	/* ==========================
 	 * 댓글 수정
 	 * ========================== */
@@ -131,7 +127,6 @@ public class CommentController extends HttpServlet {
 	    response.getWriter().write("{\"flag\": " + (flag ? "true" : "false") + "}");
 	}
 	
-
 	/* ==========================
 	 * 댓글 삭제
 	 * ========================== */

@@ -81,8 +81,8 @@ public class PostController extends HttpServlet {
         String postTag = request.getParameter("postTag");
         String title = request.getParameter("title");
         String rawContent = request.getParameter("rawContent");
-        //String htmlContent = request.getParameter("htmlContent");
-        String htmlContent = "test";
+        String htmlContent = request.getParameter("htmlContent");
+        
 
         Post post = new Post(-1L, boardId, userId, categorieId, postTag, title, rawContent, htmlContent, "ACTIVE");
         boolean flag = postService.insertS(post);
@@ -155,7 +155,7 @@ public class PostController extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         if(flag) {																
-            out.println("<script>alert('게시글이 삭제되었습니다!'); location.href='board.do?mode=list&id=" + post.getBoardId() + "&categoryId=" + post.getCategoryId() + "';</script>");
+            out.println("<script>alert('게시글이 삭제되었습니다!'); location.href='board.do?mode=list&id=" + post.getBoardId() + "&categoryId=" + post.getCategoryId() + "&page=1';</script>");
         } else {
             out.println("<script>alert('게시글 삭제에 실패했습니다.'); history.back();</script>");
         }
@@ -194,8 +194,7 @@ public class PostController extends HttpServlet {
         String postTag = request.getParameter("postTag");
         String title = request.getParameter("title");
         String rawContent = request.getParameter("rawContent");
-        //String htmlContent = request.getParameter("htmlContent"); 
-        String htmlContent = "test";
+        String htmlContent = request.getParameter("htmlContent"); 
         
         Post post = new Post(postId, boardId, userId, categoryId, postTag, title, rawContent, htmlContent, "ACTIVE");
         boolean flag = postService.updateS(post);
@@ -207,7 +206,7 @@ public class PostController extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         if(flag) {
-            out.println("<script>alert('게시글이 수정되었습니다!'); location.href='post.do?mode=view&postId=" + post.getPostId() + "';</script>");
+            out.println("<script>alert('게시글이 수정되었습니다!'); location.href='post.do?mode=view&postId=" + post.getPostId() + "&page=1';</script>");
         } else {
             out.println("<script>alert('게시글 수정에 실패했습니다.'); history.back();</script>");
         }

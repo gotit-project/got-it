@@ -112,5 +112,14 @@ public class PostService {
 	 public List<Post> getPostsByBoard(long boardId) {
         return postDao.getPostsByBoard(boardId);
     }
+
+	/* ==========================
+	* 조회수 
+	* ========================== */
+	public int increaseViewCount(long postId) {
+        return postDao.addViewCount(postId);
+    }
 }
+
+
 

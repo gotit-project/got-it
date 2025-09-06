@@ -43,6 +43,7 @@ footer .footer-top .footer-nav ul li a {
   display: block;
   color: var(--color-text-default);
   position: relative;
+  text-decoration: none;
 }
 footer .footer-top .footer-nav ul li a:before {
   width: 0px;
@@ -78,6 +79,9 @@ footer .footer-bottom {
 }
 footer .footer-bottom ul {
   display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 footer .footer-bottom ul li {
   margin: 0 12px 0 0;

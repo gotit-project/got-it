@@ -11,6 +11,9 @@
   align-items: normal;
   justify-content: center;
 }
+#list .board-title:hover {
+	color: var(--color-text-sub);
+}
 #list .board-title strong {
   display: block;
   margin: 0 0 2px 0;
@@ -19,8 +22,8 @@
 }
 #list .board-title p {
   font-weight: 300;
-  font-style: Light;
   font-size: 12px;
+  margin: 0;
 }
 #list .filter-wrap {
   width: 100%;
@@ -37,7 +40,10 @@
   display: inline-block;
   padding: 0 0 0 30px;
   height: 34px;
-  line-height: 38px;
+  line-height: 36px;
+  margin: 0;
+  text-decoration: none;
+  color: var(--color-text-white);
   border-radius: 5px;
   background: var(--background-main) url("../img/list/write_button_icon.png")
     no-repeat left 5px center / 20px;
@@ -59,12 +65,13 @@
 }
 #list .category-button-wrap button {
   height: 34px;
-  line-height: 38px;
+  line-height: 36px;
   padding: 0 10px;
   font-size: 16px;
   font-weight: 500;
   color: var(--color-text-sub);
   border-radius: 5px;
+  text-decoration: none;
   transition: 0.3s;
 }
 #list .category-button-wrap button:hover,
@@ -171,6 +178,7 @@
 #list .filter-bottom .paging-text p,
 #list .filter-bottom .paging-text span {
   color: var(--color-text-sub);
+  margin: 0;
 }
 #list .filter-bottom .paging-button a {
   width: 24px;
@@ -201,6 +209,10 @@
   margin: 0 0 0 10px;
   transform: rotate(180deg);
 }
+#list .filter-bottom .paging-button button {
+	margin: 0;
+	padding: 0;
+}
 #list .filter-bottom .paging-button button:disabled {
   opacity: 0.5;
 }
@@ -214,6 +226,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 10px 0;
+  text-decoration: none;
   border-bottom: var(--color-border-default);
   transition: 0.3s;
 }
@@ -229,6 +242,8 @@
   border-top: var(--color-border-default);
   border-bottom: var(--color-border-default);
   align-items: center;
+  text-decoration: none;
+  color: var(--color-text-main);
   background: rgba(46, 134, 222, 0.1);
   transition: 0.3s;
 }
@@ -261,9 +276,11 @@
   padding: 0 10px;
   color: var(--color-text-main);
   font-size: 14px;
+  text-decoration: none;
   transition: 0.3s;
 }
 #list .post-content {
+  margin: 0;
   font-size: 12px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -285,6 +302,7 @@
   /*margin: 0 10px 0 0;*/
   font-size: 12px;
   border-radius: 5px;
+  text-decoration: none;
   color: var(--background-main);
   background: rgba(46, 134, 222, 0.1);
 }
@@ -374,6 +392,9 @@
     height: auto;
     flex-wrap: wrap;
   }
+  #list .board-title {
+  	padding: 0 0 0 20px;
+  }
   #list .search-wrap,
   #list .search-box {
     width: 100%;
@@ -388,4 +409,32 @@
   #list .filter-bottom .refresh-button {
     margin: 0;
   }
+}
+
+@media screen and (max-width: 480px) {
+	#list .filter-top {
+		display: block;
+		height: auto;
+	}
+	#list .write-button {
+		width: 100%;
+		padding: 0;
+		text-align: center;
+		font-size: 13px;
+	}
+	#list .category-button-wrap.mobile-only {
+		margin: 0;
+	}
+	#list .order-button-wrap {
+		width: 100%;
+		margin: 0;
+	}
+	#list .category-button-wrap.mobile-only select{
+		width: 100%;
+		margin: 10px 0;
+	}
+	#list .order-button-wrap button:last-child {
+		width: 100%;
+		margin: 0 0 10px;
+	}
 }

@@ -50,10 +50,11 @@ public class Comment {
    	 * userId + nickname 포함 생성자 
    	 * 유저아이디, 닉네임 둘다 필요할 때
    	 * ========================== */
-	public Comment(long commentId, long postId, long userId, String nicknam, String content, boolean isAnswer, boolean accepted, Date createdAt, Date updatedAt) {
+	public Comment(long commentId, long postId, long userId, String nickname, String content, boolean isAnswer, boolean accepted, Date createdAt, Date updatedAt) {
 		this.commentId = commentId;
 		this.postId = postId;
 		this.userId = userId;
+		this.nickname = nickname;
 		this.content = content;
 		this.isAnswer = isAnswer;
 		this.accepted = accepted;

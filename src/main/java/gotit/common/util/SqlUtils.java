@@ -19,7 +19,9 @@ public class SqlUtils {
 	public final static String POST_VIEW = "select * from POSTS where POST_ID=?";
 	public final static String POST_DELETE = "update POSTS set state_type = 'DELETED' where POST_ID =?";
 	public final static String POST_UPDATE = "update  POSTS set board_id=?, user_id=?, category_id=?, post_tag=?, title=?, raw_content=?, html_content=? where post_id=?";
-	public final static String POST_UPDATE_COUNT = "update POSTS set view_count = view_count+1 where POST_ID=?";
+	//public final static String POST_UPDATE_COUNT = "update POSTS set view_count = view_count+1 where POST_ID=?";
+	public final static String POST_VIEW_COUNT_INCREASE = "UPDATE POSTS SET view_count = view_count + 1 WHERE POST_ID = ?";
+	public final static String POST_VIEW_COUNT_SELECT = "SELECT view_count FROM POSTS WHERE POST_ID = ?";
 	
 	//CommentDAO SQL
 	public final static String COMMENT_SELECT = "select * from post_comments where post_id=?";

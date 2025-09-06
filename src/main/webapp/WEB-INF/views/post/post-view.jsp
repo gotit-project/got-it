@@ -13,10 +13,14 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/view.css">
+        <!-- toast ui editor -->
+		<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
         <script src="${pageContext.request.contextPath}/assets/js/common/header.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/view.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/comment.js" defer></script>
+        <!-- toast ui editor -->
+		<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     </head>
     <body>
 
@@ -28,9 +32,9 @@
             <div class="post-item-wrap">
                 <div class="view-title">
                     <div class="view-span-wrap">
-                        <a href="board.do?mode=list&id=${post.boardId}">${post.boardName}</a>
+                        <a href="board.do?mode=list&id=${post.boardId}&page=1">${post.boardName}</a>
                         <span>/</span>
-                        <a href="board.do?mode=list&id=${post.boardId}&categoryId=${post.categoryId}" class="z">${post.categoryName}</a>
+                        <a href="board.do?mode=list&id=${post.boardId}&categoryId=${post.categoryId}&page=1" class="z">${post.categoryName}</a>
                     </div>
                 </div>
                 <div>
@@ -43,7 +47,7 @@
     						<span class="time">
 							    ${post.updatedAt != null ? DateUtils.formatTimeAgo(post.updatedAt) : ""}
 							</span>
-                            <p class="view-count">조회수</p>
+                            <p class="view-count">조회수 ${post.viewCount}</p>
                             <span class="corrected-mark ${post.updatedAt.time != post.createdAt.time ? '' : 'hidden'}">
 						    	수정됨
 							</span>
@@ -84,7 +88,7 @@
                         <br/>
                         <br/>
                         <p class="post-content">
-                            ${post.rawContent}
+                            ${post.htmlContent}
                         </p>
                     </div>
                     <div class="post-bottom">

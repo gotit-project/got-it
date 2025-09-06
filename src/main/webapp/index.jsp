@@ -34,7 +34,7 @@
 
 		        <!-- 공지 게시판 -->
 		        <div class="notice">
-		            <a href="board.do?mode=list&id=4&categoryId=0&page=1" class="board-title">공지</a>
+		            <a href="board.do?mode=list&id=4&categoryId=0&page=1" class="board-title">공지사항</a>
 		            <div class="post-item-wrap">
 		                <c:set var="posts" value="${boardPostsMap['4']}" />
 		                <c:if test="${not empty posts}">
