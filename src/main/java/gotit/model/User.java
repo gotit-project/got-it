@@ -56,10 +56,10 @@ public class User {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-	public String getimgName() {
+	public String getImgName() {
 		return imgName;
 	}
-	public void setimgName(String imgName) {
+	public void setImgName(String imgName) {
 		this.imgName = imgName;
 	}
 	public String getNickname() {

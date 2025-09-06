@@ -19,13 +19,18 @@ import gotit.board.BoardService;
 import gotit.comment.CommentService;
 import gotit.reaction.ReactionService;
 
-@WebServlet("/post.do")
 public class PostController extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    BoardService boardService = BoardService.getInstance();
-    PostService postService = PostService.getInstance();
-    CommentService commentService = CommentService.getInstance();
-    ReactionService reactionService = ReactionService.getInstance();
+    private static final PostController INSTANCE = new PostController();
+    private final PostService postService = PostService.getInstance();
+    private final BoardService boardService = BoardService.getInstance();
+    private final CommentService commentService = CommentService.getInstance();
+    private final ReactionService reactionService = ReactionService.getInstance();
+    
+    private PostController(){}
+
+    public static PostController getInstance(){ 
+    	return INSTANCE; 
+    }
     
    	/* ==========================
    	 * URL 파라미터 mode 요청들을 분기함
@@ -67,7 +72,7 @@ public class PostController extends HttpServlet {
     /* ==========================
    	 * 게시글 작성 처리 
    	 * 작성 폼에서 넘어온 데이터를 받음
-   	 * Pos 객체 생성후 Service -> DB 
+   	 * Post 객체 생성후 Service -> DB 
    	 * ========================== */
     private void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int boardId = Integer.parseInt(request.getParameter("boardId"));

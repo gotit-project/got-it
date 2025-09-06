@@ -87,6 +87,12 @@ header .link-wrap a:last-child:hover {
   background-color: var(--background-main-hover);
 }
 
+.profile-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 /* 기본: 숨김 */
 .dropdown-menu,
 .profile-dropdown-menu {

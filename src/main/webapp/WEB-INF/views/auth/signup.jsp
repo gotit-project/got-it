@@ -8,6 +8,7 @@ pageEncoding="UTF-8"%>
     <title>회원가입</title>
     <link rel="stylesheet" href="assets/css/global.css" />
     <link rel="stylesheet" href="assets/css/auth.css" />
+    <script src="${pageContext.request.contextPath}/assets/js/signup.js" defer></script>
   </head>
   <body>
     <div class="auth-container">
@@ -62,6 +63,7 @@ pageEncoding="UTF-8"%>
                 />
                 <label for="alias" class="inp-lb">닉네임</label>
               </div>
+              
 
               <!-- 이메일 -->
               <div class="inp-group">
@@ -75,7 +77,7 @@ pageEncoding="UTF-8"%>
                   autocomplete="email"
                   inputmode="email"
                 />
-                <label for="useremail" class="inp-lb">이메일</label>
+                <label for="email" class="inp-lb">이메일</label>
               </div>
 
               <!-- 비밀번호 -->
@@ -99,7 +101,7 @@ pageEncoding="UTF-8"%>
                   type="password"
                   class="inp-fd"
                   id="passwdConfirm"
-                  name="passwordConfirm"
+                  name="passwdConfirm"
                   placeholder=""
                   required
                   autocomplete="new-password"
@@ -111,7 +113,7 @@ pageEncoding="UTF-8"%>
               <!-- 약관 동의 -->
               <div class="terms-wrap">
                 <label class="terms-row">
-                  <input type="checkbox" id="agreeTerms" required />
+                  <input type="checkbox" id="agreeTerms" name="agreeTerms"  required />
                   <span>이용약관 및 개인정보 처리방침에 동의합니다.</span>
                 </label>
                 <p class="terms-links">
@@ -124,7 +126,7 @@ pageEncoding="UTF-8"%>
 
               <!-- 도움말/에러 -->
               <div class="help-text-wrap">
-                <p class="error-message" aria-live="polite"></p>
+                <p class="error-message" aria-live="polite">${error}</p>
                 <p class="help-text">
                   이미 계정이 있으신가요?
                   <a href="auth.do?mode=login-form">로그인</a>

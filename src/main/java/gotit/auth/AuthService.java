@@ -2,6 +2,9 @@ package gotit.auth;
 
 import java.sql.SQLException;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
+import gotit.common.util.AuthUtils;
 import gotit.model.User;
 
 public class AuthService {
@@ -38,32 +41,25 @@ private AuthDAO dao;
 			String dbPwd = user.getPwd();
 			if(dbPwd != null) dbPwd.trim();
 			
-			if(!dbPwd.equals(pwd)) {
-				return 2;
-			}else {
-				return 3;				
-			}
+			 // 1) BCrypt 비교 (평문 vs 해시)
+		    boolean ok = BCrypt.checkpw(pwd == null ? "" : pwd, dbPwd);
+		    return ok ? 3 : 2; // 3=성공, 2=비번 불일치
 		}
 	}
 	
-	public int signup(String name, String email, String passwd, String alias) {
-	    AuthDAO dao = AuthDAO.getInstance();
+    public String signup(String name, String email, String rawPassword, String alias) {
+        if (dao.existsByEmail(email))  return "이미 사용 중인 이메일입니다.";
+        if (dao.existsByAlias(alias)) return "이미 사용 중인 닉네임입니다.";
 
-//	    // 1) 중복 검사
-//	    if (dao.existsByEmail(dto.getEmail())) return SignUpCode.DUPLICATE_EMAIL;
-//	    if (dao.existsByAlias(dto.getAlias())) return SignUpCode.DUPLICATE_ALIAS;
-
-	    // 2) 비번 해시 (BCrypt 권장)
-	    //String hashed = BCrypt.hashpw(dto.getRawPassword(), BCrypt.gensalt());
-
-	    // 3) 삽입
+        String hash = AuthUtils.hash(rawPassword);
+        
+     // 3) 삽입
 	    try {
-	        int rows = dao.insertUser(name, email, passwd, alias);
-	        return 1; //rows == 1 ? SignUpCode.SUCCESS : SignUpCode.DB_ERROR;
+	        int ok = dao.insertUser(name, email, hash, alias);
+	        return ok == 1 ? null : "회원가입 처리에 실패했습니다. 잠시 후 다시 시도해주세요.";
 	    } catch (SQLException e) {
-	        // unique 제약 위반 등을 세부코드로 매핑해도 됨
-	        return -1; //SignUpCode.DB_ERROR;
+	        return "회원가입 처리에 실패했습니다. 잠시 후 다시 시도해주세요.";
 	    }
-	}
+    }
 	
 }

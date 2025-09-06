@@ -12,6 +12,8 @@ import java.util.Objects;
 
 import gotit.auth.AuthController;
 import gotit.board.BoardController;
+import gotit.mypage.MypageController;
+import gotit.post.PostController;
 
 
 @WebServlet(urlPatterns={"*.do"})
@@ -26,7 +28,9 @@ public class FrontController extends HttpServlet {
 	// FrontController 내에서 연결할 Controller
 	private final AuthController authController = AuthController.getInstance();
 	private final BoardController boardController = BoardController.getInstance();
- 
+	private final PostController postController = PostController.getInstance();
+	private final MypageController mypageController = MypageController.getInstance();
+
 	@Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = request.getServletPath();
@@ -45,6 +49,12 @@ public class FrontController extends HttpServlet {
 			return;
 		} else if (Objects.equals(path, "/board.do")) {
 			boardController.service(request, response);
+			return;
+		} else if (Objects.equals(path, "/post.do")) {
+			postController.service(request, response);
+			return;
+		} else if (Objects.equals(path, "/mypage.do")) {
+			mypageController.service(request, response);
 			return;
 		} else {
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");

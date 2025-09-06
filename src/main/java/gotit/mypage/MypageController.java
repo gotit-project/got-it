@@ -2,14 +2,20 @@ package gotit.mypage;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/mypage.do")
 public class MypageController extends HttpServlet {
+    private static final MypageController INSTANCE = new MypageController();
+    private final MypageService mypageService = MypageService.getInstance();
+    
+    private MypageController(){}
+
+    public static MypageController getInstance(){ 
+    	return INSTANCE; 
+    }
     private static final long serialVersionUID = 1L;
 
     protected void service(HttpServletRequest request, HttpServletResponse response)

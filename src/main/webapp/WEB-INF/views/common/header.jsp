@@ -70,16 +70,12 @@
           <div class="menu-divider"></div>
           <a href="post.do?mode=write&id=1" class="menu-item with-icon">
             <span><strong>Q&A</strong>에 글쓰기</span>
-            <span class="icon">❓</span>
           </a>
           <a href="post.do?mode=write&id=2" class="menu-item with-icon">
             <span><strong>지식나눔</strong>에 글쓰기</span>
-            <span class="icon">📚</span>
           </a>
           <a href="post.do?mode=write&id=3" class="menu-item with-icon">
             <span><strong>자유게시판</strong>에 글쓰기</span>
-            <span class="icon">😊</span>
-          </a>
           </a>
         </div>
       </div>
@@ -92,7 +88,7 @@
             <p><span>${sessionScope.loginOkUser.nickname}</span> 님, 안녕하세요.</p>
           </div>
           <div class="menu-divider"></div>
-          <a href="#" class="profile-menu-item">북마크 페이지</a>
+          <a href="/mypage.do" class="profile-menu-item">마이페이지</a>
           <div class="menu-divider"></div>
           <a href="auth.do?mode=logout" class="profile-menu-item">로그아웃</a>
         </div>
