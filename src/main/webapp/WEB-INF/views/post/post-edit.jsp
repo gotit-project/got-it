@@ -12,8 +12,13 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/write.css">
+        <!-- toast ui editor -->
+		<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
         <script src="${pageContext.request.contextPath}/assets/js/common/header.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
+        <script src="${pageContext.request.contextPath}/assets/js/editor.js" defer></script>
+        <!-- toast ui editor -->
+		<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
         
     </head>
     <body>
@@ -53,7 +58,9 @@
 			       
 			       <div class="form-group">
 			           <label for="content">본문</label>
-			           <textarea id="content" name="rawContent" rows="10">${post.rawContent}</textarea>
+			          	<div id="editor">${post.htmlContent}</div>
+			            <textarea id="rawContent" name="rawContent" style="display:none;"></textarea>
+	    			    <textarea id="htmlContent" name="htmlContent" style="display:none;"></textarea>
 			       </div>
 		       
 		       <div class="button-group">

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8" import="java.sql.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -11,8 +12,14 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/write.css">
-        <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
+        <!-- toast ui editor -->
+		<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
         <script src="${pageContext.request.contextPath}/assets/js/common/header.js" defer></script>
+        <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
+        <script src="${pageContext.request.contextPath}/assets/js/editor.js" defer></script>
+		<!-- toast ui editor -->
+		<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+         
     </head>
     <body>
 
@@ -23,8 +30,11 @@
 		  <form action="post.do?mode=insert" method="post">
 		  		<!-- 유저, 보드, 카테고 임시아이디 -->
    				<input type="hidden" name="boardId" value="${board.boardId}">
-		  		<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
+		  		<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">  
+		  		<input type="hidden" id="rawContent" name="rawContent">
+   				<input type="hidden" id="htmlContent" name="htmlContent">
 			   				
+		      <h2 class="post-title">${board.boardName}</h2>
 		       <div class="form-gxroup">
 		           <label for="category">카테고리</label>
 		           <select name="categoryId">
@@ -37,7 +47,6 @@
 					  </c:if>
 					</select>
 		       </div>
-		      
 		       <div class="form-group">
 		           <label for="title">제목</label>
 		           <input type="text" id="title" name="title">
@@ -50,11 +59,13 @@
 		       
 		       <div class="form-group">
 		           <label for="content">본문</label>
-		           <textarea id="content" name="rawContent" rows="10"></textarea>
+				   <div id="editor"></div>
+		           <textarea id="rawContent" name="rawContent" style="display:none;"></textarea>
+    			   <textarea id="htmlContent" name="htmlContent" style="display:none;"></textarea>
 		       </div>
 		       
 		       <div class="button-group">
-		           <input type="submit" value="전송">
+		           <input type="submit" value="전송" id="writeSaveButton">
 		           <input type="reset" value="다시입력">
 		       </div>
 		  </form>

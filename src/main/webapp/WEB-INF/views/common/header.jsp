@@ -67,7 +67,6 @@
           </span>
         </button>
         <div class="dropdown-menu">
-          <div class="menu-divider"></div>
           <a href="post.do?mode=write&id=1" class="menu-item with-icon">
             <span><strong>Q&A</strong>에 글쓰기</span>
             <span class="icon">❓</span>

@@ -22,7 +22,10 @@
   font-weight: bold;
   color: #555;
 }
-
+#write .post-title {
+	font-size: 20px;
+	margin-bottom: 15px;
+}
 #write input[type="text"],
 #write textarea,
 #write select {

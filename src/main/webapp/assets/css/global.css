@@ -58,6 +58,10 @@ html {
   overflow-x: hidden;
   background: var(--color-bg-main) !important;
 }
+* {box-sizing: border-box; border: none;}
+textare {resize: none;}
+button {background-color: transparent; cursor:pointer;}
+/* 
 html,
 body,
 div,
@@ -150,7 +154,7 @@ button {
   color: #000;
   box-sizing: border-box;
 }
-/* HTML5 display-role reset for older browsers */
+HTML5 display-role reset for older browsers
 article,
 aside,
 details,
@@ -202,7 +206,7 @@ button {
   font-weight: 600;
 }
 
-/* 버튼 및 인풋 기본 설정 */
+버튼 및 인풋 기본 설정
 button {
   font-family: inherit;
   cursor: pointer;
@@ -235,7 +239,7 @@ menu,
 nav,
 section {
   display: block;
-}
+} */
 
 /* 전체 컨텐츠 레이아웃 */
 .content-wrap {

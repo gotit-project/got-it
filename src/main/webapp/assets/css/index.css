@@ -18,6 +18,7 @@
   display: block;
   align-items: center;
   padding: 0 20px;
+  text-decoration: none;
   background: var(--color-bg-point-sub);
   border-radius: 10px;
   color: var(--color-text-sub);
@@ -40,6 +41,7 @@
   justify-content: center;
   gap: 10px;
   padding: 10px;
+  text-decoration: none;
   border-bottom: var(--color-border-default);
   transition: 0.3s;
 }
@@ -64,6 +66,7 @@
 .content-wrap .post-item-header .writer {
   font-size: 12px;
   font-weight: 500;
+  margin: 0;
   color: var(--color-text-sub);
   transition: 0.3s;
 }
@@ -87,6 +90,7 @@
 }
 .content-wrap .post-counts p {
   font-size: 12px;
+  margin: 0;
   font-weight: 500;
   color: var(--color-text-sub);
   opacity: 0.6;
@@ -99,6 +103,7 @@
 .content-wrap .post-title {
   display: block;
   font-size: 14px;
+  margin: 0;
   font-weight: 500;
   color: var(--color-text-main);
   transition: color 0.2s;
