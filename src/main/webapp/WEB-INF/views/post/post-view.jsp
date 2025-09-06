@@ -44,7 +44,19 @@
                         	<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
                             <p class="writer">
                             	${post.nickName}
-                            	<span>헤</span>
+                            	<!-- 
+                                  뱃지 6가지 종류 css 적용하는 방법 
+                                  <span class="badge"></span>
+                                  <span class="badge bronze"></span>
+                                  <span class="badge silver"></span>
+                                  <span class="badge gold "></span>
+                                  <span class="badge platinum"></span>
+                                  <span class="badge diamond"></span>
+                                  <span class="badge challenger"></span>
+                            	 -->
+                            	<span class="badge ${user.badgeName}">
+								   ${users.badgeName}
+								</span>
                             </p> 
 	                        <div class="flex-box">
 	    						<span class="time">

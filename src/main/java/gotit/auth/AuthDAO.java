@@ -60,8 +60,10 @@ public class AuthDAO {
 				Date createDate = rs.getDate(10);
 				Date updateDate = rs.getDate(11);
 				
+				String badgeName = getBadgeName(badge);
+				
 				return new User(userId, userName, email, pwd, imgName, nickname, 
-						point, badge, status, createDate, updateDate);
+						point, badge, badgeName, status, createDate, updateDate);
 			}else {
 				return null;
 			}
@@ -75,6 +77,7 @@ public class AuthDAO {
 			}catch(SQLException se) {}
 		}
 	}
+	
 	/* ===========================
 	 * 이메일 중복 여부 확인
 	 ============================= */
@@ -86,6 +89,7 @@ public class AuthDAO {
 	        try (ResultSet rs = pstmt.executeQuery()) { return rs.next(); }
 	    } catch (SQLException e) { return true; } // 안전하게 막기
 	}
+	
 	/* ===========================
 	 * 닉네임 중복 여부 확인 
 	 ============================= */
@@ -97,6 +101,7 @@ public class AuthDAO {
 	        try (ResultSet rs = ps.executeQuery()) { return rs.next(); }
 	    } catch (SQLException e) { return true; }
 	}
+	
 	/* ===========================
 	 * 회원가입 insert
 	 ============================= */
@@ -110,4 +115,34 @@ public class AuthDAO {
 	        return ps.executeUpdate();
 	    }
 	}
+	
+	/* ==========================
+	 * 뱃지 이름을 가져오기 위한 메서드
+	 * 이름 별로 css + 프론트 텍스트 변경
+	 * ========================== */
+    private String getBadgeName(int badge) {
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	
+	    try {
+	        con = ds.getConnection();
+	        pstmt = con.prepareStatement(GET_BADGE_NAME); 
+	        pstmt.setInt(1, badge);
+	        rs = pstmt.executeQuery();
+	
+	        if (rs.next()) {
+	            String badgeName = rs.getString("badge_name");
+	            return badgeName;
+	        }
+	    } catch (SQLException se) {
+	    	 se.printStackTrace(); 
+	    	return null;
+	    } finally {
+	        try { if (rs != null) rs.close(); } catch(Exception e) {}
+	        try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
+	        try { if (con != null) con.close(); } catch(Exception e) {}
+	    }
+	    return null;
+    }
 }

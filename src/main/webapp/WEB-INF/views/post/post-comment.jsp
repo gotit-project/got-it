@@ -38,8 +38,10 @@
 	                   <div class="profile-info">
 	                       <div>
 	                           <p class="writer">${commentDto.nickname}</p>
-	                           <span class="time"></span>
-	                           <span class="corrected-mark">수정됨</span> 
+	                           <span class="time">${commentDto.updatedAt != null ? DateUtils.formatTimeAgo(commentDto.updatedAt) : ""}</span>
+	                           <span class="corrected-mark ${commentDto.updatedAt.time != commentDto.createdAt.time ? '' : 'hidden'}">
+							    	수정됨
+								</span>
 	                       </div>
 	                      <!--  <button class="adopted-mark checked">
 	                           <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">

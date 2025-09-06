@@ -11,6 +11,7 @@ public class User {
 	private String nickname;
 	private int point;
 	private int badge;
+	private String badgeName;
 	private String status;
 	private Date createDate;
 	private Date updateDate;
@@ -31,6 +32,27 @@ public class User {
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 	}
+
+   	/* ==========================
+   	 * badgeName 포함 
+   	 * 뱃지아이디 + 뱃지 이름 필요할 떄
+   	 * ========================== */
+	public User(long userId, String userName, String email, String pwd, String imgName, String nickname, int point,
+			int badge, String badgeName, String status, Date createDate, Date updateDate) {
+		this.userId = userId;
+		this.userName = userName;
+		this.email = email;
+		this.pwd = pwd;
+		this.imgName = imgName;
+		this.nickname = nickname;
+		this.point = point;
+		this.badge = badge;
+		this.badgeName = badgeName;
+		this.status = status;
+		this.createDate = createDate;
+		this.updateDate = updateDate;
+	}
+	
 	
 	public long getUserId() {
 		return userId;
@@ -97,6 +119,34 @@ public class User {
 	}
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
+	}
+
+	public int getBadge() {
+		return badge;
+	}
+
+	public void setBadge(int badge) {
+		this.badge = badge;
+	}
+
+	public String getBadgeName() {
+		return badgeName;
+	}
+
+	public void setBadgeName(String badgeName) {
+		this.badgeName = badgeName;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 	
 	

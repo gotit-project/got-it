@@ -5,6 +5,7 @@ public class SqlUtils {
 	//AuthDAO SQL
 	public final static String AUTH_LOGIN = "select * from users where email=? ";
 	public final static String AUTH_SIGNUP = "insert into users (username, email, password_hash, nickname) values ( ?, ?, ?, ? )";
+	public final static String GET_BADGE_NAME = "select badge_name from user_badges where badge_id  = ?";
 	
 	//BoardDAO SQL
 	public final static String BOARD_SELECT = "select * from boards where board_id=? ";
