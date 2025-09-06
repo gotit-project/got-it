@@ -2,7 +2,7 @@ package gotit.auth;
 
 import java.sql.SQLException;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.mindrot.jbcrypt.BCrypt;
 
 import gotit.common.util.AuthUtils;
 import gotit.model.User;

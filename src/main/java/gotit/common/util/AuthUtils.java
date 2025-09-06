@@ -2,7 +2,8 @@ package gotit.common.util;
 
 import java.util.regex.Pattern;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.mindrot.jbcrypt.BCrypt;
+
 
 public class AuthUtils {
 	private static final int NAME_MIN  = 2;
