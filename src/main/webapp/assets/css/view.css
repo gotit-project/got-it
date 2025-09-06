@@ -108,13 +108,20 @@
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 10px;
+  gap: 6px 10px;
   flex: 8;
 }
 #view .post-item-header .writer {
   flex: 100%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
   margin: 0;
   font-size: 18px;
+}
+#view .flex-box {
+	display: flex;
+	gap: 10px;
 }
 #view .time,
 #view .view-count,
@@ -337,6 +344,9 @@
   flex-wrap: wrap;
   padding: 0;
   gap: 10px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: normal;
 }
 .comment-item .comment-item-header img {
   width: 36px;

@@ -42,15 +42,31 @@
                         <img src="../assets/img/common/post_info_profile02.png" class="profile" alt="프로필 사진">
                         <div class="profile-info">
                         	<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
-                            <p class="writer">${post.nickName}</p>
-                            <%-- 이 부분에서 `DateUtils` 클래스를 사용합니다 --%>
-    						<span class="time">
-							    ${post.updatedAt != null ? DateUtils.formatTimeAgo(post.updatedAt) : ""}
-							</span>
-                            <p class="view-count">조회수 ${post.viewCount}</p>
-                            <span class="corrected-mark ${post.updatedAt.time != post.createdAt.time ? '' : 'hidden'}">
-						    	수정됨
-							</span>
+                            <p class="writer">
+                            	${post.nickName}
+                            	<!-- 
+                                  뱃지 6가지 종류 css 적용하는 방법 
+                                  <span class="badge"></span>
+                                  <span class="badge bronze"></span>
+                                  <span class="badge silver"></span>
+                                  <span class="badge gold "></span>
+                                  <span class="badge platinum"></span>
+                                  <span class="badge diamond"></span>
+                                  <span class="badge challenger"></span>
+                            	 -->
+                            	<span class="badge ${user.badgeName}">
+								   ${users.badgeName}
+								</span>
+                            </p> 
+	                        <div class="flex-box">
+	    						<span class="time">
+								    ${post.updatedAt != null ? DateUtils.formatTimeAgo(post.updatedAt) : ""}
+								</span>
+	                            <p class="view-count">조회수 ${post.viewCount}</p>
+	                            <span class="corrected-mark ${post.updatedAt.time != post.createdAt.time ? '' : 'hidden'}">
+							    	수정됨
+								</span>
+							</div>
                         </div>
                        <div class="etc-button-wrap">
         				    <button id="likeButton" class="like-button ${userLiked ? "active" : ""}" 

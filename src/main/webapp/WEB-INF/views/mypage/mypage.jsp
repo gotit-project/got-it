@@ -13,6 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Got !t</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/reset.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
@@ -25,7 +26,6 @@
 
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
         
-        
           <div class="content-wrap">
 	        <!-- 프로필 헤더 -->
 	        <div class="profile-header">
@@ -33,6 +33,19 @@
 	                <h1>sdjadodoj</h1>
 	                <p>아직 소개를 작성하지 않았습니다.</p>
 	                <p> point</p>
+	                <!-- 
+                        뱃지 6가지 종류 css 적용하는 방법 
+                        <span class="badge"></span>
+                        <span class="badge bronze"></span>
+                        <span class="badge silver"></span>
+                        <span class="badge gold "></span>
+                        <span class="badge platinum"></span>
+                        <span class="badge diamond"></span>
+                        <span class="badge challenger"></span>
+                  	 -->
+                  	<span class="badge ${user.badgeName}">
+					 	${users.badgeName}
+					</span>
 	            </div>
 	            <div class="profile-avatar-wrap">
 		            <div class="profile-avatar">수빈</div>

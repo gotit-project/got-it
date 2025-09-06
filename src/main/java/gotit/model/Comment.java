@@ -1,6 +1,6 @@
 package gotit.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Comment {
 	private long commentId;
@@ -9,8 +9,8 @@ public class Comment {
 	private String content;
 	private boolean isAnswer;
 	private boolean accepted;
-	private Date createdAt;
-	private Date updatedAt;
+	private Timestamp createdAt;
+	private Timestamp updatedAt;
 	private String nickname;
 	
 	public Comment() {};
@@ -20,7 +20,7 @@ public class Comment {
    	 * nickname 포함 
    	 * 댓글 + 작성자 닉네임 필요할 떄
    	 * ========================== */
-	public Comment(long commentId, long postId, String nickname, String content, boolean isAnswer, boolean accepted, Date createdAt, Date updatedAt) {
+	public Comment(long commentId, long postId, String nickname, String content, boolean isAnswer, boolean accepted, Timestamp createdAt, Timestamp updatedAt) {
 		this.commentId = commentId;
 		this.postId = postId;
 		this.nickname = nickname;
@@ -35,7 +35,7 @@ public class Comment {
    	 * userId 포함 생성자 
    	 * 닉네임 필요 없을 때
    	 * ========================== */
-	public Comment(long commentId, long postId, long userId, String content, boolean isAnswer, boolean accepted, Date createdAt, Date updatedAt) {
+	public Comment(long commentId, long postId, long userId, String content, boolean isAnswer, boolean accepted, Timestamp createdAt, Timestamp updatedAt) {
 		this.commentId = commentId;
 		this.postId = postId;
 		this.userId = userId;
@@ -50,7 +50,7 @@ public class Comment {
    	 * userId + nickname 포함 생성자 
    	 * 유저아이디, 닉네임 둘다 필요할 때
    	 * ========================== */
-	public Comment(long commentId, long postId, long userId, String nickname, String content, boolean isAnswer, boolean accepted, Date createdAt, Date updatedAt) {
+	public Comment(long commentId, long postId, long userId, String nickname, String content, boolean isAnswer, boolean accepted, Timestamp createdAt, Timestamp updatedAt) {
 		this.commentId = commentId;
 		this.postId = postId;
 		this.userId = userId;
@@ -118,19 +118,19 @@ public class Comment {
 		this.accepted = accepted;
 	}
 
-	public Date getCreatedAt() {
+	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Date getUpdatedAt() {
+	public Timestamp getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 	
