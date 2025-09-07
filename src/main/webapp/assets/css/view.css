@@ -123,6 +123,13 @@
 	display: flex;
 	gap: 10px;
 }
+#view .flex-box2{
+	width: fit-content;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	padding-right: 60px;
+}
 #view .time,
 #view .view-count,
 #view .view-count span {
@@ -442,18 +449,22 @@
   display: flex;
   align-items: center;
 }
-.adopted-mark {
+.accepted-mark {
+  position: absolute;
+  right: 0;
+  top: 55%;
+  transform: translateY(-50%);
   transition: 0.3s;
 }
-.adopted-mark:hover path {
+.accepted-mark:hover path {
   fill: var(--background-main) !important;
 }
-.adopted-mark.checked path {
+.accepted-mark.checked path {
   fill: var(--background-main) !important;
   fill-opacity: 1 !important;
 }
-.adopted-mark svg,
-.adopted-mark path {
+.accepted-mark svg,
+.accepted-mark path {
   pointer-events: none;
 }
 .recomment-item .profile-info {

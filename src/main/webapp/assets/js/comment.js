@@ -109,7 +109,7 @@ document.querySelectorAll('#view .edit-button').forEach(editButton => {
   // 댓글 채택
   // =========================
   document.addEventListener("click", function(e) {
-	  const btn = e.target.closest(".adopted-mark");
+	  const btn = e.target.closest(".accepted-mark");
 	  if (!btn) return;
 
 	  const commentId = btn.dataset.commentId;
@@ -121,12 +121,15 @@ document.querySelectorAll('#view .edit-button').forEach(editButton => {
 	    alert("채택은 게시글 작성자만 할 수 있습니다.");
 	    return;
 	  }
+	  
+	  console.log("commentId:", commentId, "postUserId:", postUserId, "loginUserId:", loginUserId);
 
 	  fetch("comment.do?mode=accept", {
 	    method: "POST",
 	    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-	    body: `commentId=${commentId}`
+	    body: `commentId=${commentId}&postUserId=${postUserId}`
 	  })
+
 	  .then(res => res.json())
 	  .then(data => {
 	    if (data.flag) {
@@ -140,9 +143,5 @@ document.querySelectorAll('#view .edit-button').forEach(editButton => {
 	    alert("요청 실패: " + err.message);
 	  });
 	});
-
-
-
-
 
 });

@@ -39,6 +39,7 @@ public class SqlUtils {
 	public final static String COMMENT_UPDATE = "update POST_COMMENTS set content=? where comment_id=?";
 	public final static String COMMENT_SELECT_ONE = "SELECT comment_id, post_id, user_id, content, is_answer, accepted, created_at, updated_at FROM POST_COMMENTS WHERE comment_id = ?";
 	public final static String COMMENT_DELETE = "delete from POST_COMMENTS where COMMENT_ID=?";
+	public final static String COMMENT_ACCEPTED = "UPDATE post_comments c JOIN posts p ON c.post_id = p.post_id SET c.accepted = IF(c.accepted=0,1,0), c.updated_at = c.updated_at WHERE c.comment_id = ? AND p.user_id = ?";
 
 	//ReactionDAO SQL - LIKE
 	public final static String REACTION_LIKE_INSERT = "insert into POST_LIKES (post_id, user_id) values(?, ?)";
