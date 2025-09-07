@@ -1,6 +1,5 @@
 package gotit.comment;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,9 +14,7 @@ import javax.sql.DataSource;
 
 import static gotit.common.util.SqlUtils.*;
 
-import gotit.file.FilePath;
 import gotit.model.Comment;
-import gotit.model.User;
 
 public class CommentDAO {
 	 private DataSource ds;
@@ -58,8 +55,11 @@ public class CommentDAO {
 			     Timestamp updatedAt = rs.getTimestamp("updated_at");
 			     
 			     String nickname = getNickname(userId);
+			     String imgName = getImgName(userId);
+			     int badgeId = getBadgeId(userId);
+ 			    String badgeName = getBadgeName(badgeId);
 			
-			     commentList.add(new Comment(commentId, postId, userId, nickname, content, isAnswer, accepted, createdAt, updatedAt/*, userImg, badgeName*/));        
+			     commentList.add(new Comment(commentId, postId, userId, nickname, content, isAnswer, accepted, createdAt, updatedAt, imgName, badgeName));        
 			 } 
 		}catch(SQLException se){
 			return null;
@@ -178,11 +178,11 @@ public class CommentDAO {
 	            Timestamp updatedAt = rs.getTimestamp("updated_at");
 
 	            String nickname = getNickname(userId);
+			     String imgName = getImgName(userId);
+			     int badgeId = getBadgeId(userId);
+			    String badgeName = getBadgeName(badgeId);
 
-	            comment = new Comment(
-	                commentId, postId, userId, content, isAnswer, accepted, createdAt, updatedAt
-	            );
-	            comment.setNickname(nickname); 
+			    comment = new Comment(commentId, postId, userId, nickname, content, isAnswer, accepted, createdAt, updatedAt, imgName, badgeName);        
 	        }
 
 	    } catch (SQLException se) {
@@ -238,21 +238,79 @@ public class CommentDAO {
 	    }
 	}
 
-//	//이미지 만들기 파일 만들기
-//	public File getUserImg() {
-//		User user = service.getUser(email);
-//		
-//		//userImg 찾아서 저장
-//		String imgName = user.getImgName();
-//		String baseDir = FilePath.FILE_STORE;
-//		
-//	    if (imgName == null || imgName.isBlank()) {
-//	        imgName = "default.png";
-//	    }
-//        
-//        File userImg = new File(baseDir, imgName);
-//		
-//        user.setUserImg(userImg);
-//	}
+	 public String getImgName(long userId) {
+	    	Connection con = null;
+	    	PreparedStatement pstmt = null;
+	    	ResultSet rs = null;
+	    	
+	    	try {
+	    		con = ds.getConnection();
+	    		pstmt = con.prepareStatement("select img_name from users where user_id = ?"); 
+	    		pstmt.setLong(1, userId);
+	    		rs = pstmt.executeQuery();
+	    		
+	    		if (rs.next()) {
+	    			String imgName = rs.getString("img_name");
+	    			return imgName;
+	    		}
+	    	} catch (SQLException se) {
+	    		return null;
+	    	} finally {
+	    		try { if (rs != null) rs.close(); } catch(Exception e) {}
+	    		try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
+	    		try { if (con != null) con.close(); } catch(Exception e) {}
+	    	}
+	    	return null;
+	    }
+	    public int getBadgeId(long userId) {
+	    	Connection con = null;
+	    	PreparedStatement pstmt = null;
+	    	ResultSet rs = null;
+	    	
+	    	try {
+	    		con = ds.getConnection();
+	    		pstmt = con.prepareStatement("select badge_id from users where user_id = ?"); 
+	    		pstmt.setLong(1, userId);
+	    		rs = pstmt.executeQuery();
+	    		
+	    		if (rs.next()) {
+	    			int badgeId = rs.getInt("badge_id");
+	    			return badgeId;
+	    		}
+	    	} catch (SQLException se) {
+	    		return -1;
+	    	} finally {
+	    		try { if (rs != null) rs.close(); } catch(Exception e) {}
+	    		try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
+	    		try { if (con != null) con.close(); } catch(Exception e) {}
+	    	}
+	    	return -1;
+	    }
+	    
+	    public String getBadgeName(int badgeId) {
+	    	Connection con = null;
+	    	PreparedStatement pstmt = null;
+	    	ResultSet rs = null;
+	    	
+	    	try {
+	    		con = ds.getConnection();
+	    		pstmt = con.prepareStatement("select badge_name from user_badges where badge_id = ?"); 
+	    		pstmt.setLong(1, badgeId);
+	    		rs = pstmt.executeQuery();
+	    		
+	    		if (rs.next()) {
+	    			String badgeName = rs.getString("badge_name");
+	    			return badgeName;
+	    		}
+	    	} catch (SQLException se) {
+	    		return null;
+	    	} finally {
+	    		try { if (rs != null) rs.close(); } catch(Exception e) {}
+	    		try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
+	    		try { if (con != null) con.close(); } catch(Exception e) {}
+	    	}
+	    	System.out.print("이름이 없음");
+	    	return null;
+	    }
 
 }

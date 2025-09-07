@@ -42,6 +42,20 @@ public class PostService {
         }
         return new ArrayList<>();
      }
+    
+	 /* ==========================
+	 * 특정 게시판의 게시글 페이징 처리된 
+	 * 목록 조회
+	 * 검색엔진 오버로딩
+	 * ========================== */
+   public List<Post> listPageS(int boardId, String searchStr, String orderBy, Page page) {
+       try {
+           return postDao.listPage(boardId, searchStr, orderBy, page);
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+       return new ArrayList<>();
+    }
    
 	/* ==========================
 	 * 특정 게시판 + 카테고리 게시글 페이징
@@ -50,6 +64,19 @@ public class PostService {
     public List<Post> listCatPageS(int boardId, int categoryId, String orderBy, Page page) {
 	   try {
 		   return postDao.listPage(boardId, categoryId, orderBy, page);
+	   } catch (Exception e) {
+		   e.printStackTrace();
+	   }
+	   return new ArrayList<>();
+    }
+	/* ==========================
+	 * 특정 게시판 + 카테고리 게시글 페이징
+	 * 처리된 목록 조회 
+	 * 검색엔진 오버로딩
+	 * ========================== */
+    public List<Post> listCatPageS(int boardId, int categoryId, String searchStr, String orderBy, Page page) {
+	   try {
+		   return postDao.listPage(boardId, categoryId, searchStr, orderBy, page);
 	   } catch (Exception e) {
 		   e.printStackTrace();
 	   }
@@ -67,12 +94,35 @@ public class PostService {
        }
     }
     
+ 	/* ==========================
+ 	* 게시판 내 전체 게시글 수 조회 
+ 	* 검색 엔진 포함
+ 	* ========================== */
+    public int countS(int boardId, String searchStr) {
+        try {
+            return postDao.countPosts(boardId, searchStr);
+        } catch (Exception e) {
+        	throw new RuntimeException("countS failed: boardId=" + boardId, e);
+        }
+     }
+    
 	/* ==========================
 	* 게시판 + 카테고리별 게시글 수 조회 
 	* ========================== */
     public int countCatS(int boardId, int categoryId) {
     	try {
     		return postDao.countCatPosts(boardId, categoryId);
+    	} catch (Exception e) {
+    		throw new RuntimeException("countS failed: boardId=" + boardId, e);
+    	}
+    }
+	/* ==========================
+	* 게시판 + 카테고리별 게시글 수 조회 
+	* 검색엔진 포함
+	* ========================== */
+    public int countCatS(int boardId, int categoryId, String searchStr) {
+    	try {
+    		return postDao.countCatPosts(boardId, categoryId, searchStr);
     	} catch (Exception e) {
     		throw new RuntimeException("countS failed: boardId=" + boardId, e);
     	}

@@ -55,6 +55,7 @@ public class CommentController extends HttpServlet {
 		long postId = Long.parseLong(postIdStr);	
 		
 		Comment commentDto = service.selectS(postId);
+		System.out.println(commentDto.getBadgeName());
 		request.setAttribute("commentDto", commentDto);
 		
 		 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/post-comment.jsp");
@@ -90,12 +91,6 @@ public class CommentController extends HttpServlet {
 	        out.println("<script>alert('댓글 등록에 실패했습니다.'); history.back();</script>");
 	    }
 	    out.flush();
-	    
-//		request.setAttribute("kind", "comment-insert");
-//		
-//		String view = "/WEB-INF/views/post/msg.jsp";
-//		RequestDispatcher rd = request.getRequestDispatcher(view);
-//		rd.forward(request, response);
 	}
 	
 	/* ==========================
@@ -111,17 +106,6 @@ public class CommentController extends HttpServlet {
 
 	    CommentService service = CommentService.getInstance();
 	    boolean flag = service.updateS(commentId, content);
-	    
-
-//	    response.setContentType("text/html; charset=UTF-8");
-//	    PrintWriter out = response.getWriter();
-//
-//	    if(flag) {
-//	        out.println("<script>alert('댓글이 수정되었습니다!'); location.href='post.do?mode=view&postId=" + postId + "';</script>");
-//	    } else {
-//	        out.println("<script>alert('댓글 수정에 실패했습니다.'); history.back();</script>");
-//	    }
-//	    out.flush();
 
 	    request.setAttribute("flag", flag);
 	    response.setContentType("application/json;charset=UTF-8");
@@ -142,17 +126,6 @@ public class CommentController extends HttpServlet {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-	    
-
-//	    response.setContentType("text/html; charset=UTF-8");
-//	    PrintWriter out = response.getWriter();
-//
-//	    if(flag) {
-//	        out.println("<script>alert('댓글이 삭제되었습니다!'); location.href='post.do?mode=view&postId=" + postId + "';</script>");
-//	    } else {
-//	        out.println("<script>alert('댓글 삭제에 실패했습니다.'); history.back();</script>");
-//	    }
-//	    out.flush();
 
 	    response.setContentType("application/json;charset=UTF-8");
 	    response.getWriter().write("{\"flag\":" + flag + "}");
