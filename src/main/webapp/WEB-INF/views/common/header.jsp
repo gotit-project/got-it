@@ -8,7 +8,7 @@
        data-src="${pageContext.request.contextPath}/assets/img/common/logo.svg"
        data-hover-src="${pageContext.request.contextPath}/assets/img/common/logo_hover.svg"
        alt="로고" />
-</a>
+	</a>
     <ul>
       <li><a href="/index.do">홈</a></li>
       <li><a href="board.do?mode=list&id=1&categoryId=0&page=1">Q&A</a></li>

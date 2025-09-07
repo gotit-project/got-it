@@ -354,6 +354,26 @@
   color: var(--color-text-sub2);
   font-size: 14px;
 }
+/* 공지사항 */
+#notice-text {
+  display: inline-block;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.animate-up {
+  animation: slideUp 0.5s forwards;
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
 
 /* ====================================== */
 /* 미디어 쿼리                               */

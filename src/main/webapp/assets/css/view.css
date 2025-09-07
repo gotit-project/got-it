@@ -302,6 +302,7 @@
   left: 70px;
   z-index: 1;
   color: var(--text-color-sub2);
+  margin: 0;
 }
 .comment-wrap .login-text a {
   color: var(--background-main);
