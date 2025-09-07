@@ -75,11 +75,11 @@ button {background-color: transparent; cursor:pointer;}
   border-radius: 6px;
   font-size: 9px;
 
-  background-color: #1aa301; /* 테두리색 */
+  background-color: #CD7F32; /* 테두리색 */
   background-image: linear-gradient(
       to bottom right,
-      #1aa301,   /* 배경색 좌측상단 */
-      #8eff6f    /* 배경색 우측하단 */
+      #CD7F32,   /* 배경색 좌측상단 */
+      #FFC480    /* 배경색 우측하단 */
     ),
     linear-gradient(
       125deg,
@@ -117,6 +117,7 @@ button {background-color: transparent; cursor:pointer;}
   animation: 4s glint linear backwards infinite;
   animation-delay: -3s;
 }
+
 /* 브론즈 */
 .badge.bronze {
   background-color: #CD7F32; /* 테두리색 */
@@ -172,6 +173,22 @@ button {background-color: transparent; cursor:pointer;}
       to bottom right,
       #E5E4E2,   /* 배경색 좌측상단 */
       #C8DCFF    /* 배경색 우측하단 */
+    ),
+    linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0) 45%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0) 53%
+    );
+}
+
+/* 에메랄드 */
+.badge.emerald {
+  background-color: #1aa301; /* 테두리색 */
+  background-image: linear-gradient(
+      to bottom right,
+      #1aa301,   /* 배경색 좌측상단 */
+      #8eff6f    /* 배경색 우측하단 */
     ),
     linear-gradient(
       125deg,

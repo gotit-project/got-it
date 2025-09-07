@@ -12,6 +12,8 @@ public class Comment {
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
 	private String nickname;
+    private String badgeName;
+    
 	
 	public Comment() {};
 	
@@ -46,14 +48,32 @@ public class Comment {
 		this.updatedAt = updatedAt;
 	}
 	
+	/* ==========================
+   	 * userId + badgeName생성자 
+   	 * 닉네임 필요 없을 때
+   	 * ========================== */
+	public Comment(long commentId, long postId, long userId, String badgeName, String content, boolean isAnswer, boolean accepted, Timestamp createdAt, Timestamp updatedAt) {
+		this.commentId = commentId;
+		this.postId = postId;
+		this.userId = userId;
+		this.badgeName = badgeName;
+		this.content = content;
+		this.isAnswer = isAnswer;
+		this.accepted = accepted;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+	}
+	
+	
    	/* ==========================
    	 * userId + nickname 포함 생성자 
    	 * 유저아이디, 닉네임 둘다 필요할 때
    	 * ========================== */
-	public Comment(long commentId, long postId, long userId, String nickname, String content, boolean isAnswer, boolean accepted, Timestamp createdAt, Timestamp updatedAt) {
+	public Comment(long commentId, long postId, long userId, String badgeName, String nickname, String content, boolean isAnswer, boolean accepted, Timestamp createdAt, Timestamp updatedAt) {
 		this.commentId = commentId;
 		this.postId = postId;
 		this.userId = userId;
+		this.badgeName = badgeName;
 		this.nickname = nickname;
 		this.content = content;
 		this.isAnswer = isAnswer;
@@ -132,6 +152,14 @@ public class Comment {
 
 	public void setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	
+	public String getBadgeName() {
+	    return badgeName;
+	}
+
+	public void setBadgeName(String badgeName) {
+	    this.badgeName = badgeName;
 	}
 	
 }

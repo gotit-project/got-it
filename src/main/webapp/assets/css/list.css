@@ -370,30 +370,34 @@
 }
 
 .order-toggle {
-  background: #f3f3f3;
-  border: 1px solid #ccc;
-  padding: 6px 12px;
-  cursor: pointer;
-  border-radius: 6px;
+	width: 100px;
+	height: 34px;
+  	background: var(--color-bg-main);
+  	border: var(--color-border-primary);
+  	padding: 6px 12px;
+  	cursor: pointer;
+  	border-radius: 6px;
+  	font-weight: 500;
 }
 
 .order-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 4px;
-  padding: 0;
-  list-style: none;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  display: none; /* 기본은 숨김 */
-  z-index: 1000;
+	width: 100%;
+  	position: absolute;
+  	top: 100%;
+  	left: 0;
+  	margin-top: 4px;
+  	padding: 0;
+  	list-style: none;
+  	background: var(--background-white);
+  	border: var(--color-border-primary);
+  	border-radius: 6px;
+  	box-shadow: var(--color-shadow-primary);
+  	display: none; /* 기본은 숨김 */
+  	z-index: 1000;
 }
 
 .order-menu li {
-  border-bottom: 1px solid #eee;
+  border-bottom: var(--color-border-primary);
 }
 
 .order-menu li:last-child {
@@ -404,13 +408,15 @@
   width: 100%;
   padding: 8px 12px;
   border: none;
+  text-align: center !important;
   background: transparent;
   text-align: left;
   cursor: pointer;
+  font-weight: 500;
 }
 
 .order-menu button:hover {
-  background: #f0f0f0;
+  background: var(--color-bg-main);
 }
 @keyframes slideUp {
   0% {
@@ -440,12 +446,14 @@
   }
   #list .category-button-wrap.mobile-only {
     display: block;
-    margin: 0 0 0 20px;
+    margin: 0 20px;
     flex: 0;
   }
   #list .category-button-wrap.mobile-only select {
     width: 100px;
     line-height: 36px;
+    padding-left: 10px;
+    font-size: 16px;
     height: 34px;
     border: var(--color-border-default);
     border-radius: 5px;

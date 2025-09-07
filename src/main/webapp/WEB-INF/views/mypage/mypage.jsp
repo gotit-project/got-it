@@ -51,11 +51,12 @@
                         <span class="badge silver"></span>
                         <span class="badge gold "></span>
                         <span class="badge platinum"></span>
+                        <span class="badge emerald"></span>
                         <span class="badge diamond"></span>
                         <span class="badge challenger"></span>
                   	 -->
                   	<span class="badge ${post.badgeName}">
-					    ${empty post.badgeName ? 'ROOKIE' : post.badgeName}
+					    ${post.badgeName}
 					</span>
 	            </div>
 	            <div class="profile-avatar-wrap">

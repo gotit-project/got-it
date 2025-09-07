@@ -35,7 +35,10 @@
 
 		        <!-- 공지 게시판 -->
 		        <div class="notice">
-		            <a href="board.do?mode=list&id=4&categoryId=0&page=1" class="board-title">공지사항</a>
+		            <div class="board-title notice-title">
+		            	공지사항
+		            	<img src="/assets/img/common/board_title_notice.png" class="board-title-img">
+		            </div>
 		            <div class="post-item-wrap">
 		                <c:set var="posts" value="${boardPostsMap['4']}" />
 		                <c:if test="${not empty posts}">
@@ -80,7 +83,10 @@
 				
 			        <!-- Q&A 게시판 -->
 			        <div class="qna">
-			            <a href="board.do?mode=list&id=1&categoryId=0&page=1" class="board-title">Q&A</a>
+			            <a href="board.do?mode=list&id=1&categoryId=0&page=1" class="board-title">
+			            	Q&A
+			            	<img src="/assets/img/common/board_title_1.png" class="board-title-img">
+			            </a>
 			            <div class="post-item-wrap">
 			                <c:set var="posts" value="${boardPostsMap['1']}" />
 			                <c:if test="${not empty posts}">
@@ -121,7 +127,10 @@
 			
 			        <!-- 지식 게시판 -->
 			        <div class="study">
-			            <a href="board.do?mode=list&id=2&categoryId=0&page=1" class="board-title">지식나눔</a>
+			            <a href="board.do?mode=list&id=2&categoryId=0&page=1" class="board-title">
+			            	지식나눔
+			            	<img src="/assets/img/common/board_title_2.png" class="board-title-img">
+		            	</a>
 			            <div class="post-item-wrap">
 			                <c:set var="posts" value="${boardPostsMap['2']}" />
 			                <c:if test="${not empty posts}">
