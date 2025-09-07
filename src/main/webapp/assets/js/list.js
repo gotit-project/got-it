@@ -32,3 +32,28 @@
     selectEl.addEventListener('change', () => goWithCategory(selectEl.value));
   }
 })();
+
+document.addEventListener("DOMContentLoaded", function () {
+  const dropdown = document.querySelector(".order-dropdown");
+  const toggleBtn = dropdown.querySelector(".order-toggle");
+  const menu = dropdown.querySelector(".order-menu");
+
+  toggleBtn.addEventListener("click", () => {
+    menu.style.display = (menu.style.display === "block" ? "none" : "block");
+  });
+
+  // 메뉴 외부 클릭하면 닫기
+  document.addEventListener("click", (e) => {
+    if (!dropdown.contains(e.target)) {
+      menu.style.display = "none";
+    }
+  });
+
+  // 선택 시 토글 버튼에 텍스트 반영 (선택된 항목 보여주기)
+  menu.querySelectorAll(".sort-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      toggleBtn.textContent = btn.textContent + " ▾";
+      menu.style.display = "none";
+    });
+  });
+});

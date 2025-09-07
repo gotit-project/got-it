@@ -23,9 +23,16 @@
 		<%-- 안전 기본값 --%>
 		<c:set var="curPage" value="${empty curPage ? 1 : curPage}" />
 		<c:set var="totalPage" value="${empty totalPage ? 1 : totalPage}" />
+		
 		<%-- 현재 선택된 카테고리 (없으면 0=전체) --%>
 		<c:set var="catParam" value="${empty param.categoryId ? 0 : param.categoryId}" />
-		<c:set var="pageBase" value="board.do?mode=list&id=${board.boardId}&categoryId=${catParam}" />
+		
+		<%-- 정렬 파라미터: 기본값 'new' --%>
+		<c:set var="sortParam" value="${empty param.sort ? 'new' : param.sort}" />
+		
+		<%-- 모든 내부 링크가 공통으로 사용할 베이스 URL --%>
+		<c:set var="pageBase"
+		       value="board.do?mode=list&id=${board.boardId}&categoryId=${catParam}&sort=${sortParam}" />
 		
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
@@ -97,9 +104,15 @@
 							  </select>
 							</form>
 
-                            <div class="order-button-wrap">
-                                <button>최신순</button>
-                            </div>
+                            <div class="order-dropdown" id="sort-controls" data-board-id="${board.boardId}">
+							  <button type="button" class="order-toggle">정렬 ▾</button>
+							  <ul class="order-menu">
+							    <li><button type="button" class="sort-btn" data-sort="new">최신순</button></li>
+							    <li><button type="button" class="sort-btn" data-sort="like">인기순</button></li>
+							    <li><button type="button" class="sort-btn" data-sort="comment">댓글순</button></li>
+							    <li><button type="button" class="sort-btn" data-sort="view">조회순</button></li>
+							  </ul>
+							</div>
                         </div>
                          <div class="filter-bottom">
                             <button type="button" class="refresh-button" onclick="location.reload()">

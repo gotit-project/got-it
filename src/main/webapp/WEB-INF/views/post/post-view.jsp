@@ -16,7 +16,6 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/view.css">
 		<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
         <script src="${pageContext.request.contextPath}/assets/js/common/header.js" defer></script>
-        <script src="${pageContext.request.contextPath}/assets/js/common/badge.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/view.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/comment.js" defer></script>
