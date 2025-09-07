@@ -122,10 +122,7 @@ document.querySelectorAll('#view .edit-button').forEach(editButton => {
 	    return;
 	  }
 	  
-	  alert(postUserId + "ss");
-	  
 	  console.log("commentId:", commentId, "postUserId:", postUserId, "loginUserId:", loginUserId);
-
 
 	  fetch("comment.do?mode=accept", {
 	    method: "POST",
@@ -146,9 +143,5 @@ document.querySelectorAll('#view .edit-button').forEach(editButton => {
 	    alert("요청 실패: " + err.message);
 	  });
 	});
-
-
-
-
 
 });
