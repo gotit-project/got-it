@@ -63,11 +63,14 @@ public class PostDAO {
                 
   			    String boardName = getBoardName(boardId);
 			    String nickName = getNickName(userId);
+			    String imgName = getImgName(userId);
+			    int badgeId = getBadgeId(userId);
+			    String badgeName = getBadgeName(badgeId);
 			    String categoryName = getCategoryName(categoryId);
-			     
+			    			     
 			    list.add(new Post(postId, boardId, userId, categoryId, postTag, title, rawContent,
 						htmlContent, likeCount, viewCount, commentCount, stateType, createdAt, updatedAt,
-						boardName, nickName, categoryName));
+						boardName, nickName, imgName, badgeName, categoryName));
             }
         }catch(SQLException se) {
             se.printStackTrace();
@@ -104,11 +107,14 @@ public class PostDAO {
                 
   			    String boardName = getBoardName(boardId);
 			    String nickName = getNickName(userId);
+			    String imgName = getImgName(userId);
+			    int badgeId = getBadgeId(userId);
+			    String badgeName = getBadgeName(badgeId);
 			    String categoryName = getCategoryName(categoryId);
 			    			     
 			    list.add(new Post(postId, boardId, userId, categoryId, postTag, title, rawContent,
 						htmlContent, likeCount, viewCount, commentCount, stateType, createdAt, updatedAt,
-						boardName, nickName, categoryName));
+						boardName, nickName, imgName, badgeName, categoryName));
             }
         }catch(SQLException se) {
             se.printStackTrace();
@@ -142,11 +148,14 @@ public class PostDAO {
                 
   			    String boardName = getBoardName(boardId);
 			    String nickName = getNickName(userId);
+			    String imgName = getImgName(userId);
+			    int badgeId = getBadgeId(userId);
+			    String badgeName = getBadgeName(badgeId);
 			    String categoryName = getCategoryName(categoryId);
-			    
+			    			     
 			    list.add(new Post(postId, boardId, userId, categoryId, postTag, title, rawContent,
 						htmlContent, likeCount, viewCount, commentCount, stateType, createdAt, updatedAt,
-						boardName, nickName, categoryName));
+						boardName, nickName, imgName, badgeName, categoryName));
 			    
             }
         }catch(SQLException se) {
@@ -219,12 +228,15 @@ public class PostDAO {
 
     			    String boardName = getBoardName(boardId);
     			    String nickName = getNickName(userId);
+    			    String imgName = getImgName(userId);
+    			    int badgeId = getBadgeId(userId);
+    			    String badgeName = getBadgeName(badgeId);
     			    String categoryName = getCategoryName(categoryId);
     		    	int updatedViewCount = addViewCount(postId);
 
                     return new Post(postId, boardId, userId, categoryId, postTag, title, rawContent,
     						htmlContent, likeCount, updatedViewCount, commentCount, stateType, createdAt, updatedAt,
-    						boardName, nickName, categoryName);
+    						boardName, nickName, imgName, badgeName, categoryName);
                 }
             }
         } catch(SQLException se) {
@@ -330,6 +342,80 @@ public class PostDAO {
 	        try { if (con != null) con.close(); } catch(Exception e) {}
 	    }
 	    return null;
+    }
+    public String getImgName(long userId) {
+    	Connection con = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	
+    	try {
+    		con = ds.getConnection();
+    		pstmt = con.prepareStatement("select img_name from users where user_id = ?"); 
+    		pstmt.setLong(1, userId);
+    		rs = pstmt.executeQuery();
+    		
+    		if (rs.next()) {
+    			String imgName = rs.getString("img_name");
+    			return imgName;
+    		}
+    	} catch (SQLException se) {
+    		return null;
+    	} finally {
+    		try { if (rs != null) rs.close(); } catch(Exception e) {}
+    		try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
+    		try { if (con != null) con.close(); } catch(Exception e) {}
+    	}
+    	return null;
+    }
+    public int getBadgeId(long userId) {
+    	Connection con = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	
+    	try {
+    		con = ds.getConnection();
+    		pstmt = con.prepareStatement("select badge_id from users where user_id = ?"); 
+    		pstmt.setLong(1, userId);
+    		rs = pstmt.executeQuery();
+    		
+    		if (rs.next()) {
+    			int badgeId = rs.getInt("badge_id");
+    			return badgeId;
+    		}
+    	} catch (SQLException se) {
+    		return -1;
+    	} finally {
+    		try { if (rs != null) rs.close(); } catch(Exception e) {}
+    		try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
+    		try { if (con != null) con.close(); } catch(Exception e) {}
+    	}
+    	return -1;
+    }
+    
+    public String getBadgeName(int badgeId) {
+    	Connection con = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	
+    	try {
+    		con = ds.getConnection();
+    		pstmt = con.prepareStatement("select badge_name from user_badges where badge_id = ?"); 
+    		pstmt.setLong(1, badgeId);
+    		rs = pstmt.executeQuery();
+    		
+    		if (rs.next()) {
+    			String badgeName = rs.getString("badge_name");
+    			return badgeName;
+    		}
+    	} catch (SQLException se) {
+    		return null;
+    	} finally {
+    		try { if (rs != null) rs.close(); } catch(Exception e) {}
+    		try { if (pstmt != null) pstmt.close(); } catch(Exception e) {}
+    		try { if (con != null) con.close(); } catch(Exception e) {}
+    	}
+    	System.out.print("이름이 없음");
+    	return null;
     }
     
 	/* ==========================
