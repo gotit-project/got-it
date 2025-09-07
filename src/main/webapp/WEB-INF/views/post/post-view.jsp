@@ -59,7 +59,7 @@
                                   <span class="badge challenger"></span>
                             	 -->
                             	<span class="badge ${post.badgeName}">
-								   ${post.badgeName}
+								    ${empty post.badgeName ? 'ROOKIE' : post.badgeName}
 								</span>
                             </p> 
 	                        <div class="flex-box">

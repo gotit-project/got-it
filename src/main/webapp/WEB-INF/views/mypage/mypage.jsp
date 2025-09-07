@@ -54,9 +54,8 @@
                         <span class="badge diamond"></span>
                         <span class="badge challenger"></span>
                   	 -->
-                  	<span class="badge ${user.badgeName}">
-                  	새
-					 	<%-- ${users.badgeName} --%>
+                  	<span class="badge ${post.badgeName}">
+					    ${empty post.badgeName ? 'ROOKIE' : post.badgeName}
 					</span>
 	            </div>
 	            <div class="profile-avatar-wrap">
@@ -182,11 +181,6 @@
 		        </section>
 		      </div>
 		    </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/my-local-changes
-        
         
         <%@ include file="/WEB-INF/views/common/footer.jsp" %>
         
