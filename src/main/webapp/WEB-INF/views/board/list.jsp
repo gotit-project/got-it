@@ -53,15 +53,6 @@
 					        </c:otherwise>
    						 </c:choose>
 			                </div>
-					    
-                           <!-- ======================================
-                                1. 버튼 active 클래스 추가
-                                - <button class="active"> 시 아이콘이 회색으로 변경됨
-                                
-                                2️. desktop-only 클래스 적용
-                                - 화면이 데스크톱일 때만 버튼 표시
-                                - 모바일에서는 숨김 처리
-                            ====================================== -->
                             <div class="category-button-wrap desktop-only" id="category-buttons">
 							  <c:if test="${not empty board.categories}">
 							    <c:forEach items="${board.categories}" var="cat">
@@ -142,10 +133,27 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="board-fixed-list">
-                        <span>공지사항</span>
-                        <p>[태그 잊지말고 달기] 좋은 답글 달리는 꿀팁!!</p>
-                    </a>
+                    <!-- 공지사항 로테이션 -->
+                    <!-- boardId가 4가 아닐 때 -->
+ 					<c:if test="${board.boardId != 4}">
+                    	<a href="#" class="board-fixed-list" id="notice-link">
+						    <span>공지사항</span>
+						    <p id="notice-text">
+						      <c:forEach var="post" items="${noticePosts}" varStatus="status">
+						        <c:if test="${status.index == 0}">
+						          ${post.title}
+						        </c:if>
+						      </c:forEach>
+						    </p>
+						</a>
+				  </c:if>
+				  <!-- boardId가 4일 때 -->
+				  <c:if test="${board.boardId == 4}">
+				    	<div class="board-fixed-list"></div>
+				  </c:if>
+                    <!-- 공지사항 로테이션 끝 -->
+                    
+                    <!-- 게시글  -->
                     <div class="board-list">
                     	 <!-- 게시글 한 묶음 -->
                     	 <c:if test="${empty postList}">
@@ -191,49 +199,65 @@
                         <!-- 게시글 한 묶음 끝 -->
                     	</c:forEach>
                     </div>
+                    <!-- 게시글 끝 -->
+                    
                 </div>
             </div>
 		
             <!-- 게시글 페이징 -->
 			<%-- 게시글 페이징 --%>
-<c:if test="${page.totalPage >= 1}">
-  <div class="pagination">
-
-    <%-- 이전 --%>
-    <c:choose>
-      <c:when test="${page.curPage > 1}">
-        <a href="${pageBase}&page=${page.curPage - 1}">
-          <button class="pagination-button prev">‹ Previous</button>
-        </a>
-      </c:when>
-      <c:otherwise>
-        <button class="pagination-button prev" disabled>‹ Previous</button>
-      </c:otherwise>
-    </c:choose>
-
-    <%-- 번호 --%>
-    <c:forEach var="i" begin="1" end="${page.totalPage}">
-      <a href="${pageBase}&page=${i}">
-        <button class="page ${i == page.curPage ? 'active' : ''}">${i}</button>
-      </a>
-    </c:forEach>
-
-    <%-- 다음 --%>
-    <c:choose>
-      <c:when test="${page.curPage < page.totalPage}">
-        <a href="${pageBase}&page=${page.curPage + 1}">
-          <button class="pagination-button next">Next ›</button>
-        </a>
-      </c:when>
-      <c:otherwise>
-        <button class="pagination-button next" disabled>Next ›</button>
-      </c:otherwise>
-    </c:choose>
-
-  </div>
-</c:if>
+			<c:if test="${page.totalPage >= 1}">
+			  <div class="pagination">
+			
+			    <%-- 이전 --%>
+			    <c:choose>
+			      <c:when test="${page.curPage > 1}">
+			        <a href="${pageBase}&page=${page.curPage - 1}">
+			          <button class="pagination-button prev">‹ Previous</button>
+			        </a>
+			      </c:when>
+			      <c:otherwise>
+			        <button class="pagination-button prev" disabled>‹ Previous</button>
+			      </c:otherwise>
+			    </c:choose>
+			
+			    <%-- 번호 --%>
+			    <c:forEach var="i" begin="1" end="${page.totalPage}">
+			      <a href="${pageBase}&page=${i}">
+			        <button class="page ${i == page.curPage ? 'active' : ''}">${i}</button>
+			      </a>
+			    </c:forEach>
+			
+			    <%-- 다음 --%>
+			    <c:choose>
+			      <c:when test="${page.curPage < page.totalPage}">
+			        <a href="${pageBase}&page=${page.curPage + 1}">
+			          <button class="pagination-button next">Next ›</button>
+			        </a>
+			      </c:when>
+			      <c:otherwise>
+			        <button class="pagination-button next" disabled>Next ›</button>
+			      </c:otherwise>
+			    </c:choose>
+			
+			  </div>
+			</c:if>
 		</div>
 
        	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+       	
+       	<!--
+       	* 공지사항 로테이션  
+       	* JSP 내에서 JSTL 반복문 설정 해주고 
+       	* 나머지 js 코드는 notice-rotaion.js 
+       	 -->
+     	<script>
+	       	const noticeData = [
+	       	  <c:forEach var="post" items="${noticePosts}" varStatus="status">
+	       	    { title: "${post.title}", url: "post.do?mode=view&postId=${post.postId}" }<c:if test="${!status.last}">,</c:if>
+	       	  </c:forEach>
+	       	];
+		</script>
+		<script src="${pageContext.request.contextPath}/assets/js/notice-rotation.js" ></script>
     </body>
 </html>

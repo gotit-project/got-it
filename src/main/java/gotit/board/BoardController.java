@@ -88,12 +88,19 @@ public class BoardController {
         	page = new Page(curPage, pageSize, totalCount);
         	list = postService.listCatPageS(boardId ,catParam , orderBy, page);
         }
+        
+        // 공지사항 게시글 5개만 가져오기 
+        int noticeTotal = postService.countS(4);
+        Page noticePage = new Page(1, 5, noticeTotal);
+        List<Post> noticePosts = postService.listPageS(4, "p.created_at DESC", noticePage);
+
 
         // 4) 뷰로 전달
         request.setAttribute("board", board);
         request.setAttribute("postList", list);
         request.setAttribute("page", page);
         request.setAttribute("catParam", catParam);
+        request.setAttribute("noticePosts", noticePosts);
         
         RequestDispatcher rd = request.getRequestDispatcher(BOARD_LIST);
         rd.forward(request, response);

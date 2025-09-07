@@ -32,4 +32,3 @@
     selectEl.addEventListener('change', () => goWithCategory(selectEl.value));
   }
 })();
-
