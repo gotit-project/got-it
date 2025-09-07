@@ -88,7 +88,7 @@ public class MypageController extends HttpServlet {
     	Page page = new Page(curPage, pageSize, totalCount);
     	
     	List<Post> postList = mypageService.getUserPost(userId, orderBy, page);
-       	System.out.println(postList);
+       	System.out.println(postList + "마이페이지 작성게시글");
     	
         request.setAttribute("myPosts", postList);
         request.setAttribute("page", page);
@@ -147,7 +147,8 @@ public class MypageController extends HttpServlet {
     	Page page = new Page(curPage, pageSize, totalCount);
     	
     	List<Post> postList = mypageService.getUserPost(userId, orderBy, page);
-    	
+       	System.out.println(postList + "마이페이지 스크랩게시글");
+       	
         request.setAttribute("myPosts", postList);
         request.setAttribute("page", page);
     	

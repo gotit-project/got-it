@@ -119,6 +119,7 @@ public class PostService {
 	public int increaseViewCount(long postId) {
         return postDao.addViewCount(postId);
     }
+	
 }
 
 

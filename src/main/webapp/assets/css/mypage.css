@@ -59,6 +59,7 @@
   border-bottom: var(--color-border-primary);
   padding: 0 30px;
   border-radius: 8px;
+  border: none;
 }
 .tab-button {
   background-color: transparent;
@@ -90,31 +91,63 @@
 .tab-content.active {
   display: block;
 }
-.post-list {
+#mypage .post-list {
   list-style: none;
   padding: 0;
 }
-.post-item {
-  background: var(--color-bg-main);
+#mypage .post-item {
+  display: block;
+  background: var(--color-bg-white);
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
   box-shadow: var(--color-shadow-primary);
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  border: var(--color-border-default);
+  /*border: var(--color-border-default);*/
 }
-.post-item:hover {
+#mypage .post-item:hover {
   transform: translateY(-3px);
   box-shadow: var(--color-shadow-default);
 }
-.post-item h3 {
+#mypage .post-item h3 {
   color: var(--color-text-main);
   font-size: 18px;
   font-weight: 600;
 }
-.post-item p {
+#mypage .post-title {
   margin: 0;
-  color: var(--color-bg-sub2);
+  font-size: 16px;
+  color: var(--color-text-main);
+}
+#mypage .post-content {
+  color: var(--color-text-sub2);
+}
+#mypage .post-bottom {
+  display: flex;
+  justify-content: end;
+  gap: 12px;
+  align-items: center;
+}
+#mypage .view-count,
+#mypage .thumb-count,
+#mypage .comment-count {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--text-color-default);
+}
+#mypage .post-bottom p {
+  font-size: 12px;
+  margin: 0;
+  font-weight: 500;
+  color: var(--color-text-sub);
+  opacity: 0.6;
+}
+#mypage .post-bottom img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
 }
 .no-data {
   text-align: center;
@@ -168,7 +201,7 @@
   font-size: 14px;
   padding: 8px 14px;
   cursor: pointer;
-  transition: .2s;
+  transition: 0.2s;
   text-decoration: none;
   color: inherit;
 }

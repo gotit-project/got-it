@@ -53,5 +53,14 @@ public class CommentService {
 	    return commentDao.delete(commentId);
 	}
 	
+
+	/* ==========================
+	* 댓글 채택  
+	* ========================== */
+	public boolean acceptS(long commentId, long postUserId) {
+	    return commentDao.accept(commentId, postUserId);
+	}
+
+	
 }
 

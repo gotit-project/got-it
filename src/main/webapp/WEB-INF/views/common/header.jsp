@@ -86,9 +86,9 @@
             <p>${sessionScope.loginOkUser.email}</p>
             <p><span>${sessionScope.loginOkUser.nickname}</span> 님, 안녕하세요.</p>
           </div>
-          <div class="menu-divider"></div>
+          <!-- <div class="menu-divider"></div> -->
           <a href="/mypage.do?tap=my" class="profile-menu-item">마이페이지</a>
-          <div class="menu-divider"></div>
+          <!-- <div class="menu-divider"></div> -->
           <a href="auth.do?mode=logout" class="profile-menu-item">로그아웃</a>
         </div>
       </div>

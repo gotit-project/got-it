@@ -28,7 +28,8 @@ public class CommentController extends HttpServlet {
 				case "insert": insert(request, response); break;  
 				case "select": select(request, response); break; 
 				case "update": update(request, response); break; 
-		    	 case "delete": delete(request, response); break; 
+		    	case "delete": delete(request, response); break; 
+		    	case "accept": accept(request, response); break; 
 				default: list(request, response);
 			}
 		}else {
@@ -157,6 +158,25 @@ public class CommentController extends HttpServlet {
 	    response.getWriter().write("{\"flag\":" + flag + "}");
 	    response.getWriter().flush();
 	}
+	
+	/* ==========================
+	 * 댓글 채택
+	 * ========================== */
+	// CommentController
+	private void accept(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+	    long commentId = Long.parseLong(request.getParameter("commentId"));
+	    long postUserId = Long.parseLong(request.getParameter("postUserId"));
+	    
+	    // 로그인 체크는 이미 다른 곳에서 처리됨
+	    boolean flag = service.acceptS(commentId, postUserId);
+
+	    response.setContentType("application/json;charset=UTF-8");
+	    response.getWriter().write("{\"flag\": " + flag + "}");
+	}
+
+
+
 
 
 	

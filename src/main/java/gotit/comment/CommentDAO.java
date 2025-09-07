@@ -214,5 +214,30 @@ public class CommentDAO {
 	    }
 	    
 	}
+	
+	/* ==========================
+	 * 댓글 채택  
+	 * ========================== */
+	// CommentService
+	public boolean accept(long commentId, long postUserId) {
+	    String sql = "UPDATE post_comments c " +
+	                 "JOIN posts p ON c.post_id = p.post_id " +
+	                 "SET c.accepted = IF(c.accepted=0,1,0) " +
+	                 "WHERE c.comment_id = ?";
+
+	    try (Connection con = ds.getConnection();
+	         PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+	        pstmt.setLong(1, commentId);
+	        int rows = pstmt.executeUpdate();
+	        return rows > 0;
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
+
 
 }

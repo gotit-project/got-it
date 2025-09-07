@@ -86,6 +86,7 @@ public class MypageDAO {
 				    list.add(new Post(postId, boardId, userId, categoryId, postTag, title, rawContent,
 							htmlContent, likeCount, viewCount, commentCount, stateType, createdAt, updatedAt,
 							boardName, nickName, categoryName));
+				    
 	            }
 	        }catch(SQLException se) {
 	            se.printStackTrace();
