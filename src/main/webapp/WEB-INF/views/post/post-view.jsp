@@ -12,16 +12,15 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
+		<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/view.css">
-        <!-- toast ui editor -->
 		<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
         <script src="${pageContext.request.contextPath}/assets/js/common/header.js" defer></script>
+        <script src="${pageContext.request.contextPath}/assets/js/common/badge.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/index.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/view.js" defer></script>
         <script src="${pageContext.request.contextPath}/assets/js/comment.js" defer></script>
-        <!-- toast ui editor -->
-		<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-		  <style>
+        	  <style>
 		    body {
 		      all: unset;         /* 기본 속성 모두 제거 */
 		      display: block;     /* all: unset 하면 body도 inline처럼 변할 수 있어서 block 지정 */
@@ -60,8 +59,8 @@
                                   <span class="badge diamond"></span>
                                   <span class="badge challenger"></span>
                             	 -->
-                            	<span class="badge ${user.badgeName}">
-								   ${users.badgeName}
+                            	<span class="badge ${post.badgeName}">
+								   ${post.badgeName}
 								</span>
                             </p> 
 	                        <div class="flex-box">

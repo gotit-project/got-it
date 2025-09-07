@@ -21,6 +21,8 @@ public class Post {
     // view 정보
     private String boardName;
     private String nickName;
+    private String imgName;
+    private String badgeName;
     private String categoryName;
     
     // DTO    
@@ -58,6 +60,31 @@ public class Post {
 		this.updatedAt = updatedAt;
 		this.boardName = boardName;
 		this.nickName = nickName;
+		this.categoryName = categoryName;
+	}
+	
+    // view 생성자
+	public Post(long postId, int boardId, long userId, int categoryId, String postTag, String title, String rawContent, 
+			String htmlContent,int likeCount, int viewCount, int commentCount, String status, Timestamp createdAt, 
+			Timestamp updatedAt, String boardName, String nickName, String imgName, String badgeName ,String categoryName) {
+		this.postId = postId;
+		this.boardId = boardId;
+		this.userId = userId;
+		this.categoryId = categoryId;
+		this.postTag = postTag;
+		this.title = title;
+		this.rawContent = rawContent;
+    	this.htmlContent = htmlContent;
+		this.likeCount = likeCount;
+		this.viewCount = viewCount;
+		this.commentCount = commentCount;
+		this.status = status;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.boardName = boardName;
+		this.nickName = nickName;
+		this.imgName = imgName;
+		this.badgeName = badgeName;
 		this.categoryName = categoryName;
 	}
 	
@@ -209,6 +236,26 @@ public class Post {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+
+	public String getImgName() {
+		return imgName;
+	}
+
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
+	}
+
+	public String getBadgeName() {
+		return badgeName;
+	}
+
+	public void setBadgeName(String badgeName) {
+		this.badgeName = badgeName;
+	}
+
+	public void setBoardId(long boardId) {
+		this.boardId = boardId;
 	}
 	
 	

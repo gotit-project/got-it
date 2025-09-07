@@ -1,8 +1,13 @@
 package gotit.auth;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import gotit.common.util.AuthUtils;
+import gotit.file.FilePath;
 import gotit.model.User;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -69,6 +74,17 @@ public class AuthController {
 		
 		if (result == 3) {
 			User user = service.getUser(email);
+			String imgName = user.getImgName();
+			String baseDir = FilePath.FILE_STORE;
+			
+		    if (imgName == null || imgName.isBlank()) {
+		        imgName = "default.png";
+		    }
+	        
+	        File userImg = new File(baseDir, imgName);
+			
+	        user.setUserImg(userImg);
+	        
 			HttpSession session = request.getSession();
 			session.setAttribute("loginOkUser", user);
 		}

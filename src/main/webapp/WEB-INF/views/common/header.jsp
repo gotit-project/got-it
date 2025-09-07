@@ -79,7 +79,7 @@
         </div>
       </div>
       <div class="profile-wrap">
-        <button class="profile-button"></button>
+        <button class="profile-button"><img src="${pageContext.request.contextPath}/avatar?img=${loginOkUser.imgName}" alt="프로필 이미지"></button>
         <div class="profile-dropdown-menu">
           <div class="profile-info">
             <strong>내 계정</strong>

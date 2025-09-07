@@ -1,5 +1,6 @@
 package gotit.model;
 
+import java.io.File;
 import java.sql.Date;
 
 public class User {
@@ -11,10 +12,12 @@ public class User {
 	private String nickname;
 	private int point;
 	private int badge;
+	
 	private String badgeName;
 	private String status;
 	private Date createDate;
 	private Date updateDate;
+	private File userImg;
 	
 	public User() {}
 	
@@ -147,6 +150,14 @@ public class User {
 
 	public void setUserId(long userId) {
 		this.userId = userId;
+	}
+
+	public File getUserImg() {
+		return userImg;
+	}
+
+	public void setUserImg(File userImg) {
+		this.userImg = userImg;
 	}
 	
 	

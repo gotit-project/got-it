@@ -167,7 +167,7 @@
      						data-category-name="${post.categoryName}">
                             <div class="post-item">
                                 <div class="post-item-header">
-                                    <img src="../assets/img/common/post_info_profile02.png" class="profile" alt="프로필 사진">
+                                    <img src="${pageContext.request.contextPath}/avatar?img=${post.imgName}" class="profile" alt="프로필 사진">
                                     <p class="writer">${post.nickName}</p>
                                     <%-- 이 부분에서 `DateUtils` 클래스를 사용합니다 --%>
             						<span class="time">${DateUtils.formatTimeAgo(post.createdAt)}</span>
