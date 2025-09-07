@@ -43,7 +43,7 @@
                 </div>
                 <div>
                     <div class="post-item-header">
-                        <img src="../assets/img/common/post_info_profile02.png" class="profile" alt="프로필 사진">
+                        <img src="${pageContext.request.contextPath}/avatar?img=${post.imgName}" class="profile" alt="프로필 사진">
                         <div class="profile-info">
                         	<input type="hidden" name="userId" value="${sessionScope.loginOkUser.userId}">
                             <p class="writer">

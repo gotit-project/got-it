@@ -11,9 +11,10 @@ public class Comment {
 	private boolean accepted;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
+	
 	private String nickname;
-    private String badgeName;
-    
+	private String imgName;
+	private String badgeName;
 	
 	public Comment() {};
 	
@@ -69,7 +70,7 @@ public class Comment {
    	 * userId + nickname 포함 생성자 
    	 * 유저아이디, 닉네임 둘다 필요할 때
    	 * ========================== */
-	public Comment(long commentId, long postId, long userId, String badgeName, String nickname, String content, boolean isAnswer, boolean accepted, Timestamp createdAt, Timestamp updatedAt) {
+	public Comment(long commentId, long postId, long userId, String nickname, String content, boolean isAnswer, boolean accepted, Timestamp createdAt, Timestamp updatedAt, String imgName, String badgeName) {
 		this.commentId = commentId;
 		this.postId = postId;
 		this.userId = userId;
@@ -80,6 +81,8 @@ public class Comment {
 		this.accepted = accepted;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
+		this.imgName = imgName;
+		this.badgeName = badgeName;
 	}
 
 	public long getCommentId() {
@@ -152,6 +155,26 @@ public class Comment {
 
 	public void setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+
+	public String getImgName() {
+		return imgName;
+	}
+
+
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
+	}
+
+
+	public String getBadgeName() {
+		return badgeName;
+	}
+
+
+	public void setBadgeName(String badgeName) {
+		this.badgeName = badgeName;
 	}
 	
 	public String getBadgeName() {

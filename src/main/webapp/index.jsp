@@ -46,7 +46,7 @@
 		                        <a href="post.do?mode=view&postId=${post.postId}">
 		                            <div class="post-item">
 		                                <div class="post-item-header">
-		                                    <img src="../assets/img/common/post_info_profile.svg" class="profile" alt="프로필 사진">
+		                                    <img src="${pageContext.request.contextPath}/avatar?img=${post.imgName}" class="profile" alt="프로필 사진">
 		                                    <p class="writer">${post.nickName}</p>
 		                                    <span class="time">${post.createdAt != null ? DateUtils.formatTimeAgo(post.createdAt) : ""}</span>
 		                                </div>
@@ -94,8 +94,8 @@
 			                        <a href="post.do?mode=view&postId=${post.postId}">
 			                            <div class="post-item">
 			                                <div class="post-item-header">
-			                                    <img src="../assets/img/common/post_info_profile.svg" class="profile" alt="프로필 사진">
-			                                    <p class="writer">${post.userId}</p>
+			                                    <img src="${pageContext.request.contextPath}/avatar?img=${post.imgName}" class="profile" alt="프로필 사진">
+			                                    <p class="writer">${post.nickName}</p>
 			                                    <span class="time">${post.createdAt != null ? DateUtils.formatTimeAgo(post.createdAt) : ""}</span>
 			                                </div>
 			                                <div class="post-counts">
@@ -138,8 +138,8 @@
 			                        <a href="post.do?mode=view&postId=${post.postId}">
 			                            <div class="post-item">
 			                                <div class="post-item-header">
-			                                    <img src="../assets/img/common/post_info_profile.svg" class="profile" alt="프로필 사진">
-			                                    <p class="writer">${post.userId}</p>
+			                                    <img src="${pageContext.request.contextPath}/avatar?img=${post.imgName}" class="profile" alt="프로필 사진">
+			                                    <p class="writer">${post.nickName}</p>
 			                                    <span class="time">${post.createdAt != null ? DateUtils.formatTimeAgo(post.createdAt) : ""}</span>
 			                                </div>
 			                                <div class="post-counts">

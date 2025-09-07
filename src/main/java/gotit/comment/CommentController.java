@@ -55,6 +55,7 @@ public class CommentController extends HttpServlet {
 		long postId = Long.parseLong(postIdStr);	
 		
 		Comment commentDto = service.selectS(postId);
+		System.out.println(commentDto.getBadgeName());
 		request.setAttribute("commentDto", commentDto);
 		
 		 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/post/post-comment.jsp");
@@ -90,7 +91,7 @@ public class CommentController extends HttpServlet {
 	        out.println("<script>alert('댓글 등록에 실패했습니다.'); history.back();</script>");
 	    }
 	    out.flush();
-	    
+
 	}
 	
 	/* ==========================
@@ -106,7 +107,7 @@ public class CommentController extends HttpServlet {
 
 	    CommentService service = CommentService.getInstance();
 	    boolean flag = service.updateS(commentId, content);
-	    
+
 	    request.setAttribute("flag", flag);
 	    response.setContentType("application/json;charset=UTF-8");
 	    response.getWriter().write("{\"flag\": " + (flag ? "true" : "false") + "}");
@@ -126,7 +127,6 @@ public class CommentController extends HttpServlet {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-	    
 	    response.setContentType("application/json;charset=UTF-8");
 	    response.getWriter().write("{\"flag\":" + flag + "}");
 	    response.getWriter().flush();

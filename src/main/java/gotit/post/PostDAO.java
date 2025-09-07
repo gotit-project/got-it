@@ -122,6 +122,108 @@ public class PostDAO {
         }
         return list;
     }
+    
+
+	/* ==========================
+	 * 게시글 Select
+	 * 해당하는 보드에 게시글 리스트 가져오기
+	 * paging 방식
+	 * 검색엔진 추가
+	 * ========================== */
+    public List<Post> listPage(int boardId, String searchStr, String orderBy, Page page) throws SQLException {
+        List<Post> list = new ArrayList<>();
+        try (Connection con = ds.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(orderBy)) {
+
+        	pstmt.setInt(1, boardId);        	
+        	pstmt.setString(2, "%" + searchStr + "%");
+            pstmt.setInt(3, page.getOffset());
+            pstmt.setInt(4, page.getPageSize());
+            
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+                long postId = rs.getLong("post_id");
+                //int boardId = rs.getInt("board_id");
+                long userId = rs.getLong("user_id");
+                int categoryId = rs.getInt("category_id");
+                String postTag = rs.getString("post_tag");
+                String title = rs.getString("title");
+                String rawContent = rs.getString("raw_content");
+                String htmlContent = rs.getString("html_content");
+                int likeCount = rs.getInt("like_count");
+                int viewCount = rs.getInt("view_count");
+                int commentCount = rs.getInt("comment_count");
+                String stateType = rs.getString("state_type");
+                Timestamp createdAt = rs.getTimestamp("created_at");
+                Timestamp updatedAt = rs.getTimestamp("updated_at");
+                
+  			    String boardName = getBoardName(boardId);
+			    String nickName = getNickName(userId);
+			    String imgName = getImgName(userId);
+			    int badgeId = getBadgeId(userId);
+			    String badgeName = getBadgeName(badgeId);
+			    String categoryName = getCategoryName(categoryId);
+			    			     
+			    list.add(new Post(postId, boardId, userId, categoryId, postTag, title, rawContent,
+						htmlContent, likeCount, viewCount, commentCount, stateType, createdAt, updatedAt,
+						boardName, nickName, imgName, badgeName, categoryName));
+            }
+        }catch(SQLException se) {
+            se.printStackTrace();
+            return null;
+        }
+        return list;
+    }
+    public List<Post> listPage(int boardId, int categoryId, String searchStr, String orderBy, Page page) throws SQLException {
+        List<Post> list = new ArrayList<>();
+        try (Connection con = ds.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(orderBy)) {
+
+        	pstmt.setInt(1, boardId);
+        	pstmt.setInt(2, categoryId);
+        	pstmt.setString(3, "%" + searchStr + "%");
+            pstmt.setInt(4, page.getOffset());
+            pstmt.setInt(5, page.getPageSize());
+            
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+                long postId = rs.getLong("post_id");
+                //int boardId = rs.getInt("board_id");
+                long userId = rs.getLong("user_id");
+                //int categoryId = rs.getInt("category_id");
+                String postTag = rs.getString("post_tag");
+                String title = rs.getString("title");
+                String rawContent = rs.getString("raw_content");
+                String htmlContent = rs.getString("html_content");
+                int likeCount = rs.getInt("like_count");
+                int viewCount = rs.getInt("view_count");
+                int commentCount = rs.getInt("comment_count");
+                String stateType = rs.getString("state_type");
+                Timestamp createdAt = rs.getTimestamp("created_at");
+                Timestamp updatedAt = rs.getTimestamp("updated_at");
+                
+  			    String boardName = getBoardName(boardId);
+			    String nickName = getNickName(userId);
+			    String imgName = getImgName(userId);
+			    int badgeId = getBadgeId(userId);
+			    String badgeName = getBadgeName(badgeId);
+			    String categoryName = getCategoryName(categoryId);
+			    			     
+			    list.add(new Post(postId, boardId, userId, categoryId, postTag, title, rawContent,
+						htmlContent, likeCount, viewCount, commentCount, stateType, createdAt, updatedAt,
+						boardName, nickName, imgName, badgeName, categoryName));
+            }
+        }catch(SQLException se) {
+            se.printStackTrace();
+            return null;
+        }
+        return list;
+    }
+    
+	/* ==========================
+	 * 게시글 Select
+	 * 단일 보드 가져오기
+	 * ========================== */
     public List<Post> getMainPosts(int boardId) throws SQLException {
         List<Post> list = new ArrayList<>();
         try (Connection con = ds.getConnection();
@@ -314,6 +416,40 @@ public class PostDAO {
         }
         return 0;
     }
+	/* ==========================
+	 * 보드 게시글 수 반환 메소드
+	 * 페이징 수를 구하기 위함 
+	 * 검색 엔진 추가
+	 * ========================== */
+    public int countPosts(int boardId, String searchStr) throws SQLException {
+    	String sql = "SELECT COUNT(*) FROM posts WHERE state_type='ACTIVE' AND board_id=? AND title LIKE ?";
+        try (Connection con = ds.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, boardId);
+            pstmt.setString(2, searchStr);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+                System.out.println("나 찍힘");
+            }
+        }
+        return 0;
+    }
+    public int countCatPosts(int boardId, int categoryId,  String searchStr) throws SQLException {
+    	String sql = "SELECT COUNT(*) FROM posts WHERE state_type='ACTIVE' AND board_id=? AND category_id=? AND title LIKE ?";
+        try (Connection con = ds.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, boardId);
+            pstmt.setInt(2, categoryId);
+            pstmt.setString(3, searchStr);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+                System.out.println("나 찍힘");
+            }
+        }
+        return 0;
+    }
     
 	/* ==========================
 	 * 유저 닉네임을 가져오기 위한 메서드
@@ -496,8 +632,12 @@ public class PostDAO {
 		            int likeCount = rs.getInt("like_count");
 		            int viewCount = rs.getInt("view_count");
 		            int commentCount = rs.getInt("comment_count");
-		            String nickName = getNickName(userId);
-		            Post post = new Post(postId, boardId, userId, nickName, title, createdAt, likeCount, viewCount, commentCount);
+		            String nickName = getNickName(userId);		            
+				    String imgName = getImgName(userId);
+				    int badgeId = getBadgeId(userId);
+	 			    String badgeName = getBadgeName(badgeId);
+		            
+		            Post post = new Post(postId, boardId, userId, nickName, title, createdAt, likeCount, viewCount, commentCount, imgName, badgeName);
 		            
 		            posts.add(post); 
 		            

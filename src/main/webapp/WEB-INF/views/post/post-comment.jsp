@@ -34,7 +34,7 @@
 	      	<c:forEach items="${commentList}" var="commentDto">
 	        	<div class="comment-item" id="comment-${commentDto.commentId}">
 	               <div class="comment-item-header">
-	                   <img src="../assets/img/common/post_info_profile06.png" class="comment-profile" alt="프로필 사진">
+	                   <img src="${pageContext.request.contextPath}/avatar?img=${commentDto.imgName}" class="comment-profile" alt="프로필 사진">
 	                   <div class="profile-info">
 	                       	<div class="flex-box2">
 		                           <p class="writer">
