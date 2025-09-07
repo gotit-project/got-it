@@ -2,7 +2,6 @@ package gotit.core;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,11 +16,6 @@ import gotit.post.PostController;
 
 
 @WebServlet(urlPatterns={"*.do"})
-@MultipartConfig(
-		fileSizeThreshold = 1*1024*1024,	// RAM 저장 범위 : 1MB (초과 시 임시파일 사용)
-		maxFileSize = 5*1024*1024, 			// 최대 허용 범위 : 5MB
-		maxRequestSize = 15*1024*1024		// 모든 파일을 합쳐 15MB 초과 불가능
-)
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -55,6 +49,9 @@ public class FrontController extends HttpServlet {
 			return;
 		} else if (Objects.equals(path, "/mypage.do")) {
 			mypageController.service(request, response);
+			return;
+		} else if (Objects.equals(path, "/admin.do")) {
+			//mypageController.service(request, response);
 			return;
 		} else {
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");

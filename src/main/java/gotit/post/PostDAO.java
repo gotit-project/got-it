@@ -12,7 +12,12 @@ import gotit.model.Page;
 import gotit.model.Post;
 
 public class PostDAO {
-    private DataSource ds;
+	private static final PostDAO instance = new PostDAO(); 
+	private DataSource ds;
+	
+    public static PostDAO getInstance() {
+        return instance;
+    }
    
     public PostDAO() {
         try {
@@ -33,13 +38,11 @@ public class PostDAO {
     public List<Post> listPage(int boardId, String orderBy, Page page) throws SQLException {
         List<Post> list = new ArrayList<>();
         try (Connection con = ds.getConnection();
-             PreparedStatement pstmt = con.prepareStatement(POST_SELECT)) {
+             PreparedStatement pstmt = con.prepareStatement(orderBy)) {
 
-        	pstmt.setInt(1, boardId);
-        	pstmt.setString(2, orderBy);
-        	
-            pstmt.setInt(3, page.getOffset());
-            pstmt.setInt(4, page.getPageSize());
+        	pstmt.setInt(1, boardId);        	
+            pstmt.setInt(2, page.getOffset());
+            pstmt.setInt(3, page.getPageSize());
             
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
@@ -75,13 +78,12 @@ public class PostDAO {
     public List<Post> listPage(int boardId, int categoryId, String orderBy, Page page) throws SQLException {
         List<Post> list = new ArrayList<>();
         try (Connection con = ds.getConnection();
-             PreparedStatement pstmt = con.prepareStatement(POST_CAT_SELECT)) {
+             PreparedStatement pstmt = con.prepareStatement(orderBy)) {
 
         	pstmt.setInt(1, boardId);
         	pstmt.setInt(2, categoryId);
-        	pstmt.setString(3, orderBy);
-            pstmt.setInt(4, page.getOffset());
-            pstmt.setInt(5, page.getPageSize());
+            pstmt.setInt(3, page.getOffset());
+            pstmt.setInt(4, page.getPageSize());
             
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
@@ -305,7 +307,7 @@ public class PostDAO {
 	 * 유저 닉네임을 가져오기 위한 메서드
 	 * 게시글/댓글이 누구꺼인지 알기 위해
 	 * ========================== */
-    private String getNickName(long userId) {
+    public String getNickName(long userId) {
 	    Connection con = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
@@ -334,7 +336,7 @@ public class PostDAO {
 	 * 보드 이름을 가져오기 위한 메서드
 	 * 게시글에서 보드 이름을 알기 위해
 	 * ========================== */
-    private String getBoardName(int boardId) {
+    public String getBoardName(int boardId) {
 	    Connection con = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
@@ -363,7 +365,7 @@ public class PostDAO {
 	 * 카테고리를 가져오기 위한 메서드
 	 * 게시글에서 카테고리 이름을 알기 위해
 	 * ========================== */
-    private String getCategoryName(int categoryId) {
+    public String getCategoryName(int categoryId) {
 	    Connection con = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;

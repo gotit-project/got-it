@@ -21,6 +21,12 @@
         <script src="${pageContext.request.contextPath}/assets/js/comment.js" defer></script>
         <!-- toast ui editor -->
 		<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+		  <style>
+		    body {
+		      all: unset;         /* 기본 속성 모두 제거 */
+		      display: block;     /* all: unset 하면 body도 inline처럼 변할 수 있어서 block 지정 */
+		    }
+		  </style>
     </head>
     <body>
 

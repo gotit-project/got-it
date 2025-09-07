@@ -12,6 +12,8 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 
+import static gotit.common.util.SqlUtils.*;
+
 import static gotit.core.ViewPaths.*; // 예: BOARD_LIST = "/WEB-INF/views/board/list.jsp"
 
 public class BoardController {
@@ -44,29 +46,29 @@ public class BoardController {
         int catParam = Integer.parseInt(request.getParameter("categoryId"));
         String sortParam = request.getParameter("sort");
         String orderBy;
-
         // 기본값은 최신순
         if (sortParam == null || sortParam.isBlank()) {
-            orderBy = "p.created_at DESC";
+            orderBy = POST_SELECT_CREATE_AT;
         } else {
             switch (sortParam) {
                 case "new":      // 최신순
-                    orderBy = "p.created_at DESC";
+                    orderBy = POST_SELECT_CREATE_AT;
                     break;
                 case "like":     // 좋아요순
-                    orderBy = "p.like_count DESC";
+                    orderBy = POST_SELECT_LIKE;
                     break;
                 case "comment":  // 댓글순
-                    orderBy = "p.comment_count DESC";
+                    orderBy = POST_SELECT_COMMENT;
                     break;
                 case "view":     // 조회순(추가 예시)
-                    orderBy = "p.view_count DESC";
+                    orderBy = POST_SELECT_VIEW;
                     break;
                 default:         // 안전장치 (예상 외 값이면 최신순으로 fallback)
-                    orderBy = "p.created_at DESC";
+                    orderBy = POST_SELECT_CREATE_AT;
                     break;
             }
         }
+        System.out.println(orderBy);
 
         Board board = boardService.getBoard(boardId);
         if (board == null) {
