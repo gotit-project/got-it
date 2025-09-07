@@ -3,7 +3,7 @@
 /* ====================================== */
 .content-wrap {
   min-width: 1024px;
-  width: 60%; 
+  width: 50%; 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
