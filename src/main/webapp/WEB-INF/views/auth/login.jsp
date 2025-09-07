@@ -14,6 +14,7 @@ pageEncoding="UTF-8"%>
       rel="stylesheet"
       href="${pageContext.request.contextPath}/assets/css/auth.css"
     />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/reset.css">
     <script>
 		document.addEventListener("DOMContentLoaded", () => {
 		  const result = ${result};

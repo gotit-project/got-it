@@ -151,6 +151,62 @@
   visibility: visible;
   transform: translateY(0);
 }
+
+/* mypage.css — list.css 스타일 재사용 전제 (board-list, pagination 등) */
+
+/* 탭 버튼 라인 (상단 프로필 밑) */
+.mypage-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0 20px;
+}
+
+.mypage-tabs .tab-link {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 6px;
+  font-size: 14px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: .2s;
+  text-decoration: none;
+  color: inherit;
+}
+
+.mypage-tabs .tab-link:hover {
+  background: #f8fafc;
+}
+
+.mypage-tabs .tab-link.active {
+  color: var(--background-main-hover);
+  border-color: var(--background-main-hover);
+}
+
+/* 목록 래퍼 — list.css의 구조(#list)를 그대로 재사용 */
+#mypage-posts {
+  margin-top: 10px;
+}
+
+#mypage-posts .board-title {
+  margin-bottom: 12px;
+  padding-left: 10px; /* 마이페이지에선 살짝만 */
+  height: 56px;
+}
+
+#mypage-posts .filter-wrap {
+  margin-bottom: 6px;
+}
+
+/* 페이징 줄여서 사용 */
+#mypage-posts .filter-bottom {
+  margin: 6px 0 0;
+}
+
+/* 고정 공지 바는 마이페이지에선 숨김(원하면 표시 가능) */
+#mypage-posts .board-fixed-list {
+  display: none;
+}
+
 @media screen and (max-width: 780px) {
   .profile-avatar {
     width: 60px;

@@ -1,7 +1,9 @@
 package gotit.mypage;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import gotit.model.Page;
 import gotit.model.Post;
 
 public class MypageService {
@@ -16,9 +18,21 @@ public class MypageService {
 		return instance;
 	}
 	
-	public List<Post> listS(){
-		return mypageDao.list();
+	public List<Post> getUserPost(long userId, String orderBy, Page page){
+        try {
+        	return mypageDao.postList(userId, orderBy, page);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
 	}
 	
+    public int countS(long userId) {
+        try {
+            return mypageDao.countPosts(userId);
+        } catch (Exception e) {
+        	throw new RuntimeException("countS failed: boardId=" + userId, e);
+        }
+     }
 }
 

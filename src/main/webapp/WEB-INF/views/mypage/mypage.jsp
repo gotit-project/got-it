@@ -23,6 +23,14 @@
         <script src="${pageContext.request.contextPath}/assets/js/mypage.js" defer></script>
     </head>
     <body>
+    	<%-- 안전 기본값 --%>
+		<c:set var="curPage" value="${empty curPage ? 1 : curPage}" />
+		<c:set var="totalPage" value="${empty totalPage ? 1 : totalPage}" />
+		<%-- 현재 선택된 경로 --%>
+		<c:set var="ctx" value="${pageContext.request.contextPath}" />
+		<c:set var="mode" value="${empty param.mode ? 'list' : param.mode}" />
+		<c:set var="isList"  value="${mode eq 'list'}" />
+		<c:set var="isScrap" value="${mode eq 'scrap'}" />
 
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
         
@@ -30,7 +38,7 @@
 	        <!-- 프로필 헤더 -->
 	        <div class="profile-header">
 	            <div class="profile-info">
-	                <h1>sdjadodoj</h1>
+	                <h1>${sessionScope.loginOkUser.nickname}</h1>
 	                <p>아직 소개를 작성하지 않았습니다.</p>
 	                <p> point</p>
 	                <!-- 
@@ -44,7 +52,7 @@
                         <span class="badge challenger"></span>
                   	 -->
                   	<span class="badge ${user.badgeName}">
-					 	${users.badgeName}
+					 	<%-- ${users.badgeName} --%>
 					</span>
 	            </div>
 	            <div class="profile-avatar-wrap">
@@ -59,54 +67,132 @@
 	            	</div>
 	            </div>
 	        </div>
-	
-	        <!-- 탭 메뉴 -->
-	        <div class="tabs">
-	            <button class="tab-button active" onclick="openTab(event, 'my-posts')">내가 작성한 게시글</button>
-	            <button class="tab-button" onclick="openTab(event, 'scrapped-posts')">스크랩한 게시글</button>
-	            <button class="tab-button" onclick="openTab(event, 'liked-posts')">좋아요 누른 게시글</button>
-	        </div>
-	
-	        <!-- 탭 콘텐츠 -->
-	        <div class="tab-content-wrapper">
-	            <div id="my-posts" class="tab-content active">
-	                <ul class="post-list">
-	                    <!-- 게시글이 없을 때 -->
-	                    <li class="no-data">
-	                        <div class="no-data-illustration"></div>
-	                        아직 활동 내역이 없어요.
-	                        <p>유익한 내용을 공유해 주실수록 활동 내역이 쌓일 거예요!</p>
-	                    </li>
-	                </ul>
-	            </div>
-	
-	            <div id="scrapped-posts" class="tab-content">
-	                <ul class="post-list">
-	                    <a href="#" class="post-item">
-	                    	<h3>체 관계 매핑(ORM)</h3>
-	                        <p>객체 관계 매핑(ORM)에 대한 심도 있는 분석 글입니다.</p>
-	                    </a>
-	                </ul>
-	            </div>
-	
-	            <div id="liked-posts" class="tab-content">
-	                <ul class="post-list">
-	                    <a href="#" class="post-item">
-	                        <h3>효율적인 SQL 쿼리 작성법</h3>
-	                        <p>데이터베이스 성능 최적화를 위한 쿼리 팁입니다.</p>
-	                    </a>
-	                    <a href="#" class="post-item">
-	                        <h3>CSS Flexbox 완벽 가이드</h3>
-	                        <p>레이아웃을 쉽게 잡는 Flexbox 사용법에 대한 가이드입니다.</p>
-	                    </a>
-	                    <a href="#" class="post-item">
-	                        <h3>Spring Boot 개발 시작하기</h3>
-	                        <p>스프링 부트의 기본 구조와 프로젝트 생성법을 알아봅니다.</p>
-	                    </a>
-	                </ul>
-	            </div>
-	        </div>
-	    </div>
+	              <!-- 탭 메뉴 (좋아요 탭 제거) -->
+      <div class="tabs" role="tablist" aria-label="마이페이지 탭">
+        <!-- a 태그로 서버 라우팅도 되고, JS로 pushState도 가능 -->
+        <a
+          role="tab"
+          href="${ctx}/mypage?tab=write"
+          class="tab-button ${isList ? 'active' : ''}"
+          aria-selected="${isList}"
+          data-tab="list"
+        >
+          내가 작성한 게시글
+        </a>
+
+        <a
+          role="tab"
+          href="${ctx}/mypage?tab=scrap"
+          class="tab-button ${isScrap ? 'active' : ''}"
+          aria-selected="${isScrap}"
+          data-tab="scrap"
+        >
+          스크랩한 게시글
+        </a>
+      </div>
+
+      <!-- 탭 콘텐츠 -->
+      <div class="tab-content-wrapper">
+        <!-- 내가 작성한 게시글 -->
+        <section
+          id="my-posts"
+          class="tab-content ${isList ? 'active' : ''}"
+          role="tabpanel"
+          aria-labelledby="tab-list"
+          aria-hidden="${!isList}"
+        >
+          <ul class="post-list">
+            <c:choose>
+              <c:when test="${not empty myPosts}">
+                <c:forEach var="post" items="${myPosts}">
+                  <li class="post-item">
+                            <a href="post.do?mode=view&postId=${post.postId}"
+    						data-category-id="${post.categoryId}"
+     						data-category-name="${post.categoryName}">
+                            <div class="post-item">
+                                <div class="post-item-header">
+                                    <img src="../assets/img/common/post_info_profile02.png" class="profile" alt="프로필 사진">
+                                    <p class="writer">${post.nickName}</p>
+                                    <%-- 이 부분에서 `DateUtils` 클래스를 사용합니다 --%>
+            						<span class="time">${DateUtils.formatTimeAgo(post.createdAt)}</span>
+                                </div>
+                            </div>
+                            <p class="post-title">${post.title}</p>
+                            <p class="post-content">${post.rawContent}</p>
+                            <div class="post-bottom">
+                                <div class="post-keyword">
+                                    <span class="category">${post.categoryName}</span>
+                                    <span class="hashtag">#${post.postTag}</span>
+                                </div>
+                                <div class="post-counts">
+                                    <div class="view-count">
+                                        <img src="../assets/img/main/post_info_icon01.png" alt="조회수">
+                                        <p>${post.viewCount}</p>
+                                    </div>
+                                    <div class="thumb-count">
+                                        <img src="../assets/img/main/post_info_icon02.png" alt="좋아요수">
+                                        <p>${post.likeCount}</p>
+                                    </div>
+                                    <div class="comment-count">
+                                        <img src="../assets/img/main/post_info_icon03.png" alt="댓글수">
+                                        <p>${post.commentCount}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                  </li>
+                </c:forEach>
+              </c:when>
+              <c:otherwise>
+                <li class="no-data">
+                  <div class="no-data-illustration"></div>
+                  아직 작성한 게시글이 없어요.
+                  <p>첫 게시글을 작성해 활동 내역을 시작해 보세요!</p>
+                </li>
+              </c:otherwise>
+            </c:choose>
+          </ul>
+        </section>
+
+        <!-- 스크랩한 게시글 -->
+        <section
+          id="scrapped-posts"
+          class="tab-content ${isScrap ? 'active' : ''}"
+          role="tabpanel"
+          aria-labelledby="tab-scrap"
+          aria-hidden="${!isScrap}"
+        >
+          <ul class="post-list">
+            <c:choose>
+              <c:when test="${not empty scrappedPosts}">
+                <c:forEach var="post" items="${scrappedPosts}">
+                  <li class="post-item">
+                    <a href="${ctx}/board/post/detail?id=${post.id}">
+                      <h3><c:out value="${post.title}" /></h3>
+                      <p><c:out value="${post.excerpt}" /></p>
+                      <div class="meta">
+                        <span class="date">
+                          <fmt:formatDate value="${post.createdAt}" pattern="yyyy.MM.dd HH:mm" />
+                        </span>
+                        <span class="views">조회 <c:out value="${post.viewCount}" default="0"/></span>
+                        <span class="likes">좋아요 <c:out value="${post.likeCount}" default="0"/></span>
+                      </div>
+                    </a>
+                  </li>
+                </c:forEach>
+              </c:when>
+              <c:otherwise>
+                <li class="no-data">
+                  <div class="no-data-illustration"></div>
+                  아직 스크랩한 게시글이 없어요.
+                  <p>유익한 글을 스크랩해 보관해 보세요!</p>
+                </li>
+              </c:otherwise>
+            </c:choose>
+          </ul>
+        </section>
+      </div>
+    </div>
         
         
         <%@ include file="/WEB-INF/views/common/footer.jsp" %>

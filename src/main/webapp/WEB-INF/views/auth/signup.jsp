@@ -8,6 +8,7 @@ pageEncoding="UTF-8"%>
     <title>회원가입</title>
     <link rel="stylesheet" href="assets/css/global.css" />
     <link rel="stylesheet" href="assets/css/auth.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/reset.css">
     <script src="${pageContext.request.contextPath}/assets/js/signup.js" defer></script>
   </head>
   <body>
