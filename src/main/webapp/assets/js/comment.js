@@ -104,6 +104,45 @@ document.querySelectorAll('#view .edit-button').forEach(editButton => {
         .catch(err => console.error(err));
     });
   });
+  
+  // =========================
+  // 댓글 채택
+  // =========================
+  document.addEventListener("click", function(e) {
+	  const btn = e.target.closest(".adopted-mark");
+	  if (!btn) return;
+
+	  const commentId = btn.dataset.commentId;
+	  const postUserId = btn.dataset.postUserId;
+	  const loginUserId = btn.dataset.userId;
+
+	  // 게시글 작성자만 클릭 허용
+	  if (postUserId !== loginUserId) {
+	    alert("채택은 게시글 작성자만 할 수 있습니다.");
+	    return;
+	  }
+
+	  fetch("comment.do?mode=accept", {
+	    method: "POST",
+	    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+	    body: `commentId=${commentId}`
+	  })
+	  .then(res => res.json())
+	  .then(data => {
+	    if (data.flag) {
+	      btn.classList.toggle("checked"); // 채택 <-> 취소
+	    } else {
+	      alert("채택 실패");
+	    }
+	  })
+	  .catch(err => {
+	    console.error("fetch 에러:", err);
+	    alert("요청 실패: " + err.message);
+	  });
+	});
+
+
+
 
 
 });
