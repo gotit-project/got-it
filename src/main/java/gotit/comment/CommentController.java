@@ -165,20 +165,13 @@ public class CommentController extends HttpServlet {
 	// CommentController
 	private void accept(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
-	    long commentId = Long.parseLong(request.getParameter("commentId"));
-	    long postUserId = Long.parseLong(request.getParameter("postUserId"));
-	    
-	    // 로그인 체크는 이미 다른 곳에서 처리됨
-	    boolean flag = service.acceptS(commentId, postUserId);
+		long commentId = Long.parseLong(request.getParameter("commentId"));
+		long postUserId = Long.parseLong(request.getParameter("postUserId")); 
 
-	    response.setContentType("application/json;charset=UTF-8");
-	    response.getWriter().write("{\"flag\": " + flag + "}");
+		boolean flag = service.acceptS(commentId, postUserId);
+
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().write("{\"flag\": " + (flag ? "true" : "false") + "}");
+
 	}
-
-
-
-
-
-	
-	
 }
