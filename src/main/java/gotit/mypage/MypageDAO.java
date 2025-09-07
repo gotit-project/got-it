@@ -8,11 +8,8 @@ import javax.sql.DataSource;
 
 import static gotit.common.util.SqlUtils.*;
 
-import gotit.auth.AuthDAO;
-import gotit.common.util.SqlUtils;
 import gotit.model.Page;
 import gotit.model.Post;
-import gotit.model.Reaction;
 import gotit.post.PostDAO;
 
 

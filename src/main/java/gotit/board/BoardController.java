@@ -46,30 +46,7 @@ public class BoardController {
         int catParam = Integer.parseInt(request.getParameter("categoryId"));
         String sortParam = request.getParameter("sort");
         String orderBy;
-        // 기본값은 최신순
-        if (sortParam == null || sortParam.isBlank()) {
-            orderBy = POST_SELECT_CREATE_AT;
-        } else {
-            switch (sortParam) {
-                case "new":      // 최신순
-                    orderBy = POST_SELECT_CREATE_AT;
-                    break;
-                case "like":     // 좋아요순
-                    orderBy = POST_SELECT_LIKE;
-                    break;
-                case "comment":  // 댓글순
-                    orderBy = POST_SELECT_COMMENT;
-                    break;
-                case "view":     // 조회순(추가 예시)
-                    orderBy = POST_SELECT_VIEW;
-                    break;
-                default:         // 안전장치 (예상 외 값이면 최신순으로 fallback)
-                    orderBy = POST_SELECT_CREATE_AT;
-                    break;
-            }
-        }
-        System.out.println(orderBy);
-
+ 
         Board board = boardService.getBoard(boardId);
         if (board == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Board not found: ");
@@ -80,10 +57,54 @@ public class BoardController {
         Page page = null;
         
         if (catParam == 0) {
+            // 기본값은 최신순
+            if (sortParam == null || sortParam.isBlank()) {
+                orderBy = POST_SELECT_CREATE_AT;
+            } else {
+                switch (sortParam) {
+                    case "new":      // 최신순
+                        orderBy = POST_SELECT_CREATE_AT;
+                        break;
+                    case "like":     // 좋아요순
+                        orderBy = POST_SELECT_LIKE;
+                        break;
+                    case "comment":  // 댓글순
+                        orderBy = POST_SELECT_COMMENT;
+                        break;
+                    case "view":     // 조회순(추가 예시)
+                        orderBy = POST_SELECT_VIEW;
+                        break;
+                    default:         // 안전장치 (예상 외 값이면 최신순으로 fallback)
+                        orderBy = POST_SELECT_CREATE_AT;
+                        break;
+                }
+            }
         	totalCount = postService.countS(boardId);
         	page = new Page(curPage, pageSize, totalCount);
         	list = postService.listPageS(boardId , orderBy, page);
         } else {
+            // 기본값은 최신순
+            if (sortParam == null || sortParam.isBlank()) {
+                orderBy = POST_CAT_SELECT_CREATE_AT;
+            } else {
+                switch (sortParam) {
+                    case "new":      // 최신순
+                        orderBy = POST_CAT_SELECT_CREATE_AT;
+                        break;
+                    case "like":     // 좋아요순
+                        orderBy = POST_CAT_SELECT_LIKE;
+                        break;
+                    case "comment":  // 댓글순
+                        orderBy = POST_CAT_SELECT_COMMENT;
+                        break;
+                    case "view":     // 조회순(추가 예시)
+                        orderBy = POST_CAT_SELECT_VIEW;
+                        break;
+                    default:         // 안전장치 (예상 외 값이면 최신순으로 fallback)
+                        orderBy = POST_CAT_SELECT_CREATE_AT;
+                        break;
+                }
+            }
         	totalCount = postService.countCatS(boardId, catParam);
         	page = new Page(curPage, pageSize, totalCount);
         	list = postService.listCatPageS(boardId ,catParam , orderBy, page);
@@ -92,7 +113,7 @@ public class BoardController {
         // 공지사항 게시글 5개만 가져오기 
         int noticeTotal = postService.countS(4);
         Page noticePage = new Page(1, 5, noticeTotal);
-        List<Post> noticePosts = postService.listPageS(4, "p.created_at DESC", noticePage);
+        List<Post> noticePosts = postService.listPageS(4, POST_SELECT_CREATE_AT, noticePage);
 
 
         // 4) 뷰로 전달
