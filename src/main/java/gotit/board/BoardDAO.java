@@ -2,7 +2,6 @@
 package gotit.board;
 
 import gotit.model.Board;
-import gotit.model.Post;
 import gotit.model.Category;
 
 import javax.naming.InitialContext;
