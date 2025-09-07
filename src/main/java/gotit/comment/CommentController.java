@@ -91,6 +91,7 @@ public class CommentController extends HttpServlet {
 	        out.println("<script>alert('댓글 등록에 실패했습니다.'); history.back();</script>");
 	    }
 	    out.flush();
+
 	}
 	
 	/* ==========================
@@ -126,7 +127,6 @@ public class CommentController extends HttpServlet {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-
 	    response.setContentType("application/json;charset=UTF-8");
 	    response.getWriter().write("{\"flag\":" + flag + "}");
 	    response.getWriter().flush();
@@ -135,7 +135,6 @@ public class CommentController extends HttpServlet {
 	/* ==========================
 	 * 댓글 채택
 	 * ========================== */
-	// CommentController
 	private void accept(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
 		long commentId = Long.parseLong(request.getParameter("commentId"));

@@ -55,6 +55,10 @@
                 <!-- 공지 게시판 -->
                 <div class="notice">
                     <div class="board-title">
+                    	<img src="/assets/img/common/board_title_${board.boardId}.png" 
+						     alt="${board.boardName}" 
+						     title="${board.boardName}" 
+						     class="board-title-${board.boardId}">
                         <strong>${board.boardName}</strong>
                         <p>${board.description}</p>
                     </div>

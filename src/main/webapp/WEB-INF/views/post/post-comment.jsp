@@ -37,7 +37,12 @@
 	                   <img src="${pageContext.request.contextPath}/avatar?img=${commentDto.imgName}" class="comment-profile" alt="프로필 사진">
 	                   <div class="profile-info">
 	                       	<div class="flex-box2">
-		                           <p class="writer">${commentDto.nickname}</p>
+		                           <p class="writer">
+		                           	${commentDto.nickname}
+		                            <span class="badge ${commentDto.badgeName}">
+									    ${commentDto.badgeName}
+									</span>
+		                           </p>
 		                           <div class="flex-box">
 			                           <span class="time">${commentDto.updatedAt != null ? DateUtils.formatTimeAgo(commentDto.updatedAt) : ""}</span>
 			                           <span class="corrected-mark ${commentDto.updatedAt.time != commentDto.createdAt.time ? '' : 'hidden'}">

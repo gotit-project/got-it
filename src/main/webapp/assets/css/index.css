@@ -15,6 +15,7 @@
   height: 60px;
   line-height: 60px;
   margin: 0 0 10px 0;
+  position: relative !important;
   display: block;
   align-items: center;
   padding: 0 20px;
@@ -28,6 +29,36 @@
 }
 .content-wrap .board-title:hover {
   color: var(--background-main);
+}
+.content-wrap .board-title.notice-title:hover {
+    color: var(--color-text-sub);
+}
+.content-wrap .board-title-img {
+	width: 100px;
+	position: absolute; 
+	right: 50px;
+    bottom: 0;
+}
+.content-wrap .qna .board-title-img {
+	width: 114px;
+}
+.content-wrap .board-title-1 {
+	width: 150px;
+	position: absolute; 
+	right: 50px;
+    bottom: 0;
+}
+.content-wrap .board-title-2 {
+	width: 120px;
+	position: absolute; 
+	right: 50px;
+    bottom: 0;
+}
+.content-wrap .board-title-3 {
+	width: 190px;
+	position: absolute; 
+	right: 50px;
+    bottom: 0;
 }
 .content-wrap .board-c {
 	width: 100%;
@@ -59,8 +90,8 @@
   gap: 8px;
 }
 .content-wrap .post-item-header .profile {
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
 }
 .content-wrap .post-item-header .writer {

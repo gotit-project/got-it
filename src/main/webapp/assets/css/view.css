@@ -280,6 +280,7 @@
 #view .comment-wrap .write-area img {
   width: 36px;
   height: 36px;
+  border-radius: 50%;
 }
 #view .comment-wrap .write-area textarea {
   width: 940px;
@@ -363,6 +364,9 @@
 }
 .comment-item .writer {
   margin: 0 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 .comment-item .comment-content {
   font-size: 14px;

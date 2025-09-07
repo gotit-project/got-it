@@ -33,7 +33,7 @@ public class CommentDAO {
 	 }
   
 	/* ==========================
-	 * 시글에 맞는 댓글 리스트 조회
+	 * 게시글에 맞는 댓글 리스트 조회
 	 * ========================== */
 	public List<Comment> selectList(long postId) {
 		 	List<Comment> commentList = new ArrayList<>();
@@ -48,6 +48,8 @@ public class CommentDAO {
 			 while(rs.next()){
 			     long commentId = rs.getLong("comment_id");
 			     long userId = rs.getLong("user_id");
+			     int badgeId = getBadgeId(userId);
+			    String badgeName = getBadgeName(badgeId);
 			     String content = rs.getString("content");
 			     boolean isAnswer = rs.getBoolean("is_answer");
 			     boolean accepted = rs.getBoolean("accepted");
@@ -59,7 +61,9 @@ public class CommentDAO {
 			     int badgeId = getBadgeId(userId);
  			    String badgeName = getBadgeName(badgeId);
 			
+
 			     commentList.add(new Comment(commentId, postId, userId, nickname, content, isAnswer, accepted, createdAt, updatedAt, imgName, badgeName));        
+
 			 } 
 		}catch(SQLException se){
 			return null;
@@ -72,7 +76,7 @@ public class CommentDAO {
 	} 
 	
 	/* ==========================
-	 * userId로 사용자 닉네임 조
+	 * userId로 사용자 닉네임 조회 
 	 * ========================== */
 	private String getNickname(long userId) {
 		    Connection con = null;
@@ -171,6 +175,8 @@ public class CommentDAO {
 	        if (rs.next()) {
 	            long postId = rs.getLong("post_id");
 	            long userId = rs.getLong("user_id");
+	            int badgeId = getBadgeId(userId);
+			    String badgeName = getBadgeName(badgeId);
 	            String content = rs.getString("content");
 	            boolean isAnswer = rs.getBoolean("is_answer");
 	            boolean accepted = rs.getBoolean("accepted");	     
@@ -182,7 +188,7 @@ public class CommentDAO {
 			     int badgeId = getBadgeId(userId);
 			    String badgeName = getBadgeName(badgeId);
 
-			    comment = new Comment(commentId, postId, userId, nickname, content, isAnswer, accepted, createdAt, updatedAt, imgName, badgeName);        
+			    comment = new Comment(commentId, postId, userId, nickname, content, isAnswer, accepted, createdAt, updatedAt, imgName, badgeName);
 	        }
 
 	    } catch (SQLException se) {
@@ -237,7 +243,7 @@ public class CommentDAO {
 	        return false;
 	    }
 	}
-
+  
 	 public String getImgName(long userId) {
 	    	Connection con = null;
 	    	PreparedStatement pstmt = null;
@@ -262,6 +268,9 @@ public class CommentDAO {
 	    	}
 	    	return null;
 	    }
+  	/* ==========================
+	 * 뱃지 아이디 가져오기 
+	 * ========================== */
 	    public int getBadgeId(long userId) {
 	    	Connection con = null;
 	    	PreparedStatement pstmt = null;
@@ -287,6 +296,9 @@ public class CommentDAO {
 	    	return -1;
 	    }
 	    
+      /* ==========================
+       * 뱃지 이름 가져오기
+       * ========================== */
 	    public String getBadgeName(int badgeId) {
 	    	Connection con = null;
 	    	PreparedStatement pstmt = null;
@@ -312,5 +324,4 @@ public class CommentDAO {
 	    	System.out.print("이름이 없음");
 	    	return null;
 	    }
-
 }
