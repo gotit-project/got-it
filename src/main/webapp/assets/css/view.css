@@ -452,6 +452,10 @@
   fill: var(--background-main) !important;
   fill-opacity: 1 !important;
 }
+.adopted-mark svg,
+.adopted-mark path {
+  pointer-events: none;
+}
 .recomment-item .profile-info {
   display: flex;
   align-items: center;
