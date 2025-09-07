@@ -121,6 +121,7 @@ public class BoardController {
         request.setAttribute("postList", list);
         request.setAttribute("page", page);
         request.setAttribute("catParam", catParam);
+        request.setAttribute("sortParam", sortParam);
         request.setAttribute("noticePosts", noticePosts);
         
         RequestDispatcher rd = request.getRequestDispatcher(BOARD_LIST);

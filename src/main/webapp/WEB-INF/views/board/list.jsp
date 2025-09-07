@@ -32,7 +32,9 @@
 		
 		<%-- 모든 내부 링크가 공통으로 사용할 베이스 URL --%>
 		<c:set var="pageBase"
-		       value="board.do?mode=list&id=${board.boardId}&categoryId=${catParam}&sort=${sortParam}" />
+		       value="board.do?mode=list&id=${board.boardId}&categoryId=${catParam}" />
+		       
+		
 		
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
@@ -67,6 +69,7 @@
 							        <c:param name="mode" value="list"/>
 							        <c:param name="id" value="${board.boardId}"/>
 							        <c:param name="categoryId" value="${cat.categoryId}"/>
+							        <c:param name="sort" value="${sortParam}"/> 
 							        <c:param name="page" value="1"/>
 							      </c:url>
 							      <a href="${catUrl}">
@@ -80,6 +83,7 @@
 							      <c:param name="mode" value="list"/>
 							      <c:param name="id" value="${board.boardId}"/>
 							      <c:param name="categoryId" value="0"/>
+							      <c:param name="sort" value="${sortParam}"/> 
 							      <c:param name="page" value="1"/>
 							    </c:url>
 							    <a href="${allUrl}">
@@ -88,31 +92,96 @@
 							  </c:if>
 							</div>
                             
-                            <form class="category-button-wrap mobile-only" method="get" action="board.do">
+                            <form class="category-button-wrap mobile-only" method="get" action="board.do" id="mobile-cat-form">
 							  <input type="hidden" name="mode" value="list"/>
 							  <input type="hidden" name="id" value="${board.boardId}"/>
 							
-							  <select id="mobile-category-select" name="categoryId" onchange="this.form.submit()">
+							  <select id="mobile-category-select" name="categoryId"
+							          onchange="document.getElementById('mobile-cat-form').submit()">
+							    <!-- 전체 먼저 -->
+							    <option value="0"
+							      <c:if test="${catParam == 0}">selected="selected"</c:if>
+							    >전체</option>
+							
 							    <c:if test="${not empty board.categories}">
 							      <c:forEach items="${board.categories}" var="cat">
-							        <option value="${cat.categoryId}" ${cat.categoryId == catParam ? 'selected' : ''}>
-							          ${cat.categoryName}
-							        </option>
+							        <option value="${cat.categoryId}"
+							          <c:if test="${cat.categoryId == catParam}">selected="selected"</c:if>
+							        >${cat.categoryName}</option>
 							      </c:forEach>
 							    </c:if>
-							    <option value="0" ${catParam == 0 ? 'selected' : ''}>전체</option>
 							  </select>
+							  <input type="hidden" name="sort" value="${sortParam}"/>
+							  <input type="hidden" name="page" value="1"/>
 							</form>
 
-                            <div class="order-dropdown" id="sort-controls" data-board-id="${board.boardId}">
-							  <button type="button" class="order-toggle">정렬 ▾</button>
-							  <ul class="order-menu">
-							    <li><button type="button" class="sort-btn" data-sort="new">최신순</button></li>
-							    <li><button type="button" class="sort-btn" data-sort="like">인기순</button></li>
-							    <li><button type="button" class="sort-btn" data-sort="comment">댓글순</button></li>
-							    <li><button type="button" class="sort-btn" data-sort="view">조회순</button></li>
-							  </ul>
-							</div>
+
+						<%-- 정렬용 URL들 --%>
+						<c:url var="sortNewUrl" value="board.do">
+						  <c:param name="mode" value="list"/>
+						  <c:param name="id" value="${board.boardId}"/>
+						  <c:param name="categoryId" value="${catParam}"/>
+						  <c:param name="sort" value="new"/>
+						  <c:param name="page" value="1"/>
+						</c:url>
+						
+						<c:url var="sortLikeUrl" value="board.do">
+						  <c:param name="mode" value="list"/>
+						  <c:param name="id" value="${board.boardId}"/>
+						  <c:param name="categoryId" value="${catParam}"/>
+						  <c:param name="sort" value="like"/>
+						  <c:param name="page" value="1"/>
+						</c:url>
+						
+						<c:url var="sortCommentUrl" value="board.do">
+						  <c:param name="mode" value="list"/>
+						  <c:param name="id" value="${board.boardId}"/>
+						  <c:param name="categoryId" value="${catParam}"/>
+						  <c:param name="sort" value="comment"/>
+						  <c:param name="page" value="1"/>
+						</c:url>
+						
+						<c:url var="sortViewUrl" value="board.do">
+						  <c:param name="mode" value="list"/>
+						  <c:param name="id" value="${board.boardId}"/>
+						  <c:param name="categoryId" value="${catParam}"/>
+						  <c:param name="sort" value="view"/>
+						  <c:param name="page" value="1"/>
+						</c:url>
+						                           <div class="order-dropdown" id="sort-controls" data-board-id="${board.boardId}">
+						  <button type="button" class="order-toggle">
+						    <c:choose>
+						      <c:when test="${sortParam == 'new'}">최신순 ▾</c:when>
+						      <c:when test="${sortParam == 'like'}">인기순 ▾</c:when>
+						      <c:when test="${sortParam == 'comment'}">댓글순 ▾</c:when>
+						      <c:when test="${sortParam == 'view'}">조회순 ▾</c:when>
+						      <c:otherwise>정렬 ▾</c:otherwise>
+						    </c:choose>
+						  </button>
+						
+						  <ul class="order-menu">
+						    <li>
+						      <a href="${sortNewUrl}">
+						        <button type="button" class="sort-btn ${sortParam=='new'?'active':''}">최신순</button>
+						      </a>
+						    </li>
+						    <li>
+						      <a href="${sortLikeUrl}">
+						        <button type="button" class="sort-btn ${sortParam=='like'?'active':''}">인기순</button>
+						      </a>
+						    </li>
+						    <li>
+						      <a href="${sortCommentUrl}">
+						        <button type="button" class="sort-btn ${sortParam=='comment'?'active':''}">댓글순</button>
+						      </a>
+						    </li>
+						    <li>
+						      <a href="${sortViewUrl}">
+						        <button type="button" class="sort-btn ${sortParam=='view'?'active':''}">조회순</button>
+						      </a>
+						    </li>
+						  </ul>
+						</div>
                         </div>
                          <div class="filter-bottom">
                             <button type="button" class="refresh-button" onclick="location.reload()">
@@ -132,12 +201,12 @@
                                     <p>페이지</p>
                                 </div>
                                 <div class="paging-button">
-                                    <a class="prev" href="board.do?mode=list&id=${board.boardId}&categoryId=${catParam}&page=${page.curPage - 1}">
+                                    <a class="prev" href="${pageBase}&sort=${sortParam}&page=${page.curPage - 1}">
                                         <button ${page.curPage == 1 ? 'disabled' : ''}>
                                         	<img src="../assets/img/list/paging_button_icon.svg" alt="이전 버">
                                        	</button>
                                     </a>
-                                    <a class="next" href="board.do?mode=list&id=${board.boardId}&categoryId=${catParam}&page=${page.curPage + 1}">
+                                    <a class="next" href="${pageBase}&sort=${sortParam}&page=${page.curPage + 1}">
                                         <button ${page.curPage == page.totalPage ? 'disabled' : ''}>
                                         	<img src="../assets/img/list/paging_button_icon.svg" alt="다음 버튼">
                                       	</button>
@@ -225,7 +294,7 @@
 			    <%-- 이전 --%>
 			    <c:choose>
 			      <c:when test="${page.curPage > 1}">
-			        <a href="${pageBase}&page=${page.curPage - 1}">
+			        <a href="${pageBase}&sort=${sortParam}&page=${page.curPage - 1}">
 			          <button class="pagination-button prev">‹ Previous</button>
 			        </a>
 			      </c:when>
@@ -236,7 +305,7 @@
 			
 			    <%-- 번호 --%>
 			    <c:forEach var="i" begin="1" end="${page.totalPage}">
-			      <a href="${pageBase}&page=${i}">
+			      <a href="${pageBase}&sort=${sortParam}&page=${i}">
 			        <button class="page ${i == page.curPage ? 'active' : ''}">${i}</button>
 			      </a>
 			    </c:forEach>
@@ -244,7 +313,7 @@
 			    <%-- 다음 --%>
 			    <c:choose>
 			      <c:when test="${page.curPage < page.totalPage}">
-			        <a href="${pageBase}&page=${page.curPage + 1}">
+			        <a href="${pageBase}&sort=${sortParam}&page=${page.curPage + 1}">
 			          <button class="pagination-button next">Next ›</button>
 			        </a>
 			      </c:when>
