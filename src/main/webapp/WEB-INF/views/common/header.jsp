@@ -14,7 +14,8 @@
       <li><a href="board.do?mode=list&id=1&categoryId=0&page=1">Q&A</a></li>
       <li><a href="board.do?mode=list&id=2&categoryId=0&page=1">지식나눔</a></li>
       <li><a href="board.do?mode=list&id=3&categoryId=0&page=1">자유게시판</a></li>
-      <li><a href="board.do?mode=list&id=4&categoryId=0&page=1">공지사항</a></li>
+      <!-- <li><a href="board.do?mode=list&id=4&categoryId=0&page=1">공지사항</a></li> -->
+       <li class="mobile-menu-li"><a href="/mypage.do?tap=my">마이페이지</a></li>
     </ul>
     <div class="link-wrap">
       <a href="auth.do?mode=login-form">로그인</a>
@@ -125,12 +126,23 @@
       <li class="mobile-menu-li"><a href="board.do?mode=list&id=1&categoryId=0&page=1">Q&A</a></li>
       <li class="mobile-menu-li"><a href="board.do?mode=list&id=2&categoryId=0&page=1">지식나눔</a></li>
       <li class="mobile-menu-li"><a href="board.do?mode=list&id=3&categoryId=0&page=1">자유게시판</a></li>
-      <li class="mobile-menu-li"><a href="board.do?mode=list&id=4&categoryId=0&page=1">공지사항</a></li>
+      <li class="mobile-menu-li"><a href="/mypage.do?tap=my">마이페이지</a></li>
+   <!--    <li class="mobile-menu-li"><a href="board.do?mode=list&id=4&categoryId=0&page=1">공지사항</a></li> -->
     </ul>
   </div>
-  <ul class="mobile-menu-bottom">
-    <li class="mobile-bottom-li"><a href="auth.do?mode=login-form">로그인</a></li>
-    <li class="mobile-bottom-li"><a href="auth.do?mode=signup-form">회원가입</a></li>
-  </ul>
+	  <ul class="mobile-menu-bottom">
+	    <c:choose>
+	        <c:when test="${empty sessionScope.loginOkUser}">
+	            <li class="mobile-bottom-li"><a href="auth.do?mode=login-form">로그인</a></li>
+	            <li class="mobile-bottom-li"><a href="auth.do?mode=signup-form">회원가입</a></li>
+	        </c:when>
+	
+	        <c:otherwise>
+	            <li class="mobile-bottom-li"><a href="auth.do?mode=logout">로그아웃</a></li>
+	            <li class="mobile-bottom-li"><a href="/mypage.do?tap=my">마이페이지</a></li>
+	        </c:otherwise>
+	    </c:choose>
+	</ul>
+
 </nav>
 <!-- 모바일 메뉴 패널 끝 -->

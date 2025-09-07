@@ -55,6 +55,7 @@
                         <span class="badge challenger"></span>
                   	 -->
                   	<span class="badge ${user.badgeName}">
+                  	새
 					 	<%-- ${users.badgeName} --%>
 					</span>
 	            </div>
