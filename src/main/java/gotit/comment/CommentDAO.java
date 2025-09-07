@@ -1,5 +1,6 @@
 package gotit.comment;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +14,10 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import static gotit.common.util.SqlUtils.*;
+
+import gotit.file.FilePath;
 import gotit.model.Comment;
+import gotit.model.User;
 
 public class CommentDAO {
 	 private DataSource ds;
@@ -55,7 +59,7 @@ public class CommentDAO {
 			     
 			     String nickname = getNickname(userId);
 			
-			     commentList.add(new Comment(commentId, postId, userId, nickname, content, isAnswer, accepted, createdAt, updatedAt));        
+			     commentList.add(new Comment(commentId, postId, userId, nickname, content, isAnswer, accepted, createdAt, updatedAt/*, userImg, badgeName*/));        
 			 } 
 		}catch(SQLException se){
 			return null;
@@ -234,7 +238,21 @@ public class CommentDAO {
 	    }
 	}
 
-
-
+//	//이미지 만들기 파일 만들기
+//	public File getUserImg() {
+//		User user = service.getUser(email);
+//		
+//		//userImg 찾아서 저장
+//		String imgName = user.getImgName();
+//		String baseDir = FilePath.FILE_STORE;
+//		
+//	    if (imgName == null || imgName.isBlank()) {
+//	        imgName = "default.png";
+//	    }
+//        
+//        File userImg = new File(baseDir, imgName);
+//		
+//        user.setUserImg(userImg);
+//	}
 
 }
