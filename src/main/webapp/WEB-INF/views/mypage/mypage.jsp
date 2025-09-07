@@ -181,7 +181,10 @@
 		        </section>
 		      </div>
 		    </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/my-local-changes
         
         
         <%@ include file="/WEB-INF/views/common/footer.jsp" %>

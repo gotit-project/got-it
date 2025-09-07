@@ -89,6 +89,7 @@
 
           <!-- <div class="menu-divider"></div> -->
           <a href="/mypage.do?tap=my" class="profile-menu-item">마이페이지</a>
+          <!-- <div class="menu-divider"></div> -->
 
           <a href="auth.do?mode=logout" class="profile-menu-item">로그아웃</a>
         </div>
