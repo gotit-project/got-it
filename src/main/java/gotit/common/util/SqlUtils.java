@@ -25,6 +25,18 @@ public class SqlUtils {
 	public final static String POST_CAT_SELECT_LIKE = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? AND category_id=? ORDER BY like_count DESC LIMIT ?, ?";
 	public final static String POST_CAT_SELECT_COMMENT = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? AND category_id=? ORDER BY comment_count DESC LIMIT ?, ?";
 	
+	//PostDAO Serch SQL
+	public final static String POST_SEARCH_SELECT = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? AND title LIKE ? ORDER BY created_at DESC";
+	public final static String POST_SEARCH_SELECT_CREATE_AT = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? AND title LIKE ? ORDER BY created_at DESC LIMIT ?, ?";
+	public final static String POST_SEARCH_SELECT_VIEW = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? AND title LIKE ? ORDER BY view_count DESC LIMIT ?, ?";
+	public final static String POST_SEARCH_SELECT_LIKE = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? AND title LIKE ? ORDER BY like_count DESC LIMIT ?, ?";
+	public final static String POST_SEARCH_SELECT_COMMENT = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? AND title LIKE ? ORDER BY comment_count DESC LIMIT ?, ?";
+	
+	public final static String POST_SEARCH_CAT_SELECT_CREATE_AT = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? AND category_id=? AND title LIKE ? ORDER BY created_at DESC LIMIT ?, ?";
+	public final static String POST_SEARCH_CAT_SELECT_VIEW = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? AND category_id=? AND title LIKE ? ORDER BY view_count DESC LIMIT ?, ?";
+	public final static String POST_SEARCH_CAT_SELECT_LIKE = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? AND category_id=? AND title LIKE ? ORDER BY like_count DESC LIMIT ?, ?";
+	public final static String POST_SEARCH_CAT_SELECT_COMMENT = "SELECT * FROM posts WHERE state_type='ACTIVE' AND board_id=? AND category_id=? AND title LIKE ? ORDER BY comment_count DESC LIMIT ?, ?";
+	
 	public final static String POST_INSERT = "INSERT INTO posts (board_id, user_id, category_id, post_tag, title, raw_content, html_content) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	public final static String POST_VIEW = "select * from POSTS where POST_ID=?";
 	public final static String POST_DELETE = "update POSTS set state_type = 'DELETED' where POST_ID =?";

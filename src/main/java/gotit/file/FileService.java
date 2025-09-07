@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import gotit.model.User;
 import jakarta.servlet.http.Part;
 
 import static gotit.file.FilePath.*;
@@ -67,4 +68,5 @@ public class FileService {
 		}
 		return null;
 	}
+
 }

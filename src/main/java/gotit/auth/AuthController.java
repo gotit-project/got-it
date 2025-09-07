@@ -74,6 +74,8 @@ public class AuthController {
 		
 		if (result == 3) {
 			User user = service.getUser(email);
+			
+			//userImg 찾아서 저장
 			String imgName = user.getImgName();
 			String baseDir = FilePath.FILE_STORE;
 			

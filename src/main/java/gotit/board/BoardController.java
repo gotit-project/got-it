@@ -45,6 +45,7 @@ public class BoardController {
     	int boardId = Integer.parseInt(request.getParameter("id"));
         int catParam = Integer.parseInt(request.getParameter("categoryId"));
         String sortParam = request.getParameter("sort");
+        String searchStr = request.getParameter("search");
         String orderBy;
  
         Board board = boardService.getBoard(boardId);
@@ -56,59 +57,117 @@ public class BoardController {
         int totalCount = 0;
         Page page = null;
         
-        if (catParam == 0) {
-            // 기본값은 최신순
-            if (sortParam == null || sortParam.isBlank()) {
-                orderBy = POST_SELECT_CREATE_AT;
-            } else {
-                switch (sortParam) {
-                    case "new":      // 최신순
-                        orderBy = POST_SELECT_CREATE_AT;
-                        break;
-                    case "like":     // 좋아요순
-                        orderBy = POST_SELECT_LIKE;
-                        break;
-                    case "comment":  // 댓글순
-                        orderBy = POST_SELECT_COMMENT;
-                        break;
-                    case "view":     // 조회순(추가 예시)
-                        orderBy = POST_SELECT_VIEW;
-                        break;
-                    default:         // 안전장치 (예상 외 값이면 최신순으로 fallback)
-                        orderBy = POST_SELECT_CREATE_AT;
-                        break;
+        if (searchStr == null || searchStr.trim().isEmpty()) {
+        	if (catParam == 0) {
+                // 기본값은 최신순
+                if (sortParam == null || sortParam.isBlank()) {
+                    orderBy = POST_SELECT_CREATE_AT;
+                } else {
+                    switch (sortParam) {
+                        case "new":      // 최신순
+                            orderBy = POST_SELECT_CREATE_AT;
+                            break;
+                        case "like":     // 좋아요순
+                            orderBy = POST_SELECT_LIKE;
+                            break;
+                        case "comment":  // 댓글순
+                            orderBy = POST_SELECT_COMMENT;
+                            break;
+                        case "view":     // 조회순(추가 예시)
+                            orderBy = POST_SELECT_VIEW;
+                            break;
+                        default:         // 안전장치 (예상 외 값이면 최신순으로 fallback)
+                            orderBy = POST_SELECT_CREATE_AT;
+                            break;
+                    }
                 }
-            }
-        	totalCount = postService.countS(boardId);
-        	page = new Page(curPage, pageSize, totalCount);
-        	list = postService.listPageS(boardId , orderBy, page);
-        } else {
-            // 기본값은 최신순
-            if (sortParam == null || sortParam.isBlank()) {
-                orderBy = POST_CAT_SELECT_CREATE_AT;
+            	totalCount = postService.countS(boardId);
+            	page = new Page(curPage, pageSize, totalCount);
+            	list = postService.listPageS(boardId , orderBy, page);
             } else {
-                switch (sortParam) {
-                    case "new":      // 최신순
-                        orderBy = POST_CAT_SELECT_CREATE_AT;
-                        break;
-                    case "like":     // 좋아요순
-                        orderBy = POST_CAT_SELECT_LIKE;
-                        break;
-                    case "comment":  // 댓글순
-                        orderBy = POST_CAT_SELECT_COMMENT;
-                        break;
-                    case "view":     // 조회순(추가 예시)
-                        orderBy = POST_CAT_SELECT_VIEW;
-                        break;
-                    default:         // 안전장치 (예상 외 값이면 최신순으로 fallback)
-                        orderBy = POST_CAT_SELECT_CREATE_AT;
-                        break;
+                // 기본값은 최신순
+                if (sortParam == null || sortParam.isBlank()) {
+                    orderBy = POST_CAT_SELECT_CREATE_AT;
+                } else {
+                    switch (sortParam) {
+                        case "new":      // 최신순
+                            orderBy = POST_CAT_SELECT_CREATE_AT;
+                            break;
+                        case "like":     // 좋아요순
+                            orderBy = POST_CAT_SELECT_LIKE;
+                            break;
+                        case "comment":  // 댓글순
+                            orderBy = POST_CAT_SELECT_COMMENT;
+                            break;
+                        case "view":     // 조회순(추가 예시)
+                            orderBy = POST_CAT_SELECT_VIEW;
+                            break;
+                        default:         // 안전장치 (예상 외 값이면 최신순으로 fallback)
+                            orderBy = POST_CAT_SELECT_CREATE_AT;
+                            break;
+                    }
                 }
+            	totalCount = postService.countCatS(boardId, catParam);
+            	page = new Page(curPage, pageSize, totalCount);
+            	list = postService.listCatPageS(boardId, catParam, orderBy, page);
             }
-        	totalCount = postService.countCatS(boardId, catParam);
-        	page = new Page(curPage, pageSize, totalCount);
-        	list = postService.listCatPageS(boardId ,catParam , orderBy, page);
+        }else {
+        	if (catParam == 0) {
+                // 기본값은 최신순
+                if (sortParam == null || sortParam.isBlank()) {
+                    orderBy = POST_SEARCH_SELECT_CREATE_AT;
+                } else {
+                    switch (sortParam) {
+                        case "new":      // 최신순
+                            orderBy = POST_SEARCH_SELECT_CREATE_AT;
+                            break;
+                        case "like":     // 좋아요순
+                            orderBy = POST_SEARCH_SELECT_LIKE;
+                            break;
+                        case "comment":  // 댓글순
+                            orderBy = POST_SEARCH_SELECT_COMMENT;
+                            break;
+                        case "view":     // 조회순(추가 예시)
+                            orderBy = POST_SEARCH_SELECT_VIEW;
+                            break;
+                        default:         // 안전장치 (예상 외 값이면 최신순으로 fallback)
+                            orderBy = POST_SEARCH_SELECT_CREATE_AT;
+                            break;
+                    }
+                }
+            	totalCount = postService.countS(boardId, searchStr);
+            	page = new Page(curPage, pageSize, totalCount);
+            	list = postService.listPageS(boardId, searchStr, orderBy, page);
+            } else {
+                // 기본값은 최신순
+                if (sortParam == null || sortParam.isBlank()) {
+                    orderBy = POST_SEARCH_CAT_SELECT_CREATE_AT;
+                } else {
+                    switch (sortParam) {
+                        case "new":      // 최신순
+                            orderBy = POST_SEARCH_CAT_SELECT_CREATE_AT;
+                            break;
+                        case "like":     // 좋아요순
+                            orderBy = POST_SEARCH_CAT_SELECT_LIKE;
+                            break;
+                        case "comment":  // 댓글순
+                            orderBy = POST_SEARCH_CAT_SELECT_COMMENT;
+                            break;
+                        case "view":     // 조회순(추가 예시)
+                            orderBy = POST_SEARCH_CAT_SELECT_VIEW;
+                            break;
+                        default:         // 안전장치 (예상 외 값이면 최신순으로 fallback)
+                            orderBy = POST_SEARCH_CAT_SELECT_CREATE_AT;
+                            break;
+                    }
+                }
+            	totalCount = postService.countCatS(boardId, catParam, searchStr);
+            	page = new Page(curPage, pageSize, totalCount);
+            	list = postService.listCatPageS(boardId ,catParam, searchStr, orderBy, page);
+            }
         }
+        
+        
         
         // 공지사항 게시글 5개만 가져오기 
         int noticeTotal = postService.countS(4);

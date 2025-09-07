@@ -89,7 +89,8 @@ public class Post {
 	}
 	
 	// 메인페이지 생성
-	public Post(long postId, long boardId, long userId, String nickName, String title,Timestamp createdAt,int likeCount, int viewCount, int commentCount) {
+	public Post(long postId, long boardId, long userId, String nickName, String title,Timestamp createdAt,int likeCount, int viewCount, int commentCount
+			, String imgName, String badgeName) {
 	    this.postId = postId;
 	    this.boardId = boardId;
 	    this.userId = userId;
@@ -99,6 +100,8 @@ public class Post {
 	    this.likeCount = likeCount;
 		this.viewCount = viewCount;
 		this.commentCount = commentCount;
+		this.imgName = imgName;
+		this.badgeName = badgeName;
 	}
 
 
