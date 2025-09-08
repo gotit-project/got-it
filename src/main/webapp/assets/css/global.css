@@ -153,10 +153,10 @@ input[type="hidden"] {display: none !important;}
 
 /* 골드 */
 .badge.gold {
-  background-color: /*#eec01d*/ #b67427; /* 테두리색 */
+  background-color: #d18b34; /* 테두리색 */
   background-image: linear-gradient(
       to bottom right,
-      #b67427,   /* 배경색 좌측상단 */
+     #d18b34,   /* 배경색 좌측상단 */
       #ffeeaa    /* 배경색 우측하단 */
     ),
     linear-gradient(
@@ -169,10 +169,10 @@ input[type="hidden"] {display: none !important;}
 
 /* 플래티넘 */
 .badge.platinum {
-  background-color: /*#a5bbe2;*/ #7d8daa; /* 테두리색 */
+  background-color: #6690eb;/* 테두리색 */
   background-image: linear-gradient(
       to bottom right,
-      #7d8daa,   /* 배경색 좌측상단 */
+      #6690eb,   /* 배경색 좌측상단 */
       #E5E4E2    /* 배경색 우측하단 */
     ),
     linear-gradient(
@@ -185,11 +185,11 @@ input[type="hidden"] {display: none !important;}
 
 /* 에메랄드 */
 .badge.emerald {
-  background-color: /*#1aa301;*/ #184a4d; /* 테두리색 */
+  background-color: #1aa301; /* 테두리색 */
   background-image: linear-gradient(
       to bottom right,
-      #184a4d,   /* 배경색 좌측상단 */
-      /*#8eff6f */#0ecd58   /* 배경색 우측하단 */
+      #1aa301,   /* 배경색 좌측상단 */
+      #8eff6f   /* 배경색 우측하단 */
     ),
     linear-gradient(
       125deg,

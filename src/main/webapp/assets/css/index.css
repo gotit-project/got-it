@@ -309,4 +309,12 @@
     margin-bottom: 0;
     position: relative;
   }
+  
+}
+
+
+@media screen and (max-width: 1024px) {
+	.content-wrap .board-title-img {
+   		right: 10px;
+  }	
 }

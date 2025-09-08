@@ -18,6 +18,7 @@ public class MypageService {
 		return instance;
 	}
 	
+	// 내가 작성한 글 
 	public List<Post> getUserPost(long userId, String orderBy, Page page){
         try {
         	return mypageDao.postList(userId, orderBy, page);
@@ -34,5 +35,14 @@ public class MypageService {
         	throw new RuntimeException("countS failed: boardId=" + userId, e);
         }
      }
+    
+    // 내가 스크랩한 글
+    public List<Post> getScrapPost(long userId, String orderBy, Page page) {
+        return mypageDao.selectScrapPosts(userId, orderBy, page);
+    }
+
+    public int countScrapPosts(long userId) {
+        return mypageDao.countScrapPosts(userId);
+    }
 }
 

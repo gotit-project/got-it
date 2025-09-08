@@ -25,6 +25,9 @@ public class Post {
     private String badgeName;
     private String categoryName;
     
+    // 기본 생성자 
+    public Post() {}
+    
     // DTO    
     public Post(long postId, int boardId, long userId, int categoryId, String postTag, String title, String rawContent,
     		String htmlContent, String status) {
