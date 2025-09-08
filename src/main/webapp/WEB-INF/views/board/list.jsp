@@ -289,13 +289,13 @@
         </c:url>
         <a class="next" href="${nextUrl}">
           <button>
-            <img src="../assets/img/list/paging_button_icon.svg" alt="다음 버튼">
+            <img src="../assets/img/list/paging_button_next_icon.svg" alt="다음 버튼">
           </button>
         </a>
       </c:when>
       <c:otherwise>
         <button class="next" disabled>
-          <img src="../assets/img/list/paging_button_icon.svg" alt="다음 버튼">
+          <img src="../assets/img/list/paging_button_next_icon.svg" alt="다음 버튼">
         </button>
       </c:otherwise>
     </c:choose>
