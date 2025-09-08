@@ -106,63 +106,51 @@ public class MypageController extends HttpServlet {
     
     public void scrap(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	
-    	int curPage = 1;                      // 1-base
-        int pageSize = 10;                    // 기본 페이지 크기
-    	
-    	HttpSession session = request.getSession(false);
-    	User user = (session == null) ? null : (User) session.getAttribute("loginOkUser");
-    	if (user == null) {
-    	    response.sendRedirect(request.getContextPath() + "/auth.do?mode=login-form");
-    	    return;
-    	}
-    	
-    	String sortParam = request.getParameter("sort");
-        String orderBy;
-    
+        int curPage = 1;
+        int pageSize = 10;
 
-        // 기본값은 최신순
+        HttpSession session = request.getSession(false);
+        User user = (session == null) ? null : (User) session.getAttribute("loginOkUser");
+        if (user == null) {
+        	System.out.println( "마이페이지 스크랩 시글");
+            response.sendRedirect(request.getContextPath() + "/auth.do?mode=login-form");
+            return;
+        }
+
+        String sortParam = request.getParameter("sort");
+        String orderBy;
+
         if (sortParam == null || sortParam.isBlank()) {
-            orderBy = USER_POST_SELECT_CREATE;
+            orderBy = "p.created_at"; // 최신순 기본값
         } else {
             switch (sortParam) {
-                case "new":      // 최신순
-                    orderBy = USER_POST_SELECT_CREATE;
-                    break;
-                case "like":     // 좋아요순
-                    orderBy = USER_POST_SELECT_CREATE;
-                    break;
-                case "comment":  // 댓글순
-                    orderBy = USER_POST_SELECT_CREATE;
-                    break;
-                case "view":     // 조회순(추가 예시)
-                    orderBy = USER_POST_SELECT_CREATE;
-                    break;
-                default:         // 안전장치 (예상 외 값이면 최신순으로 fallback)
-                    orderBy = USER_POST_SELECT_CREATE;
-                    break;
+                case "new":      orderBy = "p.created_at"; break;
+                case "like":     orderBy = "p.like_count"; break;
+                case "comment":  orderBy = "p.comment_count"; break;
+                case "view":     orderBy = "p.view_count"; break;
+                default:         orderBy = "p.created_at"; break;
             }
         }
-        
+
         String strCurPage = request.getParameter("page");
         if (strCurPage != null) {
-        	curPage = Integer.parseInt(strCurPage);
+            curPage = Integer.parseInt(strCurPage);
         }
-        
+
         long userId = user.getUserId();
-    	int totalCount = mypageService.countS(userId);
-    	Page page = new Page(curPage, pageSize, totalCount);
-    	
-    	List<Post> postList = mypageService.getUserPost(userId, orderBy, page);
+        int totalCount = mypageService.countScrapPosts(userId);
+        Page page = new Page(curPage, pageSize, totalCount);
+
+        List<Post> scrapList = mypageService.getScrapPost(userId, orderBy, page);
+
+       	System.out.println(scrapList + "마이페이지 스크랩 시글");
 
 
-       	System.out.println(postList + "마이페이지 스크랩게시글");
-
-
-        request.setAttribute("myPosts", postList);
+        request.setAttribute("scrappedPosts", scrapList);
         request.setAttribute("page", page);
-    	
-    	RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/mypage/mypage.jsp");
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/mypage/mypage.jsp");
         rd.forward(request, response);
     }
+
 }

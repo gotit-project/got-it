@@ -112,4 +112,83 @@ public class MypageDAO {
 	        }
 	        return 0;
 	    }
+	    
+	    /* ==========================
+		 * 스크랩한 게시글
+		 * ========================== */
+	    public List<Post> selectScrapPosts(long userId, String orderBy, Page page) {
+	        List<Post> list = new ArrayList<>();
+	        String sql = "SELECT p.*, u.nickname, u.img_name, u.badge_name " +
+	                     "FROM posts p " +
+	                     "JOIN post_scraps s ON p.post_id = s.post_id " +
+	                     "JOIN users u ON p.user_id = u.user_id " +
+	                     "WHERE s.user_id = ? AND p.state_type = 'ACTIVE' " +
+	                     "ORDER BY " + orderBy + " DESC " +
+	                     "LIMIT ?, ?";
+
+	        try (Connection conn = ds.getConnection();
+	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	            pstmt.setLong(1, userId);
+	            pstmt.setInt(2, page.getOffset());
+	            pstmt.setInt(3, page.getPageSize());
+
+	            try (ResultSet rs = pstmt.executeQuery()) {
+	                while (rs.next()) {
+	                    Post post = new Post(
+	                        rs.getLong("post_id"),
+	                        rs.getInt("board_id"),
+	                        rs.getLong("user_id"),
+	                        rs.getInt("category_id"),
+	                        rs.getString("post_tag"),
+	                        rs.getString("title"),
+	                        rs.getString("raw_content"),
+	                        rs.getString("html_content"),
+	                        rs.getInt("like_count"),
+	                        rs.getInt("view_count"),
+	                        rs.getInt("comment_count"),
+	                        rs.getString("state_type"),
+	                        rs.getTimestamp("created_at"),
+	                        rs.getTimestamp("updated_at"),
+	                        null, // boardName 필요 시 join 추가
+	                        rs.getString("nickname"),
+	                        rs.getString("img_name"),
+	                        rs.getString("badge_name"),
+	                        null // categoryName 필요 시 join 추가
+	                    );
+	                    list.add(post);
+	                    
+	                    System.out.println("DAO1");
+	                }
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return list;
+	    }
+
+
+	    // 스크랩한 글 개수
+	    public int countScrapPosts(long userId) {
+	        String sql = "SELECT COUNT(*) " +
+	                     "FROM post_scraps s " +
+	                     "JOIN posts p ON s.post_id = p.post_id " +
+	                     "WHERE s.user_id = ? AND p.state_type = 'ACTIVE'";
+
+	        try (Connection conn = ds.getConnection();
+	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	            pstmt.setLong(1, userId);
+	            try (ResultSet rs = pstmt.executeQuery()) {
+	                if (rs.next()) {
+	                    return rs.getInt(1);
+	                }
+	                System.out.println("DAO2");
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return 0;
+	    }
+
+
 }

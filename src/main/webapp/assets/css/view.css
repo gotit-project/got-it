@@ -361,6 +361,7 @@
   width: 36px;
   height: 36px;
   margin: 0 20px 0 0;
+  border-radius: 50%;
 }
 .comment-item .writer {
   margin: 0 0 4px;

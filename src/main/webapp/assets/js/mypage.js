@@ -68,6 +68,7 @@
       btn.addEventListener("click", function (e) {
         if (e.preventDefault) e.preventDefault();
         var tab = btn.getAttribute("data-tab") === "scrap" ? "scrap" : "list";
+
         setActive(tab);
         updateURL(tab);
         // 서버로 새로 요청하려면 이거 사용
@@ -81,6 +82,7 @@
     var tab = (ev.state && ev.state.tab) ? ev.state.tab :
       ((qs["tab"]) ? qs["tab"] : "list");
     setActive(tab === "scrap" ? "scrap" : "list");
+
   });
 })();
 
