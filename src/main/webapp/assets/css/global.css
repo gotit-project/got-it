@@ -61,7 +61,7 @@ html {
 * {box-sizing: border-box; border: none;}
 textare {resize: none;}
 button {background-color: transparent; cursor:pointer;}
-
+input[type="hidden"] {display: none !important;}
 
 /* 유저 뱃지 */
 /* 기본 */
@@ -70,16 +70,17 @@ button {background-color: transparent; cursor:pointer;}
   position: relative;
   margin: 0;
   padding: 4px 8px;
-  color: rgb(207, 248, 255);
+  color: var(--color-text-white);
+  /*color: rgb(207, 248, 255);*/
   border: 2px solid transparent;
   border-radius: 6px;
   font-size: 9px;
 
-  background-color: #CD7F32; /* 테두리색 */
+  background-color: #874f33; /* 테두리색 */
   background-image: linear-gradient(
       to bottom right,
-      #CD7F32,   /* 배경색 좌측상단 */
-      #FFC480    /* 배경색 우측하단 */
+      #874f33,   /* 배경색 좌측상단 */
+      #e0c9ac    /* 배경색 우측하단 */
     ),
     linear-gradient(
       125deg,
@@ -120,11 +121,11 @@ button {background-color: transparent; cursor:pointer;}
 
 /* 브론즈 */
 .badge.bronze {
-  background-color: #CD7F32; /* 테두리색 */
+  background-color: /*#CD7F32;*/ #874f33; /* 테두리색 */
   background-image: linear-gradient(
       to bottom right,
-      #CD7F32,   /* 배경색 좌측상단 */
-      #FFC480    /* 배경색 우측하단 */
+      #874f33,   /* 배경색 좌측상단 */
+      #e0c9ac    /* 배경색 우측하단 */
     ),
     linear-gradient(
       125deg,
@@ -136,11 +137,11 @@ button {background-color: transparent; cursor:pointer;}
 
 /* 실버 */
 .badge.silver {
-  background-color: #C0C0C0; /* 테두리색 */
+  background-color: /*#a7a6a6;*/ #637477; /* 테두리색 */
   background-image: linear-gradient(
       to bottom right,
-      #C0C0C0,   /* 배경색 좌측상단 */
-      #E6E6E6    /* 배경색 우측하단 */
+      #637477,   /* 배경색 좌측상단 */
+      #f4faf5    /* 배경색 우측하단 */
     ),
     linear-gradient(
       125deg,
@@ -152,11 +153,11 @@ button {background-color: transparent; cursor:pointer;}
 
 /* 골드 */
 .badge.gold {
-  background-color: #FFD700; /* 테두리색 */
+  background-color: /*#eec01d*/ #b67427; /* 테두리색 */
   background-image: linear-gradient(
       to bottom right,
-      #FFD700,   /* 배경색 좌측상단 */
-      #FFEDB8    /* 배경색 우측하단 */
+      #b67427,   /* 배경색 좌측상단 */
+      #ffeeaa    /* 배경색 우측하단 */
     ),
     linear-gradient(
       125deg,
@@ -168,11 +169,11 @@ button {background-color: transparent; cursor:pointer;}
 
 /* 플래티넘 */
 .badge.platinum {
-  background-color: #E5E4E2; /* 테두리색 */
+  background-color: /*#a5bbe2;*/ #7d8daa; /* 테두리색 */
   background-image: linear-gradient(
       to bottom right,
-      #E5E4E2,   /* 배경색 좌측상단 */
-      #C8DCFF    /* 배경색 우측하단 */
+      #7d8daa,   /* 배경색 좌측상단 */
+      #E5E4E2    /* 배경색 우측하단 */
     ),
     linear-gradient(
       125deg,
@@ -184,11 +185,11 @@ button {background-color: transparent; cursor:pointer;}
 
 /* 에메랄드 */
 .badge.emerald {
-  background-color: #1aa301; /* 테두리색 */
+  background-color: /*#1aa301;*/ #184a4d; /* 테두리색 */
   background-image: linear-gradient(
       to bottom right,
-      #1aa301,   /* 배경색 좌측상단 */
-      #8eff6f    /* 배경색 우측하단 */
+      #184a4d,   /* 배경색 좌측상단 */
+      /*#8eff6f */#0ecd58   /* 배경색 우측하단 */
     ),
     linear-gradient(
       125deg,
@@ -200,11 +201,11 @@ button {background-color: transparent; cursor:pointer;}
 
 /* 다이아 */
 .badge.diamond {
-  background-color: #35ccff; /* 테두리색 */
+  background-color: /*#7ddcfc; */ #473f92;/* 테두리색 */
   background-image: linear-gradient(
       to bottom right,
-      #35ccff,   /* 배경색 좌측상단 */
-      #B0E0E6    /* 배경색 우측하단 */
+      #473f92,   /* 배경색 좌측상단 */
+      /*#B0E0E6*/ #cae1f7    /* 배경색 우측하단 */
     ),
     linear-gradient(
       125deg,

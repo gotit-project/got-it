@@ -142,13 +142,15 @@
 #list .search-wrap {
   width: 420px;
   height: 54px;
-  padding: 10px 0;
   position: relative;
 }
 #list .search-box {
   min-width: 398px;
   width: 100%;
   height: 30px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   padding: 0 0 0 40px;
   background: var(--color-bg-white);
   border-radius: 10px;
@@ -207,7 +209,6 @@
 
 #list .filter-bottom .paging-button .next {
   margin: 0 0 0 10px;
-  transform: rotate(180deg);
 }
 #list .filter-bottom .paging-button button {
 	margin: 0;
@@ -488,6 +489,10 @@
 }
 
 @media screen and (max-width: 480px) {
+	 #list .board-title img {
+	  	display: none;
+	  }
+  
 	#list .filter-top {
 		display: block;
 		height: auto;
@@ -508,9 +513,21 @@
 	#list .category-button-wrap.mobile-only select{
 		width: 100%;
 		margin: 10px 0;
+		font-size: 13px;
+		text-align: center;
 	}
 	#list .order-button-wrap button:last-child {
 		width: 100%;
 		margin: 0 0 10px;
+	}
+	
+	#list .order-dropdown {
+		width: 100%;
+		margin-bottom: 10px;
+	}
+	
+	#list .order-dropdown button {
+		width: 100%;
+		font-size: 13px;
 	}
 }
