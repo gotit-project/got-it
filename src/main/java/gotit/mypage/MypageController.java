@@ -106,29 +106,39 @@ public class MypageController extends HttpServlet {
     
     public void scrap(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int curPage = 1;
-        int pageSize = 10;
-
-        HttpSession session = request.getSession(false);
-        User user = (session == null) ? null : (User) session.getAttribute("loginOkUser");
-        if (user == null) {
-        	System.out.println( "마이페이지 스크랩 시글");
-            response.sendRedirect(request.getContextPath() + "/auth.do?mode=login-form");
-            return;
-        }
-
-        String sortParam = request.getParameter("sort");
+    	int curPage = 1;                      // 1-base
+        int pageSize = 10;                    // 기본 페이지 크기
+    	
+    	HttpSession session = request.getSession(false);
+    	User user = (session == null) ? null : (User) session.getAttribute("loginOkUser");
+    	if (user == null) {
+    	    response.sendRedirect(request.getContextPath() + "/auth.do?mode=login-form");
+    	    return;
+    	}
+    	
+    	String sortParam = request.getParameter("sort");
         String orderBy;
+    
 
         if (sortParam == null || sortParam.isBlank()) {
-            orderBy = "p.created_at"; // 최신순 기본값
+            orderBy = USER_POST_SELECT_CREATE;
         } else {
             switch (sortParam) {
-                case "new":      orderBy = "p.created_at"; break;
-                case "like":     orderBy = "p.like_count"; break;
-                case "comment":  orderBy = "p.comment_count"; break;
-                case "view":     orderBy = "p.view_count"; break;
-                default:         orderBy = "p.created_at"; break;
+                case "new":      // 최신순
+                    orderBy = USER_POST_SELECT_CREATE;
+                    break;
+                case "like":     // 좋아요순
+                    orderBy = USER_POST_SELECT_CREATE;
+                    break;
+                case "comment":  // 댓글순
+                    orderBy = USER_POST_SELECT_CREATE;
+                    break;
+                case "view":     // 조회순(추가 예시)
+                    orderBy = USER_POST_SELECT_CREATE;
+                    break;
+                default:         // 안전장치 (예상 외 값이면 최신순으로 fallback)
+                    orderBy = USER_POST_SELECT_CREATE;
+                    break;
             }
         }
 

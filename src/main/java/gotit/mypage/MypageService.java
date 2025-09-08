@@ -28,6 +28,7 @@ public class MypageService {
         return new ArrayList<>();
 	}
 	
+	// 작성한 글 카운팅
     public int countS(long userId) {
         try {
             return mypageDao.countPosts(userId);
@@ -41,8 +42,13 @@ public class MypageService {
         return mypageDao.selectScrapPosts(userId, orderBy, page);
     }
 
+    // 스크랩한 글 카운팅 
     public int countScrapPosts(long userId) {
-        return mypageDao.countScrapPosts(userId);
+    	try {
+            return mypageDao.countScrapPosts(userId);
+    	} catch(Exception e) {
+        	throw new RuntimeException("countScrapPosts failed: boardId=" + userId, e);
+    	}
     }
 }
 

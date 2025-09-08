@@ -8,26 +8,26 @@
   border-bottom: var(--color-border-primary);
   padding: 0 0 20px 0;
 }
-.profile-info {
+.profile-header .profile-info {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.profile-info h1 {
+.profile-header .profile-info h1 {
   color: var(--color-text-main);
   margin: 0 0 5px;
   font-size: 20px;
   font-weight: 700;
 }
-.profile-info p {
+.profile-header .profile-info p {
   color: var(--color-bg-sub3);
   margin: 0;
 }
-.profile-avatar-wrap {
+.profile-header .profile-avatar-wrap {
   position: relative;
 }
-.profile-avatar {
+.profile-header .profile-avatar {
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -39,7 +39,7 @@
   font-weight: bold;
   box-shadow: var(--color-shadow-primary);
 }
-.profile-avatar img {
+.profile-header .profile-avatar img {
   border-radius: 50%;
 }
 .settings-icon {

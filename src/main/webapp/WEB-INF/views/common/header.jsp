@@ -15,7 +15,7 @@
       <li><a href="board.do?mode=list&id=2&categoryId=0&page=1">지식나눔</a></li>
       <li><a href="board.do?mode=list&id=3&categoryId=0&page=1">자유게시판</a></li>
       <!-- <li><a href="board.do?mode=list&id=4&categoryId=0&page=1">공지사항</a></li> -->
-       <li class="mobile-menu-li"><a href="/mypage.do?tap=my">마이페이지</a></li>
+       <li><a href="/mypage.do?tap=my">마이페이지</a></li>
     </ul>
     <div class="link-wrap">
       <a href="auth.do?mode=login-form">로그인</a>
@@ -82,17 +82,14 @@
       <div class="profile-wrap">
         <button class="profile-button"><img src="${pageContext.request.contextPath}/avatar?img=${loginOkUser.imgName}" alt="프로필 이미지"></button>
         <div class="profile-dropdown-menu">
+          <strong>내 계정</strong>
           <div class="profile-info">
-            <strong>내 계정</strong>
             <p>${sessionScope.loginOkUser.email}</p>
             <p><span>${sessionScope.loginOkUser.nickname}</span> 님, 안녕하세요.</p>
-          </div>
-
-          <!-- <div class="menu-divider"></div> -->
-          <a href="/mypage.do?tap=my" class="profile-menu-item">마이페이지</a>
-          <!-- <div class="menu-divider"></div> -->
-
-          <a href="auth.do?mode=logout" class="profile-menu-item">로그아웃</a>
+	          <div class="menu-divider"></div>
+	          <a href="/mypage.do?tap=my" class="profile-menu-item">마이페이지</a>
+	          <a href="auth.do?mode=logout" class="profile-menu-item">로그아웃</a>
+         </div>
         </div>
       </div>
     </div>
