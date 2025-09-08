@@ -31,7 +31,6 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-color: (--background-main);
   color: var(--color-text-white);
   display: flex;
   justify-content: center;
@@ -40,6 +39,9 @@
   font-weight: bold;
   box-shadow: var(--color-shadow-primary);
 }
+.profile-avatar img {
+  border-radius: 50%;
+}
 .settings-icon {
   margin-left: 90px;
   color: var(--color-bg-sub3);
@@ -47,6 +49,7 @@
   display: flex;
   justify-content: end;
   width: 24px;
+  position: relative;
 }
 .settings-icon svg {
   width: 24px;
@@ -165,7 +168,7 @@
 }
 .settings-dropdown-menu {
   position: absolute;
-  top: 50px;
+  top: 25px;
   right: 0;
   width: 150px;
   background: var(--color-bg-white);
@@ -258,6 +261,7 @@
     height: 130px;
   }
   .settings-icon {
+  	margin-top: 20px;
     margin-left: 50px;
   }
   .post-item p {
