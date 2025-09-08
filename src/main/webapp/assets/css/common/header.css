@@ -98,7 +98,6 @@ header .link-wrap a:last-child:hover {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 /* 기본: 숨김 */
 .dropdown-menu,
@@ -118,7 +117,6 @@ header .link-wrap a:last-child:hover {
   z-index: 1000;
   padding: 10px;
 }
-
 /* 토글 시 노출 */
 .dropdown-menu.active,
 .profile-dropdown-menu.active {
@@ -196,7 +194,7 @@ header#login .dropdown-menu.active {
 header#login .menu-item {
   display: flex;
   align-items: center;
-  padding: 10px 15px;
+  padding: 10px;
   color: var(--color-text-main);
   font-size: 14px;
   text-decoration: none;
@@ -205,6 +203,9 @@ header#login .menu-item {
 header#login .menu-item:hover {
   background: var(--color-bg-main);
   border-radius: 6px;
+}
+header#login .menu-item strong {
+	font-weight: 600;
 }
 header#login .menu-item .with-icon {
   justify-content: space-between;
@@ -248,32 +249,40 @@ header .profile-dropdown-menu {
   transform: translateY(-10px);
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
   z-index: 1000;
-  padding: 10px;
 }
 header .profile-dropdown-menu.active {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
+header .profile-dropdown-menu strong {
+	display: block;
+	padding: 10px;
+	font-size: 14px;
+	font-weight: 600;
+}
 header .profile-info {
-  padding: 10px;
   font-size: 14px;
 }
-header .profile-info p,
+/* header .profile-info p,
 header .profile-info span,
 header .profile-info strong {
   margin: 0 0 10px 0;
   font-size: 14px;
+} */
+header .profile-info p {
+	padding: 10px;
+	margin: 0;
 }
 header .profile-info p:last-child {
   margin: 0;
 }
 header .profile-menu-item {
   display: block;
-  padding: 10px;
   color: var(--color-text-main);
   font-size: 14px;
   text-decoration: none;
+  padding: 10px;
   transition: background-color 0.2s ease;
 }
 header .profile-menu-item:hover {

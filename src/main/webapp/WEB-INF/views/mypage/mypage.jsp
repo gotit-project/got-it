@@ -153,8 +153,8 @@
 		        >
 		          <ul class="post-list">
 		            <c:choose>
-		              <c:when test="${not empty scrappedPosts}">
-		                <c:forEach var="post" items="${scrappedPosts}">
+		              <c:when test="${not empty myScraps}">
+		                <c:forEach var="post" items="${myScraps}">
 		                  <li class="post-item">
 		                    <a href="${ctx}/board/post/detail?id=${post.id}">
 		                      <h3><c:out value="${post.title}" /></h3>

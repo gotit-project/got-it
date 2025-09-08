@@ -86,7 +86,6 @@ public class MypageDAO {
 				    list.add(new Post(postId, boardId, userId, categoryId, postTag, title, rawContent,
 							htmlContent, likeCount, viewCount, commentCount, stateType, createdAt, updatedAt,
 							boardName, nickName, categoryName));
-
 	            }
 	        }catch(SQLException se) {
 	            se.printStackTrace();
@@ -134,32 +133,31 @@ public class MypageDAO {
 	            pstmt.setInt(3, page.getPageSize());
 
 	            try (ResultSet rs = pstmt.executeQuery()) {
-	                while (rs.next()) {
-	                    Post post = new Post(
-	                        rs.getLong("post_id"),
-	                        rs.getInt("board_id"),
-	                        rs.getLong("user_id"),
-	                        rs.getInt("category_id"),
-	                        rs.getString("post_tag"),
-	                        rs.getString("title"),
-	                        rs.getString("raw_content"),
-	                        rs.getString("html_content"),
-	                        rs.getInt("like_count"),
-	                        rs.getInt("view_count"),
-	                        rs.getInt("comment_count"),
-	                        rs.getString("state_type"),
-	                        rs.getTimestamp("created_at"),
-	                        rs.getTimestamp("updated_at"),
-	                        null, // boardName 필요 시 join 추가
-	                        rs.getString("nickname"),
-	                        rs.getString("img_name"),
-	                        rs.getString("badge_name"),
-	                        null // categoryName 필요 시 join 추가
-	                    );
-	                    list.add(post);
-	                    
-	                    System.out.println("DAO1");
-	                }
+	            	 while(rs.next()) {
+	 	                long postId = rs.getLong("post_id");
+	 	                int boardId = rs.getInt("board_id");
+	 	                //long userId = rs.getLong("user_id");
+	 	                int categoryId = rs.getInt("category_id");
+	 	                String postTag = rs.getString("post_tag");
+	 	                String title = rs.getString("title");
+	 	                String rawContent = rs.getString("raw_content");
+	 	                String htmlContent = rs.getString("html_content");
+	 	                int likeCount = rs.getInt("like_count");
+	 	                int viewCount = rs.getInt("view_count");
+	 	                int commentCount = rs.getInt("comment_count");
+	 	                String stateType = rs.getString("state_type");
+	 	                Timestamp createdAt = rs.getTimestamp("created_at");
+	 	                Timestamp updatedAt = rs.getTimestamp("updated_at");
+	 	                
+	 	  			    String boardName = postDao.getBoardName(boardId);
+	 				    String nickName = postDao.getNickName(userId);
+	 				    String categoryName = postDao.getCategoryName(categoryId);
+	 				     
+	 				    list.add(new Post(postId, boardId, userId, categoryId, postTag, title, rawContent,
+	 							htmlContent, likeCount, viewCount, commentCount, stateType, createdAt, updatedAt,
+	 							boardName, nickName, categoryName));
+
+	 	            }
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();

@@ -36,7 +36,7 @@
    				<input type="hidden" id="htmlContent" name="htmlContent">
 			   				
 		      <h2 class="post-title">${board.boardName}</h2>
-		       <div class="form-gxroup">
+		       <div class="form-group">
 		           <label for="category">카테고리</label>
 		           <select name="categoryId">
 					  <c:if test="${not empty board.categories}">
