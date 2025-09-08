@@ -83,3 +83,22 @@
     setActive(tab === "scrap" ? "scrap" : "list");
   });
 })();
+
+
+
+// 프로필 이미지 변경 드롭다운 토글
+document.addEventListener("DOMContentLoaded", () => {
+  const settingsIcon = document.querySelector(".settings-icon");
+  const dropdownMenu = document.querySelector(".settings-dropdown-menu");
+
+  // 아이콘 클릭 시 토글
+  settingsIcon.addEventListener("click", (e) => {
+    e.stopPropagation(); // 이벤트 버블링 방지
+    dropdownMenu.classList.toggle("active"); // CSS에서 .active로 열림 스타일 제어
+  });
+
+  // 바깥 클릭 시 닫기
+  document.addEventListener("click", () => {
+    dropdownMenu.classList.remove("active");
+  });
+});
