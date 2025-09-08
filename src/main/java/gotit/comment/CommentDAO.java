@@ -57,10 +57,7 @@ public class CommentDAO {
 			     Timestamp updatedAt = rs.getTimestamp("updated_at");
 			     
 			     String nickname = getNickname(userId);
-			     String imgName = getImgName(userId);
-			     int badgeId = getBadgeId(userId);
- 			    String badgeName = getBadgeName(badgeId);
-			
+			     String imgName = getImgName(userId);			
 
 			     commentList.add(new Comment(commentId, postId, userId, nickname, content, isAnswer, accepted, createdAt, updatedAt, imgName, badgeName));        
 
@@ -184,9 +181,7 @@ public class CommentDAO {
 	            Timestamp updatedAt = rs.getTimestamp("updated_at");
 
 	            String nickname = getNickname(userId);
-			     String imgName = getImgName(userId);
-			     int badgeId = getBadgeId(userId);
-			    String badgeName = getBadgeName(badgeId);
+			    String imgName = getImgName(userId);
 
 			    comment = new Comment(commentId, postId, userId, nickname, content, isAnswer, accepted, createdAt, updatedAt, imgName, badgeName);
 	        }

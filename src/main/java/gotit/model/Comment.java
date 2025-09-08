@@ -177,12 +177,4 @@ public class Comment {
 		this.badgeName = badgeName;
 	}
 	
-	public String getBadgeName() {
-	    return badgeName;
-	}
-
-	public void setBadgeName(String badgeName) {
-	    this.badgeName = badgeName;
-	}
-	
 }
