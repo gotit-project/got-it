@@ -31,6 +31,11 @@ public class MypageController extends HttpServlet {
     public void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       	String mode = request.getParameter("tap");
+      	
+        // 기본값 보정 (null/blank 모두 my로)
+        if (mode == null || mode.isBlank()) {
+            mode = "my";
+        }
         switch (mode) {
             case "my":  myPage(request, response);  break;
             case "scrap":  scrap(request, response);  break;
