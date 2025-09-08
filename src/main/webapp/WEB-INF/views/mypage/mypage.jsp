@@ -60,7 +60,7 @@
 					</span>
 	            </div>
 	            <div class="profile-avatar-wrap">
-		            <div class="profile-avatar">수빈</div>
+		            <div class="profile-avatar"><img src="${pageContext.request.contextPath}/avatar?img=${loginOkUser.imgName}" class="profile" alt="프로필 사진"></div>
 		            <div class="settings-icon">
 		             	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
 		                    <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18zM12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 19a7 7 0 1 1 0-14 7 7 0 0 1 0 14zM12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>

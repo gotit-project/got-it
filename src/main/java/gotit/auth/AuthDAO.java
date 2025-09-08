@@ -145,4 +145,45 @@ public class AuthDAO {
 	    }
 	    return null;
     }
+    
+	/* ==========================
+	 * 유저 이미지 업데이트
+	 * ========================== */
+    public int updateImgName(long userId, String imgName) throws Exception {
+        String sql = "UPDATE users SET img_name=? WHERE user_id=?";
+        try (Connection con = ds.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+          ps.setString(1, imgName);
+          ps.setLong(2, userId);
+          return ps.executeUpdate();
+        }
+      }
+    
+    /* ==========================
+     * 유저 단건 조회
+     * ========================== */
+    public User findById(long userId) throws Exception {
+        String sql = "SELECT user_id, username, email, password_hash, img_name, nickname, total_points, badge_id, status " +
+                     "FROM users WHERE user_id=?";
+        try (Connection con = ds.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setLong(1, userId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    User u = new User();
+                    u.setUserId(rs.getLong("user_id"));
+                    u.setUserName(rs.getString("username"));
+                    u.setEmail(rs.getString("email"));
+                    u.setPwd(rs.getString("password_hash"));
+                    u.setImgName(rs.getString("img_name"));
+                    u.setNickname(rs.getString("nickname"));
+                    u.setPoint(rs.getInt("total_points"));
+                    u.setBadge(rs.getInt("badge_id"));
+                    u.setStatus(rs.getString("status"));
+                    return u;
+                }
+            }
+        }
+        return null;
+    }
 }
