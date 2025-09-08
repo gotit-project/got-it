@@ -39,38 +39,82 @@
         
           <div id="mypage" class="content-wrap">
 	        <!-- 프로필 헤더 -->
-	        <div class="profile-header">
-	            <div class="profile-info">
-	                <h1>${sessionScope.loginOkUser.nickname}</h1>
-	                <p>아직 소개를 작성하지 않았습니다.</p>
-	                <p> point</p>
-	                <!-- 
-                        뱃지 6가지 종류 css 적용하는 방법 
-                        <span class="badge"></span>
-                        <span class="badge bronze"></span>
-                        <span class="badge silver"></span>
-                        <span class="badge gold "></span>
-                        <span class="badge platinum"></span>
-                        <span class="badge emerald"></span>
-                        <span class="badge diamond"></span>
-                        <span class="badge challenger"></span>
-                  	 -->
-                  	<span class="badge ${post.badgeName}">
-					    ${post.badgeName}
-					</span>
-	            </div>
-	            <div class="profile-avatar-wrap">
-		            <div class="profile-avatar"><img src="${pageContext.request.contextPath}/avatar?img=${post.imgName}" class="profile" alt="프로필 사진"></div>
-		            <div class="settings-icon">
-		             	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-		                    <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18zM12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 19a7 7 0 1 1 0-14 7 7 0 0 1 0 14zM12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
-		                </svg>
-		                <div class="settings-dropdown-menu">
-				        	<a href="#" class="menu-item">프로필 사진 변경</a>
-				        </div>
-	            	</div>
-	            </div>
-	        </div>
+	       <!-- 프로필 헤더 -->
+<div class="profile-header">
+  <div class="profile-info">
+    <h1>${sessionScope.loginOkUser.nickname}</h1>
+    <p>아직 소개를 작성하지 않았습니다.</p>
+
+    <div class="point-box">
+      <img src="${pageContext.request.contextPath}/assets/img/common/bx-medal.png" alt="포인트">
+      <p>${sessionScope.loginOkUser.point}</p>
+    </div>
+
+    <span class="badge ${sessionScope.loginOkUser.badgeName}">
+      ${sessionScope.loginOkUser.badgeName}
+    </span>
+  </div>
+
+  <div class="profile-avatar-wrap">
+    <div class="profile-avatar">
+      <!-- BUGFIX: post.imgName -> sessionScope.loginOkUser.imgName -->
+      <img
+        src="${pageContext.request.contextPath}/avatar?img=${sessionScope.loginOkUser.imgName}&v=${session.lastAccessedTime}"
+        class="profile" alt="프로필 사진">
+    </div>
+
+    <div class="settings-icon">
+      <!-- 톱니 아이콘 -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18zM12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 19a7 7 0 1 1 0-14 7 7 0 0 1 0 14zM12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+      </svg>
+
+      <div class="settings-dropdown-menu">
+        <a id="changeAvatarBtn" class="menu-item">프로필 사진 변경</a>
+
+        <!-- 숨김 업로드 폼: 파일 선택 시 자동 제출 -->
+        <form id="avatarForm"
+              action="${pageContext.request.contextPath}/avatar/upload"
+              method="post"
+              enctype="multipart/form-data"
+              style="display:none;">
+          <!-- 서버에서 세션으로 사용자 식별한다면 hidden 필요 없음 -->
+          <!-- <input type="hidden" name="user_id" value="${sessionScope.loginOkUser.userId}"> -->
+          <input id="avatarInput" type="file" name="avatar" accept="image/*">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 버튼 클릭 → 파일 선택창 열기
+  document.getElementById('changeAvatarBtn')?.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('avatarInput')?.click();
+  });
+
+  // 파일 선택되면 즉시 업로드
+  document.getElementById('avatarInput')?.addEventListener('change', function () {
+    if (this.files && this.files.length > 0) {
+      // 간단 클라이언트 검증(선택): 이미지 타입/용량 체크
+      const f = this.files[0];
+      if (!f.type.startsWith('image/')) {
+        alert('이미지 파일만 업로드할 수 있어요.');
+        this.value = '';
+        return;
+      }
+      // 예: 5MB 제한 (서버와 맞추세요)
+      if (f.size > 5 * 1024 * 1024) {
+        alert('파일 크기가 5MB를 초과합니다.');
+        this.value = '';
+        return;
+      }
+      document.getElementById('avatarForm').submit();
+    }
+  });
+</script>
+	        
              <!-- 탭 메뉴 (좋아요 탭 제거) -->
 		      <div class="tabs" role="tablist" aria-label="마이페이지 탭">
 		        <!-- a 태그로 서버 라우팅도 되고, JS로 pushState도 가능 -->

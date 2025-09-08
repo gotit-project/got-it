@@ -218,6 +218,20 @@
   border-color: var(--background-main-hover);
 }
 
+.point-box {
+	  display: flex;
+  	gap: 8px;
+  	align-items: center;
+}
+
+.point-box p{
+	  text-align: center;
+}
+
+.profile-avatar img{
+	width: 114px;
+}
+
 /* 목록 래퍼 — list.css의 구조(#list)를 그대로 재사용 */
 #mypage-posts {
   margin-top: 10px;
