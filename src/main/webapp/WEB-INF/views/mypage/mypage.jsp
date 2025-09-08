@@ -128,7 +128,7 @@
 		          내가 작성한 게시글
 		        </a>
 		
-		        <a
+		        <%-- <a
 		          role="tab"
 		          href="${ctx}/mypage?tab=scrap"
 		          class="tab-button ${isScrap ? 'active' : ''}"
@@ -136,7 +136,7 @@
 		          data-tab="scrap"
 		        >
 		          스크랩한 게시글
-		        </a>
+		        </a> --%>
 		      </div>
 		
 		      <!-- 탭 콘텐츠 -->

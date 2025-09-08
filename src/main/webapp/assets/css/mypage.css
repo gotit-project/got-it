@@ -77,7 +77,7 @@
   word-break: keep-all;
 }
 .tab-button.active {
-  color: var(--background-main);
+  /*color: var(--background-main);*/
   border-bottom: var(--background-main);
   margin-bottom: -1px;
 }
